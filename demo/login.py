@@ -1,0 +1,92 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'login.ui'
+#
+# Created by: PyQt5 UI code generator 5.11.3
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_Login(object):
+    def setupUi(self, Login):
+        Login.setObjectName("Login")
+        Login.resize(383, 150)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(Login)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.horizontalLayout_2.addItem(spacerItem)
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.gridLayout = QtWidgets.QGridLayout()
+        self.gridLayout.setObjectName("gridLayout")
+        self.label = QtWidgets.QLabel(Login)
+        self.label.setObjectName("label")
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+        self.lineEdit_login_user = QtWidgets.QLineEdit(Login)
+        self.lineEdit_login_user.setObjectName("lineEdit_login_user")
+        self.gridLayout.addWidget(self.lineEdit_login_user, 0, 1, 1, 1)
+        self.comboBox_login = QtWidgets.QComboBox(Login)
+        self.comboBox_login.setObjectName("comboBox_login")
+        self.gridLayout.addWidget(self.comboBox_login, 0, 2, 1, 1)
+        self.label_2 = QtWidgets.QLabel(Login)
+        self.label_2.setObjectName("label_2")
+        self.gridLayout.addWidget(self.label_2, 1, 0, 1, 1)
+        self.lineEdit_login_passwd = QtWidgets.QLineEdit(Login)
+        self.lineEdit_login_passwd.setObjectName("lineEdit_login_passwd")
+        self.gridLayout.addWidget(self.lineEdit_login_passwd, 1, 1, 1, 2)
+        self.verticalLayout.addLayout(self.gridLayout)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.btn_login_ok = QtWidgets.QPushButton(Login)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.btn_login_ok.sizePolicy().hasHeightForWidth())
+        self.btn_login_ok.setSizePolicy(sizePolicy)
+        self.btn_login_ok.setObjectName("btn_login_ok")
+        self.horizontalLayout.addWidget(self.btn_login_ok)
+        spacerItem1 = QtWidgets.QSpacerItem(18, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem1)
+        self.btn_login_cancel = QtWidgets.QPushButton(Login)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.btn_login_cancel.sizePolicy().hasHeightForWidth())
+        self.btn_login_cancel.setSizePolicy(sizePolicy)
+        self.btn_login_cancel.setObjectName("btn_login_cancel")
+        self.horizontalLayout.addWidget(self.btn_login_cancel)
+        spacerItem2 = QtWidgets.QSpacerItem(18, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem2)
+        self.btn_login_users_manage = QtWidgets.QPushButton(Login)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.btn_login_users_manage.sizePolicy().hasHeightForWidth())
+        self.btn_login_users_manage.setSizePolicy(sizePolicy)
+        self.btn_login_users_manage.setObjectName("btn_login_users_manage")
+        self.horizontalLayout.addWidget(self.btn_login_users_manage)
+        self.horizontalLayout.setStretch(0, 1)
+        self.horizontalLayout.setStretch(2, 1)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.verticalLayout.setStretch(0, 2)
+        self.verticalLayout.setStretch(1, 1)
+        self.horizontalLayout_2.addLayout(self.verticalLayout)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.horizontalLayout_2.addItem(spacerItem3)
+        self.horizontalLayout_3.addLayout(self.horizontalLayout_2)
+
+        self.retranslateUi(Login)
+        QtCore.QMetaObject.connectSlotsByName(Login)
+
+    def retranslateUi(self, Login):
+        _translate = QtCore.QCoreApplication.translate
+        Login.setWindowTitle(_translate("Login", "登录"))
+        self.label.setText(_translate("Login", "用户名"))
+        self.label_2.setText(_translate("Login", "口令"))
+        self.btn_login_ok.setText(_translate("Login", "确定"))
+        self.btn_login_cancel.setText(_translate("Login", "取消"))
+        self.btn_login_users_manage.setText(_translate("Login", "用户管理"))
+
