@@ -72,7 +72,7 @@ class EditFormula(QWidget, Ui_Form):
         """如果不是新增页面数据改变，而是用户修改数据改变才做处理"""
         if not self.newed:  # 用户修改改变数据
             changed_data = self.model.data(self.model.index(index.row(), index.column()))
-            if 'e' in changed_data:
+            if 'e' in changed_data and 'new' not in changed_data:
                 if changed_data[-3] == '-':
                     changed_data = self.text_process(changed_data)
                 else:
@@ -84,8 +84,10 @@ class EditFormula(QWidget, Ui_Form):
                 self.formula_name = changed_data[3:]
                 count = 0
                 for i in self.formula_name_and_steps_list:
+                    print(self.formula_name, i, self.formula_name_and_steps_list.index(i), self.formula_index-1)
                     if self.formula_name in i and self.formula_name_and_steps_list.index(i) != self.formula_index-1:
                         count += 1
+                        break
                 if count:
                     QMessageBox.warning(self, '名字重复！', '该名字已存在，请重命名！')
                     item = QStandardItem('名称:{}'.format(self.formula_name_and_steps_list[self.formula_index - 1][0]))
@@ -262,7 +264,7 @@ class EditFormula(QWidget, Ui_Form):
     def tableView_input(self, index):
         """根据索引显示数值型键盘或名字键盘"""
         text = self.model.data(self.model.index(index.row(), index.column()))
-        if 'e' in text:
+        if 'e' in text and 'new' not in text:
             if text[-3] == '-':
                 text = '-' + self.text_process(text) if text[0] == '-' else self.text_process(text)
             else:

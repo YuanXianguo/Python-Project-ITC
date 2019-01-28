@@ -4,7 +4,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QMouseEvent
 
 from login import Ui_Login
-from main import MyWindow
+from demo_main import MyWindow
 from edit_formula import EditFormula
 from input_name_main import InputName  # 导入名字键盘类
 
@@ -205,7 +205,7 @@ class Login(QWidget, Ui_Login):
                 answer = QMessageBox.question(self, '修改成功！', '是否以该用户登录系统?', QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
                 if answer == QMessageBox.Yes:
                     self.close()
-                    self.my_window_show = MyWindow(20)
+                    self.my_window_show = MyWindow(4)
                     self.my_window_show.showFullScreen()
                 else:
                     self.user_admin = 0

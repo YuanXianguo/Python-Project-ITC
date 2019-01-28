@@ -53,7 +53,7 @@ class InputNumericType(QWidget, Ui_InputNumericType):
             text_list = text.split('.')
             text = text_list[0] + '.' + text_list[1]
         text = text.lstrip('0')  # 去掉前面无效的0
-        text = '0' if text == '' else text
+        text = '0' if text in ['', '.'] else text
         text = '0' + text if text[0] == '.' else text
         text = self.text_len7(text) if len(text) > 6 else text  # 文本长度大于6时保留6位有效数字,遵循四舍五入法，并引入科学记数法
         return text

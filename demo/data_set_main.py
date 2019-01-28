@@ -12,8 +12,8 @@ class DataSet(QWidget, Ui_DataSet):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowTitle('数据设定')
-        self.width_, self.height_ = 600, 600
+        self.setWindowTitle('数据导出设定')
+        self.width_, self.height_ = 800, 320
         self.setting()
         self.data_set_process()
 
