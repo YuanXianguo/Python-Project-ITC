@@ -85,7 +85,6 @@ class EditFormula(QWidget, Ui_Form):
                 changed_data = '-{}{}{}'.format(len(changed_data) - 1 - n, changed_data[:n], changed_data[n + 1:])
             if '：' in changed_data:  # 更新配方名称
                 self.formula_name = changed_data[changed_data.index('：')+1:]
-                # self.formula_name_and_steps_list[self.formula_index - 1][0] = self.formula_name
             elif '步' in changed_data:  # 更新配方步数
                 self.formula_steps = eval(changed_data[changed_data.index('，') + 1:-1])
                 if self.formula_name_and_steps_list[self.formula_index - 1][2] != self.formula_steps:  # 步数改变影响模式，模式改变不影响步数
@@ -94,18 +93,14 @@ class EditFormula(QWidget, Ui_Form):
                     self.update_show()  # 更新saved、当前步、上一步和下一步信息
                     self.current_mode = self.formula_mode
                     self.formula_mode = '未知'
-                    print(self.current_mode, self.formula_mode)
-                    print(self.all_which_test)
                     for key in self.all_which_test:
                         if key > self.formula_steps:
                             self.all_which_test[key] = [[0, 0, 0, 0], '']
                     for step in range(self.formula_steps):
                         for row in range(len(self.para_list)-1):
                             self.get_mode(step+1, row+1, 0, str(self.formula_data_array[self.formula_index][step][row][0]))
-
                     if self.current_mode != self.formula_mode:
                         self.set_new_item(0, 1, self.step_template.format(self.formula_mode, self.formula_steps))
-                        # self.formula_name_and_steps_list[self.formula_index - 1][1] = self.formula_mode
             else:  # 对配方列表进行更新
                 self.formula_data_array[self.formula_index][self.current_step - 1][index.row() - 1][index.column()] = changed_data
                 self.get_mode(self.current_step, index.row(), index.column(), changed_data)
@@ -147,8 +142,6 @@ class EditFormula(QWidget, Ui_Form):
             self.formula_data_array = np.fromfile('formula.dat', np.int32).reshape(self.formula_data_shape)
         except:
             self.formula_data_array = np.zeros(self.formula_data_shape, np.int32)
-        # 将4维数组的第0轴当前配方列另存为3维列表用于临时存储数据改变
-        # self.current_formula_data_array = self.formula_data_array[self.formula_index]
         # 将4维数组保存配方名称和总步数的第0轴第0列转换为2维数组
         self.formula_name_and_steps_array = self.formula_data_array[0].reshape(self.formula_name_and_steps_shape)
         self.user_admin = self.formula_name_and_steps_array[self.total_formulas*self.max_digit][0]  # 判断是否是管理员登录
@@ -227,7 +220,6 @@ class EditFormula(QWidget, Ui_Form):
             self.formula_name_and_steps_array[index][0] = mode
             self.formula_name_and_steps_array[index][1] = self.formula_steps
             self.formula_data_array[0] = self.formula_name_and_steps_array.reshape(self.formula_name_and_steps_shape_save)
-            # self.formula_data_array[self.formula_index] = self.current_formula_data_array
             self.formula_data_array.tofile('formula.dat', format='%d')  # 保存
             QMessageBox.information(self, '保存成功！', '参数保存成功！')
             self.formula_saved = True

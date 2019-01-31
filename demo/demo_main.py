@@ -104,8 +104,8 @@ class MyWindow(QWidget, Ui_Form):
                                             ['manual\ntest 1-4', 'manual\ntest 5-8', 'manual\ntest 9-12', 'manual\ntest 13-16', 'manual\ntest 17-20'],
                                             ['auto\ntest 1-4', 'auto\ntest 5-8', 'auto\ntest 9-12', 'auto\ntest 13-16', 'auto\ntest 17-20'],
                                             ['work pos 1-10', 'work pos 11-20'], ['counting 1-10', 'counting 11-20'], ['Data export', 'work pos\ninformation']]
-        # for i in self.tabWidget_english_text_list:
-        #     self.get_upper(i)
+        for i in self.tabWidget_english_text_list:
+            self.get_upper(i)
         self.tabWidget_text_list = [self.tabWidget_chinese_text_list, self.tabWidget_english_text_list]
         self.equip_chinese_text_list = ['高精密气密性测试机', '宁波意德西专用设备科技有限公司', '气源压力', '测试高压', '测试低压', '密封压力', '夹具压力']
         self.equip_english_text_list = ['High Precision Air-Tightness\nTesting Machine', 'Ningbo ITC specialized Equipment Technology Co., Ltd.',
@@ -209,14 +209,11 @@ class MyWindow(QWidget, Ui_Form):
         self.btn_call_formula_list = []  # 存储所有调用配方按钮的列表
         self.btn_edit_formula_list = []  # 存储所有编辑配方按钮的列表
         self.btn_load_formula_list = []  # 存储所有调用配方按钮的列表
+        self.lab_auto_formula_list = []  # 存储所有显示测试配方信息标签的列表
         self.get_lists()  # 获得显示标签、调用配方、编辑配方和装载配方列表
         self.current_work_pos_list = []  # 模拟堆栈临时存储当前配方
         self.current_formula_dict = {}  # 存储工位当前调用配方
-        self.lab_auto_formula_list = []
         self.state_dict = {}
-
-        for i in range(1, self.total_work_poses + 1):
-            self.lab_auto_formula_list.append('self.lab_auto_formula_{}'.format(i))
 
         for i in self.btn_call_formula_list:  # 给调用配方按钮绑定配方列表槽函数
             eval(i).clicked.connect(self.formula_list_show)
@@ -232,6 +229,7 @@ class MyWindow(QWidget, Ui_Form):
             self.btn_call_formula_list.append('self.btn_call_formula{}'.format(i))
             self.btn_edit_formula_list.append('self.btn_edit_formula{}'.format(i))
             self.btn_load_formula_list.append('self.btn_load_formula{}'.format(i))
+            self.lab_auto_formula_list.append('self.lab_auto_formula_{}'.format(i))
 
     def formula_list_show(self):
         """弹出配方列表"""
@@ -279,7 +277,9 @@ class MyWindow(QWidget, Ui_Form):
         try:
             formula_index = self.current_formula_dict[work_pos_index + 1]
             self.edit_for = EditFormula(formula_index)  # 实例化编辑配方
+            # 装载后将配方显示为红色
             eval(self.lab_work_pos_show_list[work_pos_index]).setStyleSheet('color: rgb(255, 0, 0);\n''background-color: rgb(0, 0, 0);')
+
             # 设置自动测试配方显示
             eval(self.lab_auto_formula_list[work_pos_index]).setText('{}，测{}腔'.format(self.edit_for.formula_name, self.edit_for.formula_mode))
             eval(self.lab_auto_formula_list[work_pos_index]).setStyleSheet('color: rgb(255, 0, 0);\n''background-color: rgb(0, 0, 0);')
