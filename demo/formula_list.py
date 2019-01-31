@@ -11,7 +11,7 @@ class FormulaList(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle('配方列表')
-        self.width_, self.height_ = 200, 600
+        self.width_, self.height_ = 250, 600
         self.setting()
         self.formula_list_process()
 
@@ -35,7 +35,8 @@ class FormulaList(QWidget):
         self.formula_model = QStringListModel()
         self.formula_list = []
         for i in range(self.total_formulas):
-            self.formula_list.append('配方{}：{}（{}步）'.format(i+1, self.edit_for.formula_name_and_steps_list[i][0], self.edit_for.formula_name_and_steps_list[i][1]))
+            self.formula_list.append('配方{}：{}，{}'.format(i+1, self.edit_for.formula_name_and_steps_list[i][0],
+                self.edit_for.step_template.format(self.edit_for.formula_name_and_steps_list[i][1], self.edit_for.formula_name_and_steps_list[i][2])))
         self.formula_model.setStringList(self.formula_list)
 
         # 创建QListView，并添加模型

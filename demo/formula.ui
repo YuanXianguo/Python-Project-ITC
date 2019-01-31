@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>932</width>
-    <height>647</height>
+    <width>933</width>
+    <height>657</height>
    </rect>
   </property>
   <property name="font">
@@ -24,12 +24,6 @@
     <layout class="QVBoxLayout" name="verticalLayout" stretch="10,1">
      <item>
       <widget class="QTableView" name="tableView">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>6</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
        <property name="font">
         <font>
          <family>Arial</family>

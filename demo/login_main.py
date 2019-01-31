@@ -74,7 +74,7 @@ class Login(QWidget, Ui_Login):
             QMessageBox.information(self, '登录成功！', '欢迎系统管理员登录！')
             self.close()
             self.user_admin = 1
-            self.my_window_show = MyWindow(20)
+            self.my_window_show = MyWindow(4)
             # self.my_window_show.showFullScreen()  # 全屏显示
             self.my_window_show.show()
             self.save_user_info()
@@ -83,7 +83,7 @@ class Login(QWidget, Ui_Login):
             QMessageBox.information(self, '登录成功！', '欢迎{}登录！'.format(self.lineEdit_login_user.text()))
             self.close()
             self.user_admin = 0
-            self.my_window_show = MyWindow(20)
+            self.my_window_show = MyWindow(4)
             # self.my_window_show.showFullScreen()  # 全屏显示
             self.my_window_show.show()
             self.save_user_info()

@@ -38,7 +38,9 @@ class EditFormula(QWidget, Ui_Form):
         self.current_step = 1  # 当前步
         self.formula_saved = True  # 判断配方是否保存
         self.current_index_list = []  # 模拟堆栈临时存储点击的index
-        self.formula_name_and_steps_list = []  # 在整个系统进程中存储读取和修改后的配方名称和总步数
+        self.formula_name_and_steps_list = []  # 在整个系统进程中存储读取和修改后的配方名称、模式和步数
+        self.all_which_test = {}  # 判断测试模式
+        self.step_template = '测{}腔，{}步'  # 单元格(0,1)格式模板
 
         self.tableView_model()  # 创建QTableView表格，并添加自定义模型
         self.get_formula_np()  # 读取配方信息
@@ -70,39 +72,65 @@ class EditFormula(QWidget, Ui_Form):
 
     def tableView_data_changed(self, index):
         """如果不是新增页面数据改变，而是用户修改数据改变才做处理"""
+        # try:
         if not self.newed:  # 用户修改改变数据
             changed_data = self.model.data(self.model.index(index.row(), index.column()))
-            if 'e' in changed_data and 'new' not in changed_data:
+            if 'e' in changed_data and 'new' not in changed_data:  # 科学记数法
                 if changed_data[-3] == '-':
                     changed_data = self.text_process(changed_data)
                 else:
                     changed_data = str(int(eval(changed_data[:-4]) * pow(10, eval(changed_data[-2:].lstrip('0')))))
-            if '.' in changed_data:
+            if '.' in changed_data:  # 浮点数转换
                 n = changed_data.index('.')
                 changed_data = '-{}{}{}'.format(len(changed_data) - 1 - n, changed_data[:n], changed_data[n + 1:])
-            if ':' in changed_data:  # 更新配方名称
-                self.formula_name = changed_data[3:]
-                count = 0
-                for i in self.formula_name_and_steps_list:
-                    print(self.formula_name, i, self.formula_name_and_steps_list.index(i), self.formula_index-1)
-                    if self.formula_name in i and self.formula_name_and_steps_list.index(i) != self.formula_index-1:
-                        count += 1
-                        break
-                if count:
-                    QMessageBox.warning(self, '名字重复！', '该名字已存在，请重命名！')
-                    item = QStandardItem('名称:{}'.format(self.formula_name_and_steps_list[self.formula_index - 1][0]))
-                    item.setTextAlignment(Qt.AlignCenter)
-                    item.setEditable(QAbstractItemView.NoEditTriggers)
-                    self.model.setItem(index.row(), index.column(), item)
-                else:
-                    self.formula_name_and_steps_list[self.formula_index - 1][0] = self.formula_name
-            elif '共' in changed_data:  # 更新配方步数
-                self.total_steps = eval(changed_data[1:-1])
-                self.formula_name_and_steps_list[self.formula_index - 1][1] = self.total_steps
-                self.formula_data_array[self.formula_index][self.total_steps:] = 0  # 清除配方冗余数据
-                self.update_show()  # 更新saved、当前步、上一步和下一步信息
+            if '：' in changed_data:  # 更新配方名称
+                self.formula_name = changed_data[changed_data.index('：')+1:]
+                # self.formula_name_and_steps_list[self.formula_index - 1][0] = self.formula_name
+            elif '步' in changed_data:  # 更新配方步数
+                self.formula_steps = eval(changed_data[changed_data.index('，') + 1:-1])
+                if self.formula_name_and_steps_list[self.formula_index - 1][2] != self.formula_steps:  # 步数改变影响模式，模式改变不影响步数
+                    # self.formula_name_and_steps_list[self.formula_index - 1][2] = self.formula_steps
+                    self.formula_data_array[self.formula_index][self.formula_steps:] = 0  # 清除配方冗余数据
+                    self.update_show()  # 更新saved、当前步、上一步和下一步信息
+                    self.current_mode = self.formula_mode
+                    self.formula_mode = '未知'
+                    for key in self.all_which_test:
+                        if key > self.formula_steps:
+                            self.all_which_test[key] = [[0, 0, 0, 0], '']
+                    for step in range(self.formula_steps):
+                        for row in range(len(self.para_list)-1):
+                            self.get_mode(step+1, row+1, 0, str(self.formula_data_array[self.formula_index][step][row][0]))
+                    if self.current_mode != self.formula_mode:
+                        self.set_new_item(0, 1, self.step_template.format(self.formula_mode, self.formula_steps))
+                        # self.formula_name_and_steps_list[self.formula_index - 1][1] = self.formula_mode
             else:  # 对配方列表进行更新
                 self.formula_data_array[self.formula_index][self.current_step - 1][index.row() - 1][index.column()] = changed_data
+                self.get_mode(self.current_step, index.row(), index.column(), changed_data)
+                self.set_new_item(0, 1, self.step_template.format(self.formula_mode, self.formula_steps))
+        # QMessageBox.warning(self, '非法输入！', '请输入有效内容！')
+
+    def get_mode(self, current_step, row, column, data):
+        """获得测试模式"""
+        if current_step not in self.all_which_test:
+            self.all_which_test[current_step] = [[0, 0, 0, 0], '']  # 判断测试哪个腔体
+        all_test = ['过渡阀A', '过渡阀B', '过渡阀C', '过渡阀D']
+        if self.para_list[row] in all_test and column == 0:  # 根据过渡阀得电情况判断测试哪个阀
+            self.all_which_test[current_step][0][all_test.index(self.para_list[row])] = eval(data)
+            if self.all_which_test[current_step][0] in [[2, 1, 1, 1], [1, 2, 1, 1], [1, 1, 2, 1], [1, 1, 1, 2]]:
+                self.all_which_test[current_step][1] = chr(self.all_which_test[current_step][0].index(2) + 65)
+                if self.all_which_test[current_step][1] not in self.formula_mode:
+                    if self.formula_mode == '未知':
+                        self.formula_mode = self.all_which_test[current_step][1]
+                    else:
+                        self.formula_mode += self.all_which_test[current_step][1]
+                    list1 = list(self.formula_mode)
+                    list1.sort()
+                    self.formula_mode = ''.join(list1)
+            elif self.all_which_test[current_step][1] in ['A', 'B', 'C', 'D']:
+                self.formula_mode = self.formula_mode[:self.formula_mode.index(self.all_which_test[current_step][1])]\
+                                    + self.formula_mode[self.formula_mode.index(self.all_which_test[current_step][1])+1:]
+                if not self.formula_mode:
+                    self.formula_mode = '未知'
 
     def get_formula_np(self):
         """读取配方信息并添加到存储配方信息的4维ndarray数组"""
@@ -121,12 +149,20 @@ class EditFormula(QWidget, Ui_Form):
         for i in range(self.total_formulas + 2):
             name = self.num_to_alp_code(self.formula_name_and_steps_array[i * self.max_digit + 1:(i+1) * self.max_digit])
             name = 'new' if not name else name
+            mode_ = self.formula_name_and_steps_array[i * self.max_digit][0]
+            mode = ''
+            if mode_:
+                for j in str(mode_):
+                    mode += chr(eval(j)+64)
+            else:
+                mode = '未知'
             steps = self.formula_name_and_steps_array[i * self.max_digit][1]
             steps = 20 if not steps else steps
-            self.formula_name_and_steps_list.append([name, steps])
+            self.formula_name_and_steps_list.append([name, mode, steps])
         """获得当前配方的名字和步数信息"""
         self.formula_name = self.formula_name_and_steps_list[self.formula_index - 1][0]
-        self.total_steps = self.formula_name_and_steps_list[self.formula_index - 1][1]
+        self.formula_mode = self.formula_name_and_steps_list[self.formula_index - 1][1]
+        self.formula_steps = self.formula_name_and_steps_list[self.formula_index - 1][2]
 
     def num_to_alp_code(self, array):
         """解码，将储存配方名字的数字转换为相应字母"""
@@ -175,7 +211,15 @@ class EditFormula(QWidget, Ui_Form):
             index = (self.formula_index - 1) * self.max_digit
             name_list = self.alp_to_num_code(self.formula_name)
             self.formula_name_and_steps_array[index + 1:index + self.max_digit] = name_list
-            self.formula_name_and_steps_array[index][1] = self.total_steps
+            mode_ = []
+            if self.formula_mode == '未知':
+                mode = 0
+            else:
+                for i in self.formula_mode:
+                    mode_.append(str(ord(i) - 64))
+                mode = ''.join(mode_)
+            self.formula_name_and_steps_array[index][0] = mode
+            self.formula_name_and_steps_array[index][1] = self.formula_steps
             self.formula_data_array[0] = self.formula_name_and_steps_array.reshape(self.formula_name_and_steps_shape_save)
             # self.formula_data_array[self.formula_index] = self.current_formula_data_array
             self.formula_data_array.tofile('formula.dat', format='%d')  # 保存
@@ -186,29 +230,30 @@ class EditFormula(QWidget, Ui_Form):
 
     def update_show(self):
         """ 更新当前步、上一步和下一步信息"""
-        self.btn_current_step.setText('第{}/{}步'.format(self.current_step, self.total_steps))
+        self.btn_current_step.setText('第{}/{}步'.format(self.current_step, self.formula_steps))
         self.btn_last_step.setEnabled(True) if self.current_step > 1 else self.btn_last_step.setEnabled(False)
-        self.btn_next_step.setEnabled(True) if self.current_step < self.total_steps else self.btn_next_step.setEnabled(False)
+        self.btn_next_step.setEnabled(True) if self.current_step < self.formula_steps else self.btn_next_step.setEnabled(False)
+
+    def set_new_item(self, row, column, text):
+        """设置单元格"""
+        item = QStandardItem(text)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setEditable(QAbstractItemView.NoEditTriggers)  # 设置单元格不可编辑
+        self.model.setItem(row, column, item)
 
     def new_step(self):
         """为新增步页面刷新配方信息"""
         self.newed = True  # 判断是否是新增页面数据改变
         self.update_show()  # 更新saved、当前步、上一步和下一步信息
         self.formula_saved = False
-        """将第一行设置为配方编号、名称和步数"""
-        formula_info = ['名称:{}'.format(self.formula_name), '共{}步'.format(self.total_steps)]
-        for column in range(len(formula_info)):
-            item = QStandardItem(formula_info[column])
-            item.setTextAlignment(Qt.AlignCenter)
-            item.setEditable(QAbstractItemView.NoEditTriggers)  # 设置单元格不可编辑
-            self.model.setItem(0, column, item)
         for row in range(len(self.para_list)-1):
             for column in range(len(self.title_list)):
-                if not self.user_admin and column == 1 and (self.para_list.index('密封') - 2 < row < self.para_list.index('过渡阀D')
+                if not self.user_admin and column == 1 and (self.para_list.index('密封') - 1 <= row < self.para_list.index('过渡阀D')
                                                             or self.formula_data_array[self.formula_index][self.current_step - 1][row][0] == 2):
-                    item = QStandardItem('-')
+                    self.set_new_item(row+1, column, '-')
                 else:
                     text = str(self.formula_data_array[self.formula_index][self.current_step - 1][row][column])
+                    self.get_mode(self.current_step, row+1, column, text)
                     if '-' in text:
                         index = len(text[2:]) - eval(text[1])
                         text = text[2:][:index] + '.' + text[2:][index:]
@@ -219,10 +264,11 @@ class EditFormula(QWidget, Ui_Form):
                         if len(text) > 6:
                             text = '{:5e}'.format(eval(text))
                             text = text[:-4].rstrip('0.') + text[-4:]
-                    item = QStandardItem(text)
-                item.setTextAlignment(Qt.AlignCenter)
-                item.setEditable(QAbstractItemView.NoEditTriggers)
-                self.model.setItem(row+1, column, item)
+                    self.set_new_item(row+1, column, text)
+        """将第一行设置为配方编号、名称和步数"""
+        formula_info = ['名称：{}'.format(self.formula_name), self.step_template.format(self.formula_mode, self.formula_steps)]
+        for column in range(len(formula_info)):
+            self.set_new_item(0, column, formula_info[column])
         self.newed = False
 
     def next_step(self):
@@ -247,12 +293,12 @@ class EditFormula(QWidget, Ui_Form):
     def goto_step_show(self):
         """跳转至目标步"""
         text = self.input_step.lineEdit_input_modify()
-        if 1 <= eval(text) <= self.total_steps:
+        if 1 <= eval(text) <= self.formula_steps:
             self.current_step = eval(text)
             self.new_step()
             self.input_step.close()
         else:
-            QMessageBox.warning(self, '输入非法！', '请输入1-{}的步数！'.format(self.total_steps))
+            QMessageBox.warning(self, '非法输入！', '请输入1-{}的步数！'.format(self.formula_steps))
             self.input_step.lineEdit_input.clear()
 
     def text_process(self, text):
@@ -269,8 +315,8 @@ class EditFormula(QWidget, Ui_Form):
                 text = '-' + self.text_process(text) if text[0] == '-' else self.text_process(text)
             else:
                 text = str(int(eval(text[:-4]) * pow(10, eval(text[-2:].lstrip('0')))))
-        if '共' in text:
-            text = text[1:-1]
+        if '步' in text:
+            text = str(self.formula_steps)
         """数值型键盘"""
         self.btn_input_list = []
         self.column_list = [[], []]
@@ -300,9 +346,8 @@ class EditFormula(QWidget, Ui_Form):
             self.input_num.btn_input_ok.clicked.connect(self.tableView_show)  # 单击确定将键盘文本输出到当前index
             """名字键盘"""
         elif (index.row(), index.column()) == (0, 0):
-            text = text[text.index(':') + 1:]
             self.input_name = InputName()  # 实例化名字键盘
-            self.input_name.lineEdit_input.setText(text)  # 将键盘初始内容设置为点击的lineEdit文本内容
+            self.input_name.lineEdit_input.setText(self.formula_name)  # 将键盘初始内容设置为点击的lineEdit文本内容
             self.input_name.lineEdit_input.setFocus()
             self.input_name.lineEdit_input.selectAll()  # 将键盘初始内容设置为全选状态
             self.input_name.show()
@@ -310,39 +355,47 @@ class EditFormula(QWidget, Ui_Form):
 
     def tableView_show(self):
         """将键盘值赋给当前点击的index"""
-        index = self.current_index_list.pop()
-        text = self.input_num.lineEdit_input_modify()
-        if not -pow(2, 31) < eval(text) < pow(2, 31):
-            QMessageBox.warning(self, '输入溢出！', '请输入-2^31-2^31之间的数字')
-            text = str(self.formula_data_array[self.formula_index][self.current_step-1][index.row()-1][index.column()])
-        text1 = self.input_num.lineEdit_input.text()
-        text1 = '0' if text1 == '' else text1
-        if (index.row(), index.column()) in self.column_list[0][:self.para_list.index('伺服')] \
-                or (index.row(), index.column()) in self.column_list[0][self.para_list.index('高压')-1:self.para_list.index('过渡阀D')]:
-            text = text1[0]  # 是否得电只显示第一个输入
-        if (index.row(), index.column()) == (0, 1):
-            if eval(text) <= self.total_formula_steps:
-                text = '共{}步'.format(text)
-            else:
-                QMessageBox.warning(self, '修改错误！', '请修改步数不超过{}位！'.format(self.total_formula_steps))
-                text = '共{}步'.format(self.formula_name_and_steps_list[self.formula_index-1][1])
-        item = QStandardItem(text)
-        item.setTextAlignment(Qt.AlignCenter)
-        self.model.setItem(index.row(), index.column(), item)
-        self.input_num.close()
-        self.formula_saved = False
+        try:
+            index = self.current_index_list.pop()
+            text = self.input_num.lineEdit_input_modify()
+            if not -pow(2, 31) < eval(text) < pow(2, 31):
+                QMessageBox.warning(self, '输入溢出！', '请输入-2^31-2^31之间的数字')
+                text = str(self.formula_data_array[self.formula_index][self.current_step-1][index.row()-1][index.column()])
+            text1 = self.input_num.lineEdit_input.text()
+            text1 = '0' if text1 == '' else text1
+            if (index.row(), index.column()) in self.column_list[0][:self.para_list.index('伺服')] \
+                    or (index.row(), index.column()) in self.column_list[0][self.para_list.index('高压')-1:self.para_list.index('过渡阀D')]:
+                text = text1[0]  # 是否得电只显示第一个输入
+            if (index.row(), index.column()) == (0, 1):
+                if eval(text) <= self.total_formula_steps:
+                    text = self.step_template.format(self.formula_mode, text)
+                else:
+                    QMessageBox.warning(self, '修改错误！', '请修改步数不超过{}位！'.format(self.total_formula_steps))
+                    text = self.step_template.format(self.formula_mode, self.formula_steps)
+            self.set_new_item(index.row(), index.column(), text)
+            self.input_num.close()
+            self.formula_saved = False
+        except:
+            QMessageBox.warning(self, '非法输入！', '请输入有效内容！')
+            self.input_num.lineEdit_input.clear()
 
     def formula_name_changed(self):
         """将名字键盘值赋给当前点击的index(0,0)"""
         text = self.input_name.lineEdit_input.text()
-        text = self.formula_name if not text else text
         if len(text) < self.max_digit:
-            text = '名称:{}'.format(text)
-            item = QStandardItem(str(text))
-            item.setTextAlignment(Qt.AlignCenter)
-            self.model.setItem(0, 0, item)
-            self.input_name.close()
-            self.formula_saved = False
+            count = 0
+            for i in self.formula_name_and_steps_list:
+                if text in i and self.formula_name_and_steps_list.index(i) != self.formula_index - 1 and self.formula_index - 1 != 0:
+                    count += 1
+                    break
+            if count:
+                QMessageBox.warning(self, '名字重复！', '该名字已存在，请重命名！')
+                self.input_name.close()
+            elif text:
+                text = '名称：{}'.format(text)
+                self.set_new_item(0, 0, text)
+                self.input_name.close()
+                self.formula_saved = False
         else:
             QMessageBox.warning(self, '修改错误！', '请修改配方名不超过{}位！'.format(self.max_digit-1))
 
@@ -362,6 +415,7 @@ class EditFormula(QWidget, Ui_Form):
     def closeEvent(self, event):
         if self.formula_saved:
             self.update_work_pos.emit(self.formula_index)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

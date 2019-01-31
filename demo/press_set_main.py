@@ -26,14 +26,18 @@ class PressSet(QWidget, Ui_PressSet):
             press_name = ['差压', 'different pressure'.upper()][self.language]
         else:
             press_name = ['表压', 'pressure'.upper()][self.language]
-        if self.work_pos_index not in ['l', 'h', 'w']:
+        if self.work_pos_index not in ['l', 'h', 'w', 'd', 'x']:
             self.setWindowTitle('{}{}-{}'.format(press_name, ['设定', ' setting'.upper()][self.language], self.work_pos_index))
         elif self.work_pos_index == 'l':
             self.setWindowTitle(['总压力设定', 'Total Pressure Setting'.upper()][self.language])
         elif self.work_pos_index == 'h':
             self.setWindowTitle(['测试高压设定', 'test high Pressure Setting'.upper()][self.language])
+        elif self.work_pos_index == 'w':
+            self.setWindowTitle(['测试低压设定', 'test low Pressure Setting'.upper()][self.language])
+        elif self.work_pos_index == 'd':
+            self.setWindowTitle(['密封压力设定', 'Seal Pressure Setting'.upper()][self.language])
         else:
-            self.setWindowTitle(['测试低压设定', 'Test low Pressure Setting'.upper()][self.language])
+            self.setWindowTitle(['夹具压力设定', 'Fixture Pressure Setting'.upper()][self.language])
 
     def setting(self):
         self.screen_rect = QApplication.desktop().screenGeometry()  # 获取显示器分辨率大小
@@ -114,6 +118,6 @@ class PressSet(QWidget, Ui_PressSet):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    my_show = PressSet()
+    my_show = PressSet('mbar', 'l', 0)
     my_show.show()
     sys.exit(app.exec_())

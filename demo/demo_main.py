@@ -10,7 +10,7 @@ from servo_set_main import ServoSet  # 导入伺服设定类
 from press_set_main import PressSet  # 导入压力设定类
 from data_set_main import DataSet  # 导入数据设定类
 from input_name_main import InputName  # 导入名字键盘类
-from demo_client import AutoClient, StartTest  # 导入通信类
+from demo_client import AutoClient, StartTest, SysTime  # 导入通信类
 
 
 class MyWindow(QWidget, Ui_Form):
@@ -45,7 +45,14 @@ class MyWindow(QWidget, Ui_Form):
             work_pos_index = sender.objectName()[-2:]
         else:
             work_pos_index = sender.objectName()[-1]
-        return eval(work_pos_index)
+        work_pos_index = eval(work_pos_index) if work_pos_index.isdigit() else work_pos_index
+        return work_pos_index
+
+    def get_upper(self, lis):
+        """获得大写"""
+        for i in range(len(lis)):
+            lis[i] = lis[i].upper()
+        return lis
 
     def main_process(self):
         self.tabWidget_0.currentChanged.connect(self.change_tab)
@@ -84,8 +91,8 @@ class MyWindow(QWidget, Ui_Form):
     def chinese_english(self):
         """中英切换"""
         self.language = 0  # 判断选择语言，0：汉语，1：英语
-        self.btn_chinese_show.clicked.connect(self.chinese_show)
-        self.btn_english_show.clicked.connect(self.english_show)
+        self.btn_chinese_show.clicked.connect(self.chinese_english_show)
+        self.btn_english_show.clicked.connect(self.chinese_english_show)
         self.tabWidget_list = []
         for i in range(6):
             self.tabWidget_list.append('self.tabWidget_{}'.format(i))
@@ -97,56 +104,40 @@ class MyWindow(QWidget, Ui_Form):
                                             ['manual\ntest 1-4', 'manual\ntest 5-8', 'manual\ntest 9-12', 'manual\ntest 13-16', 'manual\ntest 17-20'],
                                             ['auto\ntest 1-4', 'auto\ntest 5-8', 'auto\ntest 9-12', 'auto\ntest 13-16', 'auto\ntest 17-20'],
                                             ['work pos 1-10', 'work pos 11-20'], ['counting 1-10', 'counting 11-20'], ['Data export', 'work pos\ninformation']]
+        for i in self.tabWidget_english_text_list:
+            self.get_upper(i)
+        self.tabWidget_text_list = [self.tabWidget_chinese_text_list, self.tabWidget_english_text_list]
+        self.equip_chinese_text_list = ['高精密气密性测试机', '宁波意德西专用设备科技有限公司', '气源压力', '测试高压', '测试低压', '密封压力', '夹具压力']
+        self.equip_english_text_list = ['High Precision Air-Tightness\nTesting Machine', 'Ningbo ITC specialized Equipment Technology Co., Ltd.',
+                                        'air supply\npressure', 'test high\npressure', 'test low\npressure', 'seal\npressure', 'fixture\npressure']
+        self.get_upper(self.equip_english_text_list)
+        self.equip_control_name_list = ['self.lab_device', 'self.lab_company', 'self.lab_gas_press', 'self.lab_high_test', 'self.lab_low_test', 'self.lab_press_sealed', 'self.lab_press_fix']
+        self.equip_english_font_size = [36, 24, 22, 22, 22, 22, 22]
+        self.equip_chinese_font_size = [72, 36, 28, 28, 28, 28, 28]
+        self.chinese_english_list = [[self.equip_control_name_list, [self.equip_chinese_text_list, self.equip_english_text_list], [self.equip_chinese_font_size, self.equip_english_font_size]]]
 
-        self.chinese_text_list = ['高精密气密性测试机', '宁波意德西专用设备科技有限公司', '气源压力', '测试高压', '测试低压', '密封压力', '夹具压力']
-        self.english_text_list = ['High Precision Air-Tightness\nTesting Machine', 'Ningbo ITC specialized Equipment Technology Co., Ltd.',
-                                  'air supply\npressure', 'test high\npressure', 'test low\npressure', 'seal\npressure', 'fixture\npressure']
-        self.control_name_list = ['self.lab_device', 'self.lab_company', 'self.lab_gas_press', 'self.lab_high_test', 'self.lab_low_test', 'self.lab_press_seal', 'self.lab_press_fix']
-        self.english_font_size = [36, 24, 22, 22, 22, 22, 22]
-        self.chinese_font_size = [72, 36, 28, 28, 28, 28, 28]
-
-    def chinese_show(self):
-        """中文显示"""
-        self.language = 0
-        for i in range(len(self.tabWidget_chinese_text_list)):
+    def chinese_english_show(self):
+        """中英文显示"""
+        self.language = 0 if self.sender() == self.btn_chinese_show else 1
+        for i in range(len(self.tabWidget_text_list[self.language])):
             if i == 0:
-                eval(self.tabWidget_list[i]).setFont(QFont('Arial', 20, QFont.Bold))
+                eval(self.tabWidget_list[i]).setFont(QFont('Arial', [20, 16][self.language], QFont.Bold))
             else:
-                eval(self.tabWidget_list[i]).setFont(QFont('Arial', 18, QFont.Bold))
+                eval(self.tabWidget_list[i]).setFont(QFont('Arial', [18, 14][self.language], QFont.Bold))
         for i in range(6):
-            eval(self.tabWidget_list[0]).setTabText(i, self.tabWidget_chinese_text_list[0][i])
-        for i in range(5):
-            eval(self.tabWidget_list[1]).setTabText(i, self.tabWidget_chinese_text_list[1][i])
-            eval(self.tabWidget_list[2]).setTabText(i, self.tabWidget_chinese_text_list[2][i])
-        for i in range(2):
-            eval(self.tabWidget_list[3]).setTabText(i, self.tabWidget_chinese_text_list[3][i])
-            eval(self.tabWidget_list[4]).setTabText(i, self.tabWidget_chinese_text_list[4][i])
-            eval(self.tabWidget_list[5]).setTabText(i, self.tabWidget_chinese_text_list[5][i])
-
-        for i in range(len(self.control_name_list)):
-            eval(self.control_name_list[i]).setText(self.chinese_text_list[i])
-            eval(self.control_name_list[i]).setFont(QFont('Arial', self.chinese_font_size[i], QFont.Bold))
-
-    def english_show(self):
-        """英文显示"""
-        self.language = 1
-        for i in range(len(self.tabWidget_chinese_text_list)):
-            if i == 0:
-                eval(self.tabWidget_list[i]).setFont(QFont('Arial', 16, QFont.Bold))
-            else:
-                eval(self.tabWidget_list[i]).setFont(QFont('Arial', 14, QFont.Bold))
-        for i in range(6):
-            eval(self.tabWidget_list[0]).setTabText(i, self.tabWidget_english_text_list[0][i].upper())
-        for i in range(5):
-            eval(self.tabWidget_list[1]).setTabText(i, self.tabWidget_english_text_list[1][i].upper())
-            eval(self.tabWidget_list[2]).setTabText(i, self.tabWidget_english_text_list[2][i].upper())
-        for i in range(2):
-            eval(self.tabWidget_list[3]).setTabText(i, self.tabWidget_english_text_list[3][i].upper())
-            eval(self.tabWidget_list[4]).setTabText(i, self.tabWidget_english_text_list[4][i].upper())
-            eval(self.tabWidget_list[5]).setTabText(i, self.tabWidget_english_text_list[5][i].upper())
-        for i in range(len(self.control_name_list)):
-            eval(self.control_name_list[i]).setText(self.english_text_list[i].upper())
-            eval(self.control_name_list[i]).setFont(QFont('Arial', self.english_font_size[i], QFont.Bold))
+            for j in range(len(self.tabWidget_list)):
+                try:
+                    eval(self.tabWidget_list[j]).setTabText(i, self.tabWidget_text_list[self.language][j][i])
+                except:
+                    pass
+        for tab_index in range(len(self.chinese_english_list)):
+            for i in range(len(self.chinese_english_list[tab_index][0])):
+                try:
+                    font_size = self.chinese_english_list[tab_index][2][self.language][i]
+                except:  # 设置默认字体大小
+                    font_size = [14, 12][self.language]
+                eval(self.chinese_english_list[tab_index][0][i]).setText(self.chinese_english_list[tab_index][1][self.language][i])
+                eval(self.chinese_english_list[tab_index][0][i]).setFont(QFont('Arial', font_size, QFont.Bold))
 
 
     """手动测试配置函数"""
@@ -160,7 +151,7 @@ class MyWindow(QWidget, Ui_Form):
         for i in range(1, 7):
             btn_list2.append('self.btn_action{}_'.format(i))
         btn_list3 = ['self.btn_A_', 'self.btn_B_', 'self.btn_C_', 'self.btn_D_']
-        btn_list4 = ['self.btn_press_total', 'self.btn_press_high', 'self.btn_press_low', 'self.btn_press_seal', 'self.btn_press_fix']
+        btn_list4 = ['self.btn_press_total', 'self.btn_press_high', 'self.btn_press_low', 'self.btn_press_sealed', 'self.btn_press_fix']
         for i in range(self.total_work_poses):
             self.btn_manual_test_list.append([])
         for i in range(1, self.total_work_poses + 1):
@@ -256,7 +247,7 @@ class MyWindow(QWidget, Ui_Form):
         work_pos_index = self.get_sender_index(work_pos)
         current_lab = eval(self.lab_work_pos_show_list[work_pos_index - 1])
         current_formula = self.formula_li.formula_list[index.row()]
-        text = '{}'.format(current_formula[current_formula.index('：') + 1:current_formula.index('（')])
+        text = '{}'.format(current_formula[current_formula.index('：') + 1:current_formula.index('，')])
         current_lab.setText(text)  # 将当前标签显示为配方名字
         formula_index = eval(current_formula[current_formula.index('方') + 1:current_formula.index('：')])
         self.current_formula_dict[work_pos_index] = formula_index  # 将当前工位与当前调用配方组成键值对
@@ -290,72 +281,72 @@ class MyWindow(QWidget, Ui_Form):
             self.edit_for = EditFormula(formula_index)  # 实例化编辑配方
             eval(self.lab_work_pos_show_list[work_pos_index]).setStyleSheet('color: rgb(255, 0, 0);\n''background-color: rgb(0, 0, 0);')
             # 设置自动测试配方显示
-            eval(self.lab_auto_formula_list[work_pos_index]).setText(self.edit_for.formula_name)
+            eval(self.lab_auto_formula_list[work_pos_index]).setText('{}，测{}腔'.format(self.edit_for.formula_name, self.edit_for.formula_mode))
             eval(self.lab_auto_formula_list[work_pos_index]).setStyleSheet('color: rgb(255, 0, 0);\n''background-color: rgb(0, 0, 0);')
 
             # 实例化响应工位测试线程
             if work_pos_index == 0:
-                self.auto_client_1 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_1 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_1 = StartTest(work_pos_index)
             elif work_pos_index == 1:
-                self.auto_client_2 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_2 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_2 = StartTest(work_pos_index)
             elif work_pos_index == 2:
-                self.auto_client_3 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_3 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_3 = StartTest(work_pos_index)
             elif work_pos_index == 3:
-                self.auto_client_4 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_4 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_4 = StartTest(work_pos_index)
             elif work_pos_index == 4:
-                self.auto_client_5 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_5 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_5 = StartTest(work_pos_index)
             elif work_pos_index == 5:
-                self.auto_client_6 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_6 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_6 = StartTest(work_pos_index)
             elif work_pos_index == 6:
-                self.auto_client_7 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_7 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_7 = StartTest(work_pos_index)
             elif work_pos_index == 7:
-                self.auto_client_8 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_8 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_8 = StartTest(work_pos_index)
             elif work_pos_index == 8:
-                self.auto_client_9 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_9 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_9 = StartTest(work_pos_index)
             elif work_pos_index == 9:
-                self.auto_client_10 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_10 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_10 = StartTest(work_pos_index)
             elif work_pos_index == 10:
-                self.auto_client_11 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_11 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_11 = StartTest(work_pos_index)
             elif work_pos_index == 11:
-                self.auto_client_12 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_12 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_12 = StartTest(work_pos_index)
             elif work_pos_index == 12:
-                self.auto_client_13 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_13 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_13 = StartTest(work_pos_index)
             elif work_pos_index == 13:
-                self.auto_client_14 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_14 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_14 = StartTest(work_pos_index)
             elif work_pos_index == 14:
-                self.auto_client_15 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_15 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_15 = StartTest(work_pos_index)
             elif work_pos_index == 15:
-                self.auto_client_16 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_16 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_16 = StartTest(work_pos_index)
             elif work_pos_index == 16:
-                self.auto_client_17 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_17 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_17 = StartTest(work_pos_index)
             elif work_pos_index == 17:
-                self.auto_client_18 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_18 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_18 = StartTest(work_pos_index)
             elif work_pos_index == 18:
-                self.auto_client_19 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_19 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_19 = StartTest(work_pos_index)
             elif work_pos_index == 19:
-                self.auto_client_20 = AutoClient(work_pos_index, formula_index, self.edit_for.total_steps)
+                self.auto_client_20 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_20 = StartTest(work_pos_index)
 
-            eval(self.auto_client_list[work_pos_index]).data_list = self.edit_for.formula_data_array[formula_index][0:self.edit_for.total_steps]
+            eval(self.auto_client_list[work_pos_index]).data_list = self.edit_for.formula_data_array[formula_index][0:self.edit_for.formula_steps]
             eval(self.auto_client_list[work_pos_index]).client_signal.connect(self.auto_test)
             eval(self.auto_client_list[work_pos_index]).pass_count_signal.connect(self.update_pos)
             eval(self.auto_client_list[work_pos_index]).error_signal.connect(self.error_show)
@@ -396,6 +387,7 @@ class MyWindow(QWidget, Ui_Form):
         self.auto_client_list = []
         self.start_test_list = []
         self.lab_auto_abcd_list = []
+        self.current_test = []
         for i in range(self.total_work_poses):
             self.lab_auto_abcd_list.append([[], [], [], []])
         self.lab_auto_time_list = []
@@ -403,7 +395,10 @@ class MyWindow(QWidget, Ui_Form):
         self.lab_auto_min_press_list = []
         self.lab_auto_leak_list = []
         self.lab_auto_torque_list = []
-        self.current_test = []
+        self.get_auto_list()
+        self.btn_not_pass_check.clicked.connect(self.not_pass_check)
+
+    def get_auto_list(self):
         for i in range(1, self.total_work_poses + 1):
             self.auto_client_list.append('self.auto_client_{}'.format(i))
             self.start_test_list.append('self.start_test_{}'.format(i))
@@ -458,6 +453,15 @@ class MyWindow(QWidget, Ui_Form):
                 eval(self.lab_auto_abcd_list[work_pos_index][self.current_test[work_pos_index][1]][5]).setText('不合格')
         except:
             pass
+        current_list = [self.lab_data_time.text(), self.lineEdit_0.text(), ]
+        self.test_result_list[work_pos_index].append(current_list)
+
+    def not_pass_check(self):
+        if self.btn_not_pass_check.isChecked():
+            self.btn_not_pass_check.setText('不合格品箱检测')
+        else:
+            self.btn_not_pass_check.setText('不合格品箱不检测')
+
 
     """计数统计配置函数"""
     def data_count_process(self):
@@ -528,31 +532,40 @@ class MyWindow(QWidget, Ui_Form):
     """数据处理配置函数"""
     def data_process(self):
         """处理数据配置的函数"""
-        self.btn_data_process_list = []  # 存储所有工位的列表
+        self.sys_time = SysTime()
+        self.sys_time.start()
+        self.sys_time.sys_time_signal.connect(self.sys_time_show)
+        self.btn_start_list = []
         self.tableView_model()  # 创建QTableView表格，并添加自定义模型
-        for i in range(1, self.total_work_poses + 1):  # 获得工位列表
-            self.btn_data_process_list.append('self.btn_data_process_{}'.format(i))
+        self.btn_data_process_list = []  # 存储所有工位的列表
+        self.test_result_list = []  # 储存测试结果
+        self.get_data_process_list()  # 获得列表
         for i in self.btn_data_process_list:  # 给工位绑定槽函数
             eval(i).clicked.connect(self.data_process_show)
-
         self.btn_data_process_set.clicked.connect(self.data_set_show)  # 点击设置弹出设置界面
-        self.btn_start_list = []
+
+    def get_data_process_list(self):
         for i in range(self.total_work_poses):
             self.btn_start_list.append(1)
+        for i in range(1, self.total_work_poses + 1):  # 获得工位列表
+            self.btn_data_process_list.append('self.btn_data_process_{}'.format(i))
+            self.test_result_list.append([])
+
+    def sys_time_show(self, time):
+        self.lab_data_time.setText(time)
 
     def tableView_model(self):
         """创建QTableView表格，并添加自定义模型"""
-        self.para_list = ['动作阀1', '动作阀2', '动作阀3', '动作阀4', '动作阀5', '动作阀6',
-                          '伺服', '伺服转矩(N·M)', '伺服速度(r/S)', '伺服打开角度(°)',
-                          '高压', '低压', '流量阀', '密封', '排气', '过渡阀A', '过渡阀B', '过渡阀C', '过渡阀D',
-                          '最低工作压力(mbar)', '大漏值(pa)', '测压ΔP1(pa)/时间(1S)', '稳压ΔP2(pa)/时间(1S)']
-        self.title_list = ['1', '2', '3', '4', '5', '6']
-        self.model = QStandardItemModel(len(self.para_list), len(self.title_list))
-        self.model.setHorizontalHeaderLabels(self.title_list)
-        self.model.setVerticalHeaderLabels(self.para_list)
+        self.para_list = ['系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果',  'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果',
+                          'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果', 'C-ΔP1', 'C-ΔP2', 'C-全开扭矩', 'C-全关扭矩', 'C-测试结果',
+                          'D-ΔP1', 'D-ΔP2', 'D-全开扭矩', 'D-全关扭矩', 'D-测试结果', '合格数', '不合格数', '总数', '合格率']
+        self.title_list = []
+        for i in range(20):
+            self.title_list.append('第{}行'.format(i+1))
+        self.model = QStandardItemModel(len(self.title_list), len(self.para_list))
+        self.model.setHorizontalHeaderLabels(self.para_list)
+        self.model.setVerticalHeaderLabels(self.title_list)
         self.tableView.setModel(self.model)
-        self.tableView.horizontalHeader().setStretchLastSection(True)  # 表格填充窗口
-        self.tableView.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.tableView.verticalHeader().setStretchLastSection(True)  # 表格填充窗口
         self.tableView.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
 

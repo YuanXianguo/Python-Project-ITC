@@ -27,26 +27,25 @@ class ServoSet(QWidget, Ui_ServoSet):
         self.setGeometry((self.screen_width - self.width_) // 2, (self.screen_height - self.height_) // 2, self.width_, self.height_)
         self.setWindowModality(Qt.ApplicationModal)  # 应用程序模态，程序未完成当前对话框时，阻止和任何其他窗口进行交互
         # self.setWindowFlags(Qt.CustomizeWindowHint)  # 隐藏标题
-        self.setWindowFlags(Qt.WindowCloseButtonHint)
+        self.setWindowFlags(Qt.WindowCloseButtonHint)  # 标题只显示关闭按钮
         self.setFixedSize(self.width(), self.height())  # 禁止拉伸窗口大小
 
     def servo_set_process(self):
+        self.lab_list = []
+        self.btn_list = []
         self.lineEdit_list = []
         self.current_lineEdit_list = []
-        for i in range(5):
-            self.lineEdit_list.append('self.lineEdit_servo_{}'.format(i + 1))
+        for i in range(6):
+            if i < 5:
+                self.lineEdit_list.append('self.lineEdit_servo_{}'.format(i))
+                self.lab_list.append('self.lab_{}'.format(i))
+            self.btn_list.append('self.btn_servo_{}'.format(i))
         for i in self.lineEdit_list:
             eval(i).installEventFilter(self)
         """中英文切换"""
-        self.lab_list = []
-        self.btn_list = []
         lab_text_list = [['机械齿轮', 'GEAR RATIO'], ['伺服速度', 'SERVO SPEED'], ['打开转矩', 'OPEN TORQUE'], ['关闭转矩', 'CLOSE TORQUE'], ['打开角度', 'OPEN ANGLE']]
         btn_text_list = [['伺服归零', 'servo zero'.upper()], ['伺服启动', 'servo start'.upper()], ['伺服停止', 'servo stop'.upper()],
-                         ['故障复位', 'fault reset'.upper()], ['正向点动', 'Forward'.upper()], ['反向点动', 'Reverse'.upper()]]
-        for i in range(5):
-            self.lab_list.append('self.lab_{}'.format(i))
-            self.btn_list.append('self.btn_servo_{}'.format(i))
-        self.btn_list.append('self.btn_servo_5')
+                         ['正向点动', 'Forward'.upper()], ['反向点动', 'Reverse'.upper()], ['故障复位', 'fault reset'.upper()]]
         for i in range(len(self.lab_list)):
             eval(self.lab_list[i]).setText(lab_text_list[i][self.language])
             eval(self.lab_list[i]).setFont(QFont('Arial', [16, 12][self.language], QFont.Bold))
@@ -70,10 +69,10 @@ class ServoSet(QWidget, Ui_ServoSet):
                         self.current_lineEdit_list.append(object)
                         self.input_num = InputNumericType()
                         text = object.text()
-                        if 'e' in text:
-                            if text[-3] == '-':
+                        if 'e' in text:  # 科学记数法
+                            if text[-3] == '-':  # 小于1
                                 text = '-' + self.text_process(text) if text[0] == '-' else self.text_process(text)
-                            else:
+                            else:  # 大于1
                                 text = str(int(eval(text[:-4]) * pow(10, eval(text[-2:].lstrip('0')))))
                         self.input_num.lineEdit_input.setText(text)  # 将键盘初始内容设置为点击的lineEdit文本内容
                         self.input_num.lineEdit_input.setFocus()
@@ -95,6 +94,6 @@ class ServoSet(QWidget, Ui_ServoSet):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    my_show = ServoSet(1)
+    my_show = ServoSet(1,0)
     my_show.show()
     sys.exit(app.exec_())

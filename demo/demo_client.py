@@ -33,9 +33,9 @@ class AutoClient(QThread):
     pass_count_signal = pyqtSignal(int, int)
     error_signal = pyqtSignal(int, str)
 
-    def __init__(self, work_pos_index, formula_index, total_steps):
+    def __init__(self, work_pos_index, formula_index, formula_steps):
         super().__init__()
-        self.work_pos_index, self.formula_index, self.total_steps = work_pos_index, formula_index, total_steps
+        self.work_pos_index, self.formula_index, self.formula_steps = work_pos_index, formula_index, formula_steps
         self.running = 1
         self.count = 0
         self.state = 1
@@ -68,7 +68,7 @@ class AutoClient(QThread):
             self.current_step = 0  # 记录当前步数
             start = time.perf_counter()  # 开始第一步计时
             start_time = time.perf_counter()  # 记录开始时间
-            while self.current_step < self.total_steps and self.running:
+            while self.current_step < self.formula_steps and self.running:
                 if self.state:
                     which_test = [0, 0, 0, 0]  # 判断测试哪个腔体
                     all_test = ['过渡阀A', '过渡阀B', '过渡阀C', '过渡阀D']
@@ -141,7 +141,7 @@ class AutoClient(QThread):
                     if time.perf_counter() - start >= self.keep_time:  # 达到延迟时间，结束当前步循环
                         self.current_step += 1
                         start = time.perf_counter()  # 下一步重新计时
-                        if self.current_step == self.total_steps:  # 当前工件测试完成
+                        if self.current_step == self.formula_steps:  # 当前工件测试完成
                             self.count += 1  # 合格数加1
                             self.pass_count_signal.emit(self.work_pos_index + 1, 0)
                     self.client_signal.emit(self.work_pos_index, self.slot)
@@ -178,3 +178,16 @@ class AutoClient(QThread):
                             self.codesys_work_pos_list[self.work_pos_index][i] = '失电'
             self.current_step -= 1
 
+
+class SysTime(QThread):
+    """显示系统时间"""
+    sys_time_signal = pyqtSignal(str)
+
+    def __init__(self):
+        super().__init__()
+
+    def run(self):
+        while True:
+            current_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+            self.sys_time_signal.emit(current_time)
+            time.sleep(1)

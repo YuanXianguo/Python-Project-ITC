@@ -43,6 +43,7 @@ class InputNumericType(QWidget, Ui_InputNumericType):
         text = self.lineEdit_input.text()
         text = '0' if text == '' else text
         text = '-' + self.lineEdit_input_modify_(text[1:]) if text[0] == '-' else self.lineEdit_input_modify_(text)
+        text = '0' if text == '-0' else text
         return text
 
     def lineEdit_input_modify_(self, text):
