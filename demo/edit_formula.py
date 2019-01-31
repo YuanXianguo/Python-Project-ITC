@@ -94,12 +94,15 @@ class EditFormula(QWidget, Ui_Form):
                     self.update_show()  # 更新saved、当前步、上一步和下一步信息
                     self.current_mode = self.formula_mode
                     self.formula_mode = '未知'
+                    print(self.current_mode, self.formula_mode)
+                    print(self.all_which_test)
                     for key in self.all_which_test:
                         if key > self.formula_steps:
                             self.all_which_test[key] = [[0, 0, 0, 0], '']
                     for step in range(self.formula_steps):
                         for row in range(len(self.para_list)-1):
                             self.get_mode(step+1, row+1, 0, str(self.formula_data_array[self.formula_index][step][row][0]))
+
                     if self.current_mode != self.formula_mode:
                         self.set_new_item(0, 1, self.step_template.format(self.formula_mode, self.formula_steps))
                         # self.formula_name_and_steps_list[self.formula_index - 1][1] = self.formula_mode
@@ -127,8 +130,11 @@ class EditFormula(QWidget, Ui_Form):
                     list1.sort()
                     self.formula_mode = ''.join(list1)
             elif self.all_which_test[current_step][1] in ['A', 'B', 'C', 'D']:
-                self.formula_mode = self.formula_mode[:self.formula_mode.index(self.all_which_test[current_step][1])]\
-                                    + self.formula_mode[self.formula_mode.index(self.all_which_test[current_step][1])+1:]
+                try:
+                    self.formula_mode = self.formula_mode[:self.formula_mode.index(self.all_which_test[current_step][1])]\
+                                        + self.formula_mode[self.formula_mode.index(self.all_which_test[current_step][1])+1:]
+                except:
+                    pass
                 if not self.formula_mode:
                     self.formula_mode = '未知'
 

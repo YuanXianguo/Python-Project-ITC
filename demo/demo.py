@@ -12177,7 +12177,7 @@ class Ui_Form(object):
         self.horizontalLayout_8.addWidget(self.tabWidget_0)
 
         self.retranslateUi(Form)
-        self.tabWidget_0.setCurrentIndex(5)
+        self.tabWidget_0.setCurrentIndex(3)
         self.tabWidget_1.setCurrentIndex(0)
         self.tabWidget_2.setCurrentIndex(0)
         self.tabWidget_3.setCurrentIndex(0)

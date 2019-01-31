@@ -104,8 +104,8 @@ class MyWindow(QWidget, Ui_Form):
                                             ['manual\ntest 1-4', 'manual\ntest 5-8', 'manual\ntest 9-12', 'manual\ntest 13-16', 'manual\ntest 17-20'],
                                             ['auto\ntest 1-4', 'auto\ntest 5-8', 'auto\ntest 9-12', 'auto\ntest 13-16', 'auto\ntest 17-20'],
                                             ['work pos 1-10', 'work pos 11-20'], ['counting 1-10', 'counting 11-20'], ['Data export', 'work pos\ninformation']]
-        for i in self.tabWidget_english_text_list:
-            self.get_upper(i)
+        # for i in self.tabWidget_english_text_list:
+        #     self.get_upper(i)
         self.tabWidget_text_list = [self.tabWidget_chinese_text_list, self.tabWidget_english_text_list]
         self.equip_chinese_text_list = ['高精密气密性测试机', '宁波意德西专用设备科技有限公司', '气源压力', '测试高压', '测试低压', '密封压力', '夹具压力']
         self.equip_english_text_list = ['High Precision Air-Tightness\nTesting Machine', 'Ningbo ITC specialized Equipment Technology Co., Ltd.',
@@ -601,7 +601,7 @@ class MyWindow(QWidget, Ui_Form):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    my_show = MyWindow(4)
+    my_show = MyWindow(2)
     # my_show.showFullScreen()  # 全屏显示
     my_show.show()
     sys.exit(app.exec_())

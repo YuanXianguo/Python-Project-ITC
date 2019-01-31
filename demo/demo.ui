@@ -40,7 +40,7 @@
       <enum>QTabWidget::South</enum>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>3</number>
      </property>
      <property name="tabBarAutoHide">
       <bool>false</bool>
