@@ -91,16 +91,13 @@ class PressSet(QWidget, Ui_PressSet):
                     mouse_event = QMouseEvent(event)
                     if mouse_event.buttons() == Qt.LeftButton:
                         self.current_lineEdit_list.append(object)
-                        self.input_num = InputNumericType()
                         text = object.text()
                         if 'e' in text:
                             if text[-3] == '-':
                                 text = '-' + self.text_process(text) if text[0] == '-' else self.text_process(text)
                             else:
                                 text = str(int(eval(text[:-4]) * pow(10, eval(text[-2:].lstrip('0')))))
-                        self.input_num.lineEdit_input.setText(text)  # 将键盘初始内容设置为点击的lineEdit文本内容
-                        self.input_num.lineEdit_input.setFocus()
-                        self.input_num.lineEdit_input.selectAll()  # 将键盘初始内容设置为全选状态
+                        self.input_num = InputNumericType(text)
                         self.input_num.show()
                         self.input_num.btn_input_ok.clicked.connect(self.press_show)
         return QWidget.eventFilter(self, object, event)

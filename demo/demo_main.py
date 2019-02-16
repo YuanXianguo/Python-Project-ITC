@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QHeaderView
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QStandardItemModel, QFont
+from PyQt5.QtGui import QStandardItemModel, QFont, QMouseEvent
 
 from demo import Ui_Form  # 导入主界面类
 from formula_list import FormulaList  # 导入配方列表类
@@ -594,6 +594,15 @@ class MyWindow(QWidget, Ui_Form):
         self.setting = DataSet()
         self.setting.show()
 
+    def eventFilter(self, object, event):
+        """给lineEdit添加单击左键事件过滤器"""
+        if object == self.lineEdit_input:
+            if event.type() == QMouseEvent.MouseButtonPress:
+                mouse_event = QMouseEvent(event)
+                if mouse_event.buttons() == Qt.LeftButton:
+                    self.has_selected = 0
+        return QWidget.eventFilter(self, object, event)
+
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
             self.close()
@@ -601,7 +610,7 @@ class MyWindow(QWidget, Ui_Form):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    my_show = MyWindow(2)
+    my_show = MyWindow(4)
     # my_show.showFullScreen()  # 全屏显示
     my_show.show()
     sys.exit(app.exec_())

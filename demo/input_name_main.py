@@ -8,10 +8,11 @@ from input_name import Ui_input_name
 class InputName(QWidget, Ui_input_name):
     """名字输入"""
 
-    def __init__(self):
+    def __init__(self, text=''):
         super().__init__()
         self.setupUi(self)
         self.width_, self.height_ = 660, 300
+        self.text = text
         self.setting()
         self.input_name_process()
 
@@ -27,6 +28,9 @@ class InputName(QWidget, Ui_input_name):
 
     def input_name_process(self):
         """处理函数"""
+        self.lineEdit_input.setText(self.text)  # 将键盘初始内容设置为点击的lineEdit文本内容
+        self.lineEdit_input.setFocus()
+        self.lineEdit_input.selectAll()  # 将键盘初始内容设置为全选状态
         self.lineEdit_input.installEventFilter(self)  # 添加事件过滤器
         self.lowered = 0  # 判断是否显示的小写
         self.has_selected = 1  # 判断输入框是否有被选择的文本

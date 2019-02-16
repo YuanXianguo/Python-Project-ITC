@@ -325,10 +325,7 @@ class EditFormula(QWidget, Ui_Form):
             self.btn_input_list.append('self.input_num.btn_input_{}'.format(i))
         if text != '-' and (index.row(), index.column()) != (0, 0) and (index.row(), index.column()) not in self.column_list[1][-2:] \
                 and (index.row(), index.column()) not in self.column_list[1][self.para_list.index('伺服'):self.para_list.index('伺服') + 3]:
-            self.input_num = InputNumericType()  # 实例化数值型键盘
-            self.input_num.lineEdit_input.setText(text)  # 将键盘初始内容设置为点击的lineEdit文本内容
-            self.input_num.lineEdit_input.setFocus()
-            self.input_num.lineEdit_input.selectAll()  # 将键盘初始内容设置为全选状态
+            self.input_num = InputNumericType(text)  # 实例化数值型键盘
             self.input_num.btn_input_11.setEnabled(False)  # 将负号设置为不可选
             self.input_num.show()
             if (index.row(), index.column()) in self.column_list[0][:self.para_list.index('伺服')] \
@@ -344,10 +341,7 @@ class EditFormula(QWidget, Ui_Form):
             self.input_num.btn_input_ok.clicked.connect(self.tableView_show)  # 单击确定将键盘文本输出到当前index
             """名字键盘"""
         elif (index.row(), index.column()) == (0, 0):
-            self.input_name = InputName()  # 实例化名字键盘
-            self.input_name.lineEdit_input.setText(self.formula_name)  # 将键盘初始内容设置为点击的lineEdit文本内容
-            self.input_name.lineEdit_input.setFocus()
-            self.input_name.lineEdit_input.selectAll()  # 将键盘初始内容设置为全选状态
+            self.input_name = InputName(self.formula_name)  # 实例化名字键盘
             self.input_name.show()
             self.input_name.btn_input_ok.clicked.connect(self.formula_name_changed)  # 单击确定将修改配方名字
 
