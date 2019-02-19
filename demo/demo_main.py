@@ -1,7 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QHeaderView
+from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QHeaderView, QAbstractItemView
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QStandardItemModel, QFont, QMouseEvent
+from PyQt5.QtGui import QStandardItemModel, QFont, QMouseEvent, QStandardItem
 
 from demo import Ui_Form  # 导入主界面类
 from formula_list import FormulaList  # 导入配方列表类
@@ -453,8 +453,21 @@ class MyWindow(QWidget, Ui_Form):
                 eval(self.lab_auto_abcd_list[work_pos_index][self.current_test[work_pos_index][1]][5]).setText('不合格')
         except:
             pass
-        current_list = [self.lab_data_time.text(), self.lineEdit_0.text(), ]
+
+        # 保存测试结果
+        # self.para_list = ['系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果', 'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果',
+        #                   'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果', 'C-ΔP1', 'C-ΔP2', 'C-全开扭矩', 'C-全关扭矩', 'C-测试结果',
+        #                   'D-ΔP1', 'D-ΔP2', 'D-全开扭矩', 'D-全关扭矩', 'D-测试结果', '合格数', '不合格数', '总数', '合格率']
+        text_list = eval(self.lab_auto_formula_list[work_pos_index]).text().split('，')
+        current_list = [self.lab_data_time.text(), self.lineEdit_0.text(), text_list[0], text_list[1], eval(self.lab_auto_time_list[work_pos_index]).text(),
+                        eval(self.lab_auto_state_list[work_pos_index]).text()]
+        for i in range(4):
+            for j in range(5):
+                current_list.append(eval(self.lab_auto_abcd_list[work_pos_index][i][j+1]).text())
+        for i in range(4):
+            current_list.append(str(self.data_count_data_list[work_pos_index+1][i]))
         self.test_result_list[work_pos_index].append(current_list)
+        print(self.test_result_list)
 
     def not_pass_check(self):
         if self.btn_not_pass_check.isChecked():
@@ -513,20 +526,20 @@ class MyWindow(QWidget, Ui_Form):
                 self.update_data_count(i)
 
     def update_pos(self, work_pos_index, j):
-        """模拟计数器"""
+        """计数器"""
         update_list = [work_pos_index, 0, -1]
-        for work_pos_index in update_list:
-            self.data_count_data_list[work_pos_index][j] += 1
-            self.update_data_count(work_pos_index)
+        for work_pos_index_ in update_list:
+            self.data_count_data_list[work_pos_index_][j] += 1
+            self.update_data_count(work_pos_index_)
 
     def update_data_count(self, i):
         """对修改的标签进行更新"""
         self.data_count_data_list[i][2] = self.data_count_data_list[i][0] + self.data_count_data_list[i][1]
         self.data_count_data_list[i][3] = '{:.2f}%'.format(self.data_count_data_list[i][0] / self.data_count_data_list[i][2] * 100) \
             if self.data_count_data_list[i][2] != 0 else '{:.2f}%'.format(0)
-        for i in range(self.total_work_poses + 2):  # 将计数标签显示相应结果
-            for j in range(4):
-                eval(self.lab_count_list[j][i]).setText(str(self.data_count_data_list[i][j]))
+        # for i in range(self.total_work_poses + 2):  # 将计数标签显示相应结果
+        for j in range(4):
+            eval(self.lab_count_list[j][i]).setText(str(self.data_count_data_list[i][j]))
 
 
     """数据处理配置函数"""
@@ -545,9 +558,8 @@ class MyWindow(QWidget, Ui_Form):
         self.btn_data_process_set.clicked.connect(self.data_set_show)  # 点击设置弹出设置界面
 
     def get_data_process_list(self):
-        for i in range(self.total_work_poses):
-            self.btn_start_list.append(1)
         for i in range(1, self.total_work_poses + 1):  # 获得工位列表
+            self.btn_start_list.append(1)
             self.btn_data_process_list.append('self.btn_data_process_{}'.format(i))
             self.test_result_list.append([])
 
@@ -556,18 +568,31 @@ class MyWindow(QWidget, Ui_Form):
 
     def tableView_model(self):
         """创建QTableView表格，并添加自定义模型"""
-        self.para_list = ['系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果',  'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果',
-                          'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果', 'C-ΔP1', 'C-ΔP2', 'C-全开扭矩', 'C-全关扭矩', 'C-测试结果',
-                          'D-ΔP1', 'D-ΔP2', 'D-全开扭矩', 'D-全关扭矩', 'D-测试结果', '合格数', '不合格数', '总数', '合格率']
-        self.title_list = []
+        self.para_list = ['系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果',
+                          'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果', 'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果',
+                          'C-ΔP1', 'C-ΔP2', 'C-全开扭矩', 'C-全关扭矩', 'C-测试结果', 'D-ΔP1', 'D-ΔP2', 'D-全开扭矩', 'D-全关扭矩', 'D-测试结果',
+                          '合格数', '不合格数', '总数', '合格率']
+        for i in range(len(self.para_list)):  # 用中文空白字符填充使结果对齐，并根据内容自动调整行宽
+            self.para_list[i] = '{0:{1:}^8}'.format(self.para_list[i], chr(12288))
+
+        self.row_list = []
         for i in range(20):
-            self.title_list.append('第{}行'.format(i+1))
-        self.model = QStandardItemModel(len(self.title_list), len(self.para_list))
+            self.row_list.append('第{}行'.format(i + 1))
+        self.model = QStandardItemModel(len(self.row_list), len(self.para_list))
         self.model.setHorizontalHeaderLabels(self.para_list)
-        self.model.setVerticalHeaderLabels(self.title_list)
+        self.model.setVerticalHeaderLabels(self.row_list)
         self.tableView.setModel(self.model)
         self.tableView.verticalHeader().setStretchLastSection(True)  # 表格填充窗口
         self.tableView.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tableView.horizontalHeader().setStretchLastSection(True)
+        self.tableView.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+
+    def set_new_item(self, row, column, text):
+        """设置单元格"""
+        item = QStandardItem(text)
+        item.setTextAlignment(Qt.AlignCenter)
+        item.setEditable(QAbstractItemView.NoEditTriggers)  # 设置单元格不可编辑
+        self.model.setItem(row, column, item)
 
     def data_process_show(self):
         sender = self.sender()
@@ -589,6 +614,15 @@ class MyWindow(QWidget, Ui_Form):
                 eval(self.start_test_list[work_pos_index]).start_signal_list[work_pos_index][1] = 1
             except:
                 pass
+
+        for row in range(len(self.row_list)):
+            for column in range(len(self.para_list)):
+                try:
+                    text = str(self.test_result_list[work_pos_index][row][column])
+                    print(text)
+                except:
+                    text = ''
+                self.set_new_item(row, column, text)
 
     def data_set_show(self):
         self.setting = DataSet()
