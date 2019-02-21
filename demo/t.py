@@ -1,5 +1,0 @@
-l = list('python')
-l.sort()
-s = ''.join(l)
-print(s)
-print(eval(1))

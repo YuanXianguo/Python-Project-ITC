@@ -143,7 +143,6 @@ class AutoClient(QThread):
                         start = time.perf_counter()  # 下一步重新计时
                         if self.current_step == self.formula_steps:  # 当前工件测试完成
                             self.count += 1  # 合格数加1
-                            self.pass_count_signal.emit(self.work_pos_index + 1, 0)
                     self.client_signal.emit(self.work_pos_index, self.slot)
                     if time.perf_counter() - start_time > 20:
                         self.text = '测试超时'
@@ -151,6 +150,7 @@ class AutoClient(QThread):
                         self.state = 0
                     if not self.state:
                         self.text = '{}腔{}'.format(self.which_test, self.text) if self.text in ['保气ΔP1泄露', '保气ΔP2泄露'] else self.text
+                        self.pass_count_signal.emit(self.work_pos_index + 1, 1)
                         self.error_signal.emit(self.work_pos_index, self.text)
                 time.sleep(0.005)
             if not self.running:  # 按下急停
@@ -158,6 +158,7 @@ class AutoClient(QThread):
                 self.reset(1)
             else:
                 self.text = '合格'
+                self.pass_count_signal.emit(self.work_pos_index + 1, 0)
         except:
             self.text = '配方第{}步有误！'.format(self.current_step + 1)
         self.error_signal.emit(self.work_pos_index, self.text)

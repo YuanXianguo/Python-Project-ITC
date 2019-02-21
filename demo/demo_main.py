@@ -1,4 +1,4 @@
-import sys
+import sys, xlwt, xlrd, xlutils.copy
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QHeaderView, QAbstractItemView
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QFont, QMouseEvent, QStandardItem
@@ -9,6 +9,7 @@ from edit_formula import EditFormula  # 导入编辑配方类
 from servo_set_main import ServoSet  # 导入伺服设定类
 from press_set_main import PressSet  # 导入压力设定类
 from data_set_main import DataSet  # 导入数据设定类
+from input_numeric_type import InputNumericType  # 导入数值型键盘类
 from input_name_main import InputName  # 导入名字键盘类
 from demo_client import AutoClient, StartTest, SysTime  # 导入通信类
 
@@ -398,6 +399,12 @@ class MyWindow(QWidget, Ui_Form):
         self.get_auto_list()
         self.btn_not_pass_check.clicked.connect(self.not_pass_check)
 
+    def not_pass_check(self):
+        if self.btn_not_pass_check.isChecked():
+            self.btn_not_pass_check.setText('不合格品箱检测')
+        else:
+            self.btn_not_pass_check.setText('不合格品箱不检测')
+
     def get_auto_list(self):
         for i in range(1, self.total_work_poses + 1):
             self.auto_client_list.append('self.auto_client_{}'.format(i))
@@ -454,27 +461,102 @@ class MyWindow(QWidget, Ui_Form):
         except:
             pass
 
-        # 保存测试结果
-        # self.para_list = ['系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果', 'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果',
-        #                   'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果', 'C-ΔP1', 'C-ΔP2', 'C-全开扭矩', 'C-全关扭矩', 'C-测试结果',
-        #                   'D-ΔP1', 'D-ΔP2', 'D-全开扭矩', 'D-全关扭矩', 'D-测试结果', '合格数', '不合格数', '总数', '合格率']
-        text_list = eval(self.lab_auto_formula_list[work_pos_index]).text().split('，')
-        current_list = [self.lab_data_time.text(), self.lineEdit_0.text(), text_list[0], text_list[1], eval(self.lab_auto_time_list[work_pos_index]).text(),
-                        eval(self.lab_auto_state_list[work_pos_index]).text()]
-        for i in range(4):
-            for j in range(5):
-                current_list.append(eval(self.lab_auto_abcd_list[work_pos_index][i][j+1]).text())
-        for i in range(4):
-            current_list.append(str(self.data_count_data_list[work_pos_index+1][i]))
-        self.test_result_list[work_pos_index].append(current_list)
-        print(self.test_result_list)
+        # 对照参数列表保存测试结果
+        # self.para_list = ['系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果',
+        #                   'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果', 'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果',
+        #                   'C-ΔP1', 'C-ΔP2', 'C-全开扭矩', 'C-全关扭矩', 'C-测试结果', 'D-ΔP1', 'D-ΔP2', 'D-全开扭矩', 'D-全关扭矩', 'D-测试结果',
+        #                   '合格数', '不合格数', '总数', '合格率']
+        if eval(self.lab_auto_state_list[work_pos_index]).text() != '已急停':
+            text_list = eval(self.lab_auto_formula_list[work_pos_index]).text().split('，')
+            current_list = [self.lab_data_time.text(), self.lineEdit_0.text(), text_list[0], text_list[1], eval(self.lab_auto_time_list[work_pos_index]).text(),
+                            eval(self.lab_auto_state_list[work_pos_index]).text()]
+            for i in range(4):
+                for j in range(5):
+                    current_list.append(eval(self.lab_auto_abcd_list[work_pos_index][i][j+1]).text())
+            for i in range(4):
+                current_list.append(str(self.data_count_data_list[work_pos_index+1][i]))
+            self.save_test_result(work_pos_index, current_list)
 
-    def not_pass_check(self):
-        if self.btn_not_pass_check.isChecked():
-            self.btn_not_pass_check.setText('不合格品箱检测')
-        else:
-            self.btn_not_pass_check.setText('不合格品箱不检测')
+    def open_file(self):
+        file = 'test_result.xls'
+        try:  # 尝试打开文件，如果打开失败就新创建一个空excel
+            book = xlrd.open_workbook(file)
+        except:
+            book = xlwt.Workbook(encoding='utf-8')  # 创建一个Workbook对象，这就相当于创建了一个Excel文件
+            for i in range(self.total_work_poses):
+                book.add_sheet(str(i))  # 创建一个sheet对象，一个sheet对象对应Excel文件中的一张表格
+            book.save(file)
+            book = xlrd.open_workbook(file)
+        return book
 
+    def get_test_result(self, work_pos_index, start_time, end_time):
+        """读取测试结果"""
+        info_show_list = []
+        book = self.open_file()
+        try:
+            sheet = book.sheet_by_index(work_pos_index)  # 通过sheet索引获得sheet对象
+        except:
+            sheets = book.sheets()
+            sheet_count = len(sheets)
+            while sheet_count < self.total_work_poses:
+                book.add_sheet(str(sheet_count))
+                sheet_count += 1
+            sheet = book.sheet_by_index(work_pos_index)  # 通过sheet索引获得sheet对象
+        try:  # 获得已保存结果数量
+            count = eval(sheet.cell_value(0, 0))
+        except:
+            count = 0
+        time_column = sheet.col_values(0)
+        start_index, end_index = 1, 1+count
+        for time in range(start_index, end_index):
+            if time_column[time] >= start_time:
+                start_index = time
+                break
+        for time in range(start_index, end_index):
+            if time_column[time] == end_time:
+                end_index = time
+                break
+            elif time_column[time] > end_time:
+                end_index = time - 1
+                break
+        # 只显示最近的100条测试结果
+        if end_index - start_index > self.show_len:
+            start_index = end_index - self.show_len
+        for i in range(start_index, end_index):
+            try:
+                info_show_list.append(sheet.row_values(i))
+            except:
+                info_show_list.append([])
+        while len(info_show_list) < self.show_len:
+            info_show_list.append([])
+        return info_show_list
+
+    def save_test_result(self, work_pos_index, current_list):
+        """保存测试结果"""
+        file = 'test_result.xls'
+        rd_book = self.open_file()
+        rd_sheet = rd_book.sheet_by_index(work_pos_index)
+        wt_book = xlutils.copy.copy(rd_book)  # 利用xlutils.copy函数，将xlrd.Book转化为xlwt.Workbook，再用xlwt模块进行存储
+        try:
+            wt_sheet = wt_book.get_sheet(work_pos_index)  # 通过sheet索引获得sheet对象
+        except:
+            sheets = rd_book.sheets()
+            sheet_count = len(sheets)
+            while sheet_count < self.total_work_poses:
+                wt_book.add_sheet(str(sheet_count))
+                sheet_count += 1
+            wt_sheet = wt_book.get_sheet(work_pos_index)  # 通过sheet索引获得sheet对象
+        try:  # 获得已保存结果数量
+            count = eval(rd_sheet.cell_value(0, 0))
+        except:
+            count = 0
+        try:
+            for c in range(len(current_list)):
+                wt_sheet.write(count+1, c, current_list[c])
+            wt_sheet.write(0, 0, str(count+1))
+            wt_book.save(file)
+        except:
+            QMessageBox.warning(self, '保存失败！', '参数保存失败！', QMessageBox.Cancel)
 
     """计数统计配置函数"""
     def data_count_process(self):
@@ -541,7 +623,6 @@ class MyWindow(QWidget, Ui_Form):
         for j in range(4):
             eval(self.lab_count_list[j][i]).setText(str(self.data_count_data_list[i][j]))
 
-
     """数据处理配置函数"""
     def data_process(self):
         """处理数据配置的函数"""
@@ -551,7 +632,8 @@ class MyWindow(QWidget, Ui_Form):
         self.btn_start_list = []
         self.tableView_model()  # 创建QTableView表格，并添加自定义模型
         self.btn_data_process_list = []  # 存储所有工位的列表
-        self.test_result_list = []  # 储存测试结果
+        self.lineEdit_list = []  # 储存数据处理文本框的列表
+        self.current_lineEdit = ''  # 储存当前文本框
         self.get_data_process_list()  # 获得列表
         for i in self.btn_data_process_list:  # 给工位绑定槽函数
             eval(i).clicked.connect(self.data_process_show)
@@ -561,12 +643,15 @@ class MyWindow(QWidget, Ui_Form):
         for i in range(1, self.total_work_poses + 1):  # 获得工位列表
             self.btn_start_list.append(1)
             self.btn_data_process_list.append('self.btn_data_process_{}'.format(i))
-            self.test_result_list.append([])
+        for i in range(13):
+            self.lineEdit_list.append('self.lineEdit_{}'.format(i))
+            eval(self.lineEdit_list[i]).installEventFilter(self)  # 添加事件过滤器
 
     def sys_time_show(self, time):
         self.lab_data_time.setText(time)
 
     def tableView_model(self):
+        self.show_len = 100
         """创建QTableView表格，并添加自定义模型"""
         self.para_list = ['系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果',
                           'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果', 'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果',
@@ -576,7 +661,7 @@ class MyWindow(QWidget, Ui_Form):
             self.para_list[i] = '{0:{1:}^8}'.format(self.para_list[i], chr(12288))
 
         self.row_list = []
-        for i in range(20):
+        for i in range(self.show_len):
             self.row_list.append('第{}行'.format(i + 1))
         self.model = QStandardItemModel(len(self.row_list), len(self.para_list))
         self.model.setHorizontalHeaderLabels(self.para_list)
@@ -614,15 +699,18 @@ class MyWindow(QWidget, Ui_Form):
                 eval(self.start_test_list[work_pos_index]).start_signal_list[work_pos_index][1] = 1
             except:
                 pass
-
+        start_time = '{}-{}-{} {}:{}:{}'.format(eval(self.lineEdit_list[1]).text(), eval(self.lineEdit_list[2]).text(), eval(self.lineEdit_list[3]).text(),
+                                                eval(self.lineEdit_list[4]).text(), eval(self.lineEdit_list[5]).text(), eval(self.lineEdit_list[6]).text())
+        end_time = '{}-{}-{} {}:{}:{}'.format(eval(self.lineEdit_list[7]).text(), eval(self.lineEdit_list[8]).text(), eval(self.lineEdit_list[9]).text(),
+                                              eval(self.lineEdit_list[10]).text(), eval(self.lineEdit_list[11]).text(), eval(self.lineEdit_list[12]).text())
+        test_result_list = self.get_test_result(work_pos_index, start_time, end_time)
         for row in range(len(self.row_list)):
             for column in range(len(self.para_list)):
                 try:
-                    text = str(self.test_result_list[work_pos_index][row][column])
-                    print(text)
+                    text = str(test_result_list[row][column])
+                    self.set_new_item(row, column, text)
                 except:
-                    text = ''
-                self.set_new_item(row, column, text)
+                    self.set_new_item(row, column, '')
 
     def data_set_show(self):
         self.setting = DataSet()
@@ -630,12 +718,43 @@ class MyWindow(QWidget, Ui_Form):
 
     def eventFilter(self, object, event):
         """给lineEdit添加单击左键事件过滤器"""
-        if object == self.lineEdit_input:
-            if event.type() == QMouseEvent.MouseButtonPress:
-                mouse_event = QMouseEvent(event)
-                if mouse_event.buttons() == Qt.LeftButton:
-                    self.has_selected = 0
+        for i in self.lineEdit_list:
+            if object == eval(i):
+                if event.type() == QMouseEvent.MouseButtonPress:
+                    mouse_event = QMouseEvent(event)
+                    if mouse_event.buttons() == Qt.LeftButton:
+                        self.current_lineEdit = object
+                        if self.current_lineEdit == self.lineEdit_0:
+                            self.input_num = InputName(self.current_lineEdit.text())
+                        else:
+                            self.input_num = InputNumericType(self.current_lineEdit.text())
+                            self.input_num.btn_input_10.setEnabled(False)  # 将小数点设置为不可选
+                            self.input_num.btn_input_11.setEnabled(False)  # 将步负号设置为不可选
+                        self.input_num.show()
+                        self.input_num.btn_input_ok.clicked.connect(self.input_time)
         return QWidget.eventFilter(self, object, event)
+
+    def input_time(self):
+        text = self.input_num.lineEdit_input.text()
+        if self.current_lineEdit == self.lineEdit_0:
+            self.current_lineEdit.setText(text)
+        elif self.current_lineEdit == self.lineEdit_1 or self.current_lineEdit == self.lineEdit_7:
+            if 2018 < eval(text) < 2990:
+                self.current_lineEdit.setText(text)
+            else:
+                QMessageBox.warning(self, '非法输入！', '请输入2019年以后的年份！')
+        else:
+            text = text.lstrip('0')
+            text = '0' if text == '' else text
+            if ((self.current_lineEdit == self.lineEdit_2 or self.current_lineEdit == self.lineEdit_8) and 0 < eval(text) < 13) \
+                    or ((self.current_lineEdit == self.lineEdit_3 or self.current_lineEdit == self.lineEdit_9) and 0 < eval(text) < 32) \
+                    or ((self.current_lineEdit == self.lineEdit_4 or self.current_lineEdit == self.lineEdit_10) and 0 <= eval(text) < 24) \
+                    or ((self.current_lineEdit == self.lineEdit_5 or self.current_lineEdit == self.lineEdit_6 or self.current_lineEdit == self.lineEdit_11
+                         or self.current_lineEdit == self.lineEdit_12) and 0 <= eval(text) < 60):
+                self.current_lineEdit.setText('{:0>2}'.format(text))
+            else:
+                QMessageBox.warning(self, '非法输入！', '请输入有效的内容！')
+        self.input_num.close()
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Escape:
