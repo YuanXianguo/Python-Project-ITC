@@ -520,8 +520,11 @@ class MyWindow(QWidget, Ui_Form):
                 end_index = time - 1
                 break
         # 只显示最近的100条测试结果
-        if end_index - start_index > self.show_len:
-            start_index = end_index - self.show_len
+        # if end_index - start_index > self.show_len:
+        #     start_index = end_index - self.show_len
+        length = end_index - start_index
+        if length > self.len_flag[work_pos_index]:
+            self.len_flag[work_pos_index] = length
         for i in range(start_index, end_index):
             try:
                 info_show_list.append(sheet.row_values(i))
@@ -619,8 +622,7 @@ class MyWindow(QWidget, Ui_Form):
         self.data_count_data_list[i][2] = self.data_count_data_list[i][0] + self.data_count_data_list[i][1]
         self.data_count_data_list[i][3] = '{:.2f}%'.format(self.data_count_data_list[i][0] / self.data_count_data_list[i][2] * 100) \
             if self.data_count_data_list[i][2] != 0 else '{:.2f}%'.format(0)
-        # for i in range(self.total_work_poses + 2):  # 将计数标签显示相应结果
-        for j in range(4):
+        for j in range(4):  # 将计数标签显示相应结果
             eval(self.lab_count_list[j][i]).setText(str(self.data_count_data_list[i][j]))
 
     """数据处理配置函数"""
@@ -649,9 +651,11 @@ class MyWindow(QWidget, Ui_Form):
 
     def sys_time_show(self, time):
         self.lab_data_time.setText(time)
+        self.lineEdit_1.setText('2019')
+        self.lineEdit_7.setText('2019')
 
     def tableView_model(self):
-        self.show_len = 100
+        self.show_len = 20
         """创建QTableView表格，并添加自定义模型"""
         self.para_list = ['系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果',
                           'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果', 'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果',
@@ -659,13 +663,20 @@ class MyWindow(QWidget, Ui_Form):
                           '合格数', '不合格数', '总数', '合格率']
         for i in range(len(self.para_list)):  # 用中文空白字符填充使结果对齐，并根据内容自动调整行宽
             self.para_list[i] = '{0:{1:}^8}'.format(self.para_list[i], chr(12288))
-
         self.row_list = []
-        for i in range(self.show_len):
-            self.row_list.append('第{}行'.format(i + 1))
-        self.model = QStandardItemModel(len(self.row_list), len(self.para_list))
+        self.len_flag = []
+        for i in range(self.total_work_poses):
+            self.row_list.append([])
+            self.len_flag.append(self.show_len)
+        self.update_model(0)
+
+    def update_model(self, work_pos_index):
+        self.row_list[work_pos_index].clear()
+        for j in range(self.len_flag[work_pos_index]):
+            self.row_list[work_pos_index].append('第{}行'.format(j + 1))
+        self.model = QStandardItemModel(len(self.row_list[work_pos_index]), len(self.para_list))
         self.model.setHorizontalHeaderLabels(self.para_list)
-        self.model.setVerticalHeaderLabels(self.row_list)
+        self.model.setVerticalHeaderLabels(self.row_list[work_pos_index])
         self.tableView.setModel(self.model)
         self.tableView.verticalHeader().setStretchLastSection(True)  # 表格填充窗口
         self.tableView.verticalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -704,7 +715,11 @@ class MyWindow(QWidget, Ui_Form):
         end_time = '{}-{}-{} {}:{}:{}'.format(eval(self.lineEdit_list[7]).text(), eval(self.lineEdit_list[8]).text(), eval(self.lineEdit_list[9]).text(),
                                               eval(self.lineEdit_list[10]).text(), eval(self.lineEdit_list[11]).text(), eval(self.lineEdit_list[12]).text())
         test_result_list = self.get_test_result(work_pos_index, start_time, end_time)
-        for row in range(len(self.row_list)):
+        # self.len_flag[work_pos_index] += 1
+        # self.row_list[work_pos_index].append('第{}行'.format(self.len_flag[work_pos_index]))
+        self.update_model(work_pos_index)
+
+        for row in range(len(test_result_list)):
             for column in range(len(self.para_list)):
                 try:
                     text = str(test_result_list[row][column])
