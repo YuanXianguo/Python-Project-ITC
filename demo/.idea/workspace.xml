@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="71a0b1a2-c964-4a49-a120-b94e38e31f20" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/test_result.xls" beforeDir="false" afterPath="$PROJECT_DIR$/test_result.xls" afterDir="false" />
-    </list>
+    <list default="true" id="71a0b1a2-c964-4a49-a120-b94e38e31f20" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +12,7 @@
     <session id="-485980322">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -30,8 +29,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="632" />
-    <option name="y" value="49" />
+    <option name="x" value="371" />
+    <option name="y" value="103" />
     <option name="width" value="1419" />
     <option name="height" value="975" />
   </component>
@@ -57,7 +56,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Python-Database-Programming/python操作mysql/flask_news" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
@@ -88,7 +87,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="632" y="49" width="1419" height="975" extended-state="0" />
+    <frame x="371" y="103" width="1419" height="975" extended-state="0" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24946544" />
