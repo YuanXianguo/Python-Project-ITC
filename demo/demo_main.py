@@ -1,6 +1,5 @@
 import sys, xlwt, xlrd, xlutils.copy
-from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QHeaderView, \
-    QAbstractItemView
+from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QHeaderView, QAbstractItemView
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QFont, QMouseEvent, QStandardItem
 
@@ -13,8 +12,6 @@ from data_set_main import DataSet  # 导入数据设定类
 from input_numeric_type import InputNumericType  # 导入数值型键盘类
 from input_name_main import InputName  # 导入名字键盘类
 from demo_client import AutoClient, StartTest, SysTime  # 导入通信类
-import settings
-from sqlite_sqlalchemy import Crud
 
 
 class MyWindow(QWidget, Ui_Form):
@@ -24,8 +21,7 @@ class MyWindow(QWidget, Ui_Form):
         super().__init__()
         self.setupUi(self)
         self.width_, self.height_ = 1024, 768
-        # self.setting()
-        settings.get_set(self)
+        self.setting()
         self.total_work_poses = total_work_poses
         self.chinese_english()
         self.main_process()
@@ -34,6 +30,15 @@ class MyWindow(QWidget, Ui_Form):
         self.auto_test_process()  # 处理自动测试的函数
         self.data_count_process()  # 处理计数统计的函数
         self.data_process()  # 处理数据处理的函数
+
+    def setting(self):
+        self.screen_rect = QApplication.desktop().screenGeometry()  # 获取显示器分辨率大小
+        self.screen_height = self.screen_rect.height()
+        self.screen_width = self.screen_rect.width()
+        self.setGeometry((self.screen_width - self.width_) // 2, (self.screen_height - self.height_) // 2, self.width_, self.height_)
+        self.setWindowModality(Qt.ApplicationModal)  # 应用程序模态，程序未完成当前对话框时，阻止和任何其他窗口进行交互
+        self.setWindowFlags(Qt.CustomizeWindowHint)  # 隐藏标题
+        self.setFixedSize(self.width(), self.height())  # 禁止拉伸窗口大小
 
     def get_sender_index(self, sender):
         """获得发送信号的工位索引"""
@@ -142,16 +147,12 @@ class MyWindow(QWidget, Ui_Form):
         self.btn_servo_set_list = []
         self.btn_press_set_list = []
         self.btn_manual_test_list = []
-        btn_list1 = ['self.btn_out_leak_', 'self.btn_in_leak_',
-                     'self.btn_high_press_', 'self.btn_low_press_',
-                     'self.btn_seal_', 'self.btn_exhaust_']
+        btn_list1 = ['self.btn_out_leak_', 'self.btn_in_leak_', 'self.btn_high_press_', 'self.btn_low_press_', 'self.btn_seal_', 'self.btn_exhaust_']
         btn_list2 = []
         for i in range(1, 7):
             btn_list2.append('self.btn_action{}_'.format(i))
         btn_list3 = ['self.btn_A_', 'self.btn_B_', 'self.btn_C_', 'self.btn_D_']
-        btn_list4 = ['self.btn_press_total', 'self.btn_press_high',
-                     'self.btn_press_low', 'self.btn_press_sealed',
-                     'self.btn_press_fix']
+        btn_list4 = ['self.btn_press_total', 'self.btn_press_high', 'self.btn_press_low', 'self.btn_press_sealed', 'self.btn_press_fix']
         for i in range(self.total_work_poses):
             self.btn_manual_test_list.append([])
         for i in range(1, self.total_work_poses + 1):
@@ -245,13 +246,10 @@ class MyWindow(QWidget, Ui_Form):
         work_pos_index = self.get_sender_index(work_pos)
         current_lab = eval(self.lab_work_pos_show_list[work_pos_index - 1])
         current_formula = self.formula_li.formula_list[index.row()]
-        text = '{}'.format(current_formula[current_formula.index('：')
-                                           + 1:current_formula.index('，')])
+        text = '{}'.format(current_formula[current_formula.index('：') + 1:current_formula.index('，')])
         current_lab.setText(text)  # 将当前标签显示为配方名字
-        formula_index = eval(current_formula[current_formula.index('方')
-                                             + 1:current_formula.index('：')])
-        # 将当前工位与当前调用配方组成键值对
-        self.current_formula_dict[work_pos_index] = formula_index
+        formula_index = eval(current_formula[current_formula.index('方') + 1:current_formula.index('：')])
+        self.current_formula_dict[work_pos_index] = formula_index  # 将当前工位与当前调用配方组成键值对
         self.formula_li.close()
 
     def edit_formula_show(self):
@@ -263,8 +261,7 @@ class MyWindow(QWidget, Ui_Form):
             self.edit_for = EditFormula(current_formula_index)  # 实例化编辑配方
             # self.edit_for.showFullScreen()  # 全屏显示
             self.edit_for.show()
-            # 编辑配方退出时刷新显示配方调用标签
-            self.edit_for.update_work_pos.connect(self.update_formula_show)
+            self.edit_for.update_work_pos.connect(self.update_formula_show)  # 编辑配方退出时刷新显示配方调用标签
         except:
             QMessageBox.warning(self, '操作失败！', '请先调用一个配方！')
 
@@ -272,8 +269,7 @@ class MyWindow(QWidget, Ui_Form):
         """编辑退出后刷新显示配方调用的标签"""
         for i in self.current_formula_dict.items():
             if i[1] == work_pos_index:
-                eval(self.lab_work_pos_show_list[i[0]-1]).setText('{}'.format(
-                    self.edit_for.formula_name))
+                eval(self.lab_work_pos_show_list[i[0]-1]).setText('{}'.format(self.edit_for.formula_name))
 
     def load_formula_show(self):
         """装载配方"""
@@ -283,100 +279,75 @@ class MyWindow(QWidget, Ui_Form):
             formula_index = self.current_formula_dict[work_pos_index + 1]
             self.edit_for = EditFormula(formula_index)  # 实例化编辑配方
             # 装载后将配方显示为红色
-            eval(self.lab_work_pos_show_list[work_pos_index]).setStyleSheet(
-                'color: rgb(255, 0, 0);\n''background-color: rgb(0, 0, 0);')
+            eval(self.lab_work_pos_show_list[work_pos_index]).setStyleSheet('color: rgb(255, 0, 0);\n''background-color: rgb(0, 0, 0);')
 
             # 设置自动测试配方显示
-            eval(self.lab_auto_formula_list[work_pos_index]).setText(
-                '{}，测{}腔'.format(self.edit_for.formula_name,
-                                 self.edit_for.formula_mode))
-            eval(self.lab_auto_formula_list[work_pos_index]).setStyleSheet(
-                'color: rgb(255, 0, 0);\n''background-color: rgb(0, 0, 0);')
+            eval(self.lab_auto_formula_list[work_pos_index]).setText('{}，测{}腔'.format(self.edit_for.formula_name, self.edit_for.formula_mode))
+            eval(self.lab_auto_formula_list[work_pos_index]).setStyleSheet('color: rgb(255, 0, 0);\n''background-color: rgb(0, 0, 0);')
 
             # 实例化响应工位测试线程
             if work_pos_index == 0:
-                self.auto_client_1 = AutoClient(work_pos_index, formula_index,
-                                                self.edit_for.formula_steps)
+                self.auto_client_1 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_1 = StartTest(work_pos_index)
             elif work_pos_index == 1:
-                self.auto_client_2 = AutoClient(work_pos_index, formula_index,
-                                                self.edit_for.formula_steps)
+                self.auto_client_2 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_2 = StartTest(work_pos_index)
             elif work_pos_index == 2:
-                self.auto_client_3 = AutoClient(work_pos_index, formula_index,
-                                                self.edit_for.formula_steps)
+                self.auto_client_3 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_3 = StartTest(work_pos_index)
             elif work_pos_index == 3:
-                self.auto_client_4 = AutoClient(work_pos_index, formula_index,
-                                                self.edit_for.formula_steps)
+                self.auto_client_4 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_4 = StartTest(work_pos_index)
             elif work_pos_index == 4:
-                self.auto_client_5 = AutoClient(work_pos_index, formula_index,
-                                                self.edit_for.formula_steps)
+                self.auto_client_5 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_5 = StartTest(work_pos_index)
             elif work_pos_index == 5:
-                self.auto_client_6 = AutoClient(work_pos_index, formula_index,
-                                                self.edit_for.formula_steps)
+                self.auto_client_6 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_6 = StartTest(work_pos_index)
             elif work_pos_index == 6:
-                self.auto_client_7 = AutoClient(work_pos_index, formula_index,
-                                                self.edit_for.formula_steps)
+                self.auto_client_7 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_7 = StartTest(work_pos_index)
             elif work_pos_index == 7:
-                self.auto_client_8 = AutoClient(work_pos_index, formula_index,
-                                                self.edit_for.formula_steps)
+                self.auto_client_8 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_8 = StartTest(work_pos_index)
             elif work_pos_index == 8:
-                self.auto_client_9 = AutoClient(work_pos_index, formula_index,
-                                                self.edit_for.formula_steps)
+                self.auto_client_9 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_9 = StartTest(work_pos_index)
             elif work_pos_index == 9:
-                self.auto_client_10 = AutoClient(work_pos_index, formula_index,
-                                                 self.edit_for.formula_steps)
+                self.auto_client_10 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_10 = StartTest(work_pos_index)
             elif work_pos_index == 10:
-                self.auto_client_11 = AutoClient(work_pos_index, formula_index,
-                                                 self.edit_for.formula_steps)
+                self.auto_client_11 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_11 = StartTest(work_pos_index)
             elif work_pos_index == 11:
-                self.auto_client_12 = AutoClient(work_pos_index, formula_index,
-                                                 self.edit_for.formula_steps)
+                self.auto_client_12 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_12 = StartTest(work_pos_index)
             elif work_pos_index == 12:
-                self.auto_client_13 = AutoClient(work_pos_index, formula_index,
-                                                 self.edit_for.formula_steps)
+                self.auto_client_13 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_13 = StartTest(work_pos_index)
             elif work_pos_index == 13:
-                self.auto_client_14 = AutoClient(work_pos_index, formula_index,
-                                                 self.edit_for.formula_steps)
+                self.auto_client_14 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_14 = StartTest(work_pos_index)
             elif work_pos_index == 14:
-                self.auto_client_15 = AutoClient(work_pos_index, formula_index,
-                                                 self.edit_for.formula_steps)
+                self.auto_client_15 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_15 = StartTest(work_pos_index)
             elif work_pos_index == 15:
-                self.auto_client_16 = AutoClient(work_pos_index, formula_index,
-                                                 self.edit_for.formula_steps)
+                self.auto_client_16 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_16 = StartTest(work_pos_index)
             elif work_pos_index == 16:
-                self.auto_client_17 = AutoClient(work_pos_index, formula_index,
-                                                 self.edit_for.formula_steps)
+                self.auto_client_17 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_17 = StartTest(work_pos_index)
             elif work_pos_index == 17:
-                self.auto_client_18 = AutoClient(work_pos_index, formula_index,
-                                                 self.edit_for.formula_steps)
+                self.auto_client_18 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_18 = StartTest(work_pos_index)
             elif work_pos_index == 18:
-                self.auto_client_19 = AutoClient(work_pos_index, formula_index,
-                                                 self.edit_for.formula_steps)
+                self.auto_client_19 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_19 = StartTest(work_pos_index)
             elif work_pos_index == 19:
-                self.auto_client_20 = AutoClient(work_pos_index, formula_index,
-                                                 self.edit_for.formula_steps)
+                self.auto_client_20 = AutoClient(work_pos_index, formula_index, self.edit_for.formula_steps)
                 self.start_test_20 = StartTest(work_pos_index)
 
-            eval(self.auto_client_list[work_pos_index]).data_list \
-                = self.edit_for.formula_data_array[formula_index][0:self.edit_for.formula_steps]
+            eval(self.auto_client_list[work_pos_index]).data_list = self.edit_for.formula_data_array[formula_index][0:self.edit_for.formula_steps]
             eval(self.auto_client_list[work_pos_index]).client_signal.connect(self.auto_test)
             eval(self.auto_client_list[work_pos_index]).pass_count_signal.connect(self.update_pos)
             eval(self.auto_client_list[work_pos_index]).error_signal.connect(self.error_show)
@@ -456,8 +427,7 @@ class MyWindow(QWidget, Ui_Form):
         if which_test != -1:
             self.current_test[work_pos_index][0] = self.current_test[work_pos_index][1]
             self.current_test[work_pos_index][1] = which_test
-            if self.current_test[work_pos_index][0] in [0, 1, 2, 3] \
-                    and self.current_test[work_pos_index][0] != self.current_test[work_pos_index][1]:
+            if self.current_test[work_pos_index][0] in [0, 1, 2, 3] and self.current_test[work_pos_index][0] != self.current_test[work_pos_index][1]:
                 eval(self.lab_auto_abcd_list[work_pos_index][self.current_test[work_pos_index][0]][5]).setText('合格')
             for i in range(4):
                 if i == which_test:
@@ -472,8 +442,7 @@ class MyWindow(QWidget, Ui_Form):
                     eval(self.lab_auto_abcd_list[work_pos_index][i][1]).setText(slot_list[0])
                     eval(self.lab_auto_abcd_list[work_pos_index][i][2]).setText(slot_list[0])
                     eval(self.lab_auto_abcd_list[work_pos_index][i][3]).setText(slot_list[1])
-                    eval(self.lab_auto_abcd_list[work_pos_index][i][4]).setText(
-                        self.data_count_data_list[work_pos_index+1][3])
+                    eval(self.lab_auto_abcd_list[work_pos_index][i][4]).setText(self.data_count_data_list[work_pos_index+1][3])
         except:
             pass
         eval(self.lab_auto_min_press_list[work_pos_index]).setText(slot_list[2])
@@ -483,47 +452,114 @@ class MyWindow(QWidget, Ui_Form):
 
     def error_show(self, work_pos_index, text):
         eval(self.lab_auto_state_list[work_pos_index]).setText(text)
-        eval(self.lab_auto_state_list[work_pos_index]).setStyleSheet(
-            'color: rgb(255, 0, 0);\n''background-color: rgb(0, 0, 0);')
+        eval(self.lab_auto_state_list[work_pos_index]).setStyleSheet('color: rgb(255, 0, 0);\n''background-color: rgb(0, 0, 0);')
         try:
             if text == '合格':
-                eval(self.lab_auto_abcd_list[work_pos_index][self.current_test[
-                    work_pos_index][1]][5]).setText('合格')
+                eval(self.lab_auto_abcd_list[work_pos_index][self.current_test[work_pos_index][1]][5]).setText('合格')
             else:
-                eval(self.lab_auto_abcd_list[work_pos_index][self.current_test[
-                    work_pos_index][1]][5]).setText('不合格')
+                eval(self.lab_auto_abcd_list[work_pos_index][self.current_test[work_pos_index][1]][5]).setText('不合格')
         except:
             pass
 
         # 对照参数列表保存测试结果
-        # self.para_list = [
-        # '系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果',
-        # 'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果',
-        # 'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果',
-        # 'C-ΔP1', 'C-ΔP2', 'C-全开扭矩', 'C-全关扭矩', 'C-测试结果',
-        # 'D-ΔP1', 'D-ΔP2', 'D-全开扭矩', 'D-全关扭矩', 'D-测试结果',
-        # '合格数', '不合格数', '总数', '合格率']
+        # self.para_list = ['系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果',
+        #                   'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果', 'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果',
+        #                   'C-ΔP1', 'C-ΔP2', 'C-全开扭矩', 'C-全关扭矩', 'C-测试结果', 'D-ΔP1', 'D-ΔP2', 'D-全开扭矩', 'D-全关扭矩', 'D-测试结果',
+        #                   '合格数', '不合格数', '总数', '合格率']
         if eval(self.lab_auto_state_list[work_pos_index]).text() != '已急停':
             text_list = eval(self.lab_auto_formula_list[work_pos_index]).text().split('，')
-            current_list = [self.lab_data_time.text(), self.lineEdit_0.text(),
-                            text_list[0], text_list[1],
-                            eval(self.lab_auto_time_list[work_pos_index]).text(),
+            current_list = [self.lab_data_time.text(), self.lineEdit_0.text(), text_list[0], text_list[1], eval(self.lab_auto_time_list[work_pos_index]).text(),
                             eval(self.lab_auto_state_list[work_pos_index]).text()]
             for i in range(4):
                 for j in range(5):
                     current_list.append(eval(self.lab_auto_abcd_list[work_pos_index][i][j+1]).text())
             for i in range(4):
                 current_list.append(str(self.data_count_data_list[work_pos_index+1][i]))
-            # self.save_test_result(work_pos_index, current_list)
-            self.crud.add_one(current_list, work_pos_index)
+            self.save_test_result(work_pos_index, current_list)
+
+    def open_file(self):
+        file = 'test_result.xls'
+        try:  # 尝试打开文件，如果打开失败就新创建一个空excel
+            book = xlrd.open_workbook(file)
+        except:
+            book = xlwt.Workbook(encoding='utf-8')  # 创建一个Workbook对象，这就相当于创建了一个Excel文件
+            for i in range(self.total_work_poses):
+                book.add_sheet(str(i))  # 创建一个sheet对象，一个sheet对象对应Excel文件中的一张表格
+            book.save(file)
+            book = xlrd.open_workbook(file)
+        return book
 
     def get_test_result(self, work_pos_index, start_time, end_time):
         """读取测试结果"""
-        info_show_list = self.crud.get_more(work_pos_index, start_time, end_time)
+        info_show_list = []
+        book = self.open_file()
+        try:
+            sheet = book.sheet_by_index(work_pos_index)  # 通过sheet索引获得sheet对象
+        except:
+            sheets = book.sheets()
+            sheet_count = len(sheets)
+            while sheet_count < self.total_work_poses:
+                book.add_sheet(str(sheet_count))
+                sheet_count += 1
+            sheet = book.sheet_by_index(work_pos_index)  # 通过sheet索引获得sheet对象
+        try:  # 获得已保存结果数量
+            count = eval(sheet.cell_value(0, 0))
+        except:
+            count = 0
+        time_column = sheet.col_values(0)
+        start_index, end_index = 1, 1+count
+        for time in range(start_index, end_index):
+            if time_column[time] >= start_time:
+                start_index = time
+                break
+        for time in range(start_index, end_index):
+            if time_column[time] == end_time:
+                end_index = time
+                break
+            elif time_column[time] > end_time:
+                end_index = time - 1
+                break
+        # 只显示最近的100条测试结果
+        # if end_index - start_index > self.show_len:
+        #     start_index = end_index - self.show_len
+        length = end_index - start_index
+        if length > self.len_flag[work_pos_index]:
+            self.len_flag[work_pos_index] = length
+        for i in range(start_index, end_index):
+            try:
+                info_show_list.append(sheet.row_values(i))
+            except:
+                info_show_list.append([])
         while len(info_show_list) < self.show_len:
             info_show_list.append([])
         return info_show_list
 
+    def save_test_result(self, work_pos_index, current_list):
+        """保存测试结果"""
+        file = 'test_result.xls'
+        rd_book = self.open_file()
+        rd_sheet = rd_book.sheet_by_index(work_pos_index)
+        wt_book = xlutils.copy.copy(rd_book)  # 利用xlutils.copy函数，将xlrd.Book转化为xlwt.Workbook，再用xlwt模块进行存储
+        try:
+            wt_sheet = wt_book.get_sheet(work_pos_index)  # 通过sheet索引获得sheet对象
+        except:
+            sheets = rd_book.sheets()
+            sheet_count = len(sheets)
+            while sheet_count < self.total_work_poses:
+                wt_book.add_sheet(str(sheet_count))
+                sheet_count += 1
+            wt_sheet = wt_book.get_sheet(work_pos_index)  # 通过sheet索引获得sheet对象
+        try:  # 获得已保存结果数量
+            count = eval(rd_sheet.cell_value(0, 0))
+        except:
+            count = 0
+        try:
+            for c in range(len(current_list)):
+                wt_sheet.write(count+1, c, current_list[c])
+            wt_sheet.write(0, 0, str(count+1))
+            wt_book.save(file)
+        except:
+            QMessageBox.warning(self, '保存失败！', '参数保存失败！', QMessageBox.Cancel)
 
     """计数统计配置函数"""
     def data_count_process(self):
@@ -592,12 +628,9 @@ class MyWindow(QWidget, Ui_Form):
     """数据处理配置函数"""
     def data_process(self):
         """处理数据配置的函数"""
-        self.crud = Crud()
         self.sys_time = SysTime()
         self.sys_time.start()
         self.sys_time.sys_time_signal.connect(self.sys_time_show)
-        self.lineEdit_1.setText('2019')
-        self.lineEdit_7.setText('2020')
         self.btn_start_list = []
         self.tableView_model()  # 创建QTableView表格，并添加自定义模型
         self.btn_data_process_list = []  # 存储所有工位的列表
@@ -618,6 +651,8 @@ class MyWindow(QWidget, Ui_Form):
 
     def sys_time_show(self, time):
         self.lab_data_time.setText(time)
+        self.lineEdit_1.setText('2019')
+        self.lineEdit_7.setText('2019')
 
     def tableView_model(self):
         self.show_len = 20
@@ -675,20 +710,10 @@ class MyWindow(QWidget, Ui_Form):
                 eval(self.start_test_list[work_pos_index]).start_signal_list[work_pos_index][1] = 1
             except:
                 pass
-        start_time = '{}-{}-{} {}:{}:{}'.format(
-            eval(self.lineEdit_list[1]).text(),
-            eval(self.lineEdit_list[2]).text(),
-            eval(self.lineEdit_list[3]).text(),
-            eval(self.lineEdit_list[4]).text(),
-            eval(self.lineEdit_list[5]).text(),
-            eval(self.lineEdit_list[6]).text())
-        end_time = '{}-{}-{} {}:{}:{}'.format(
-            eval(self.lineEdit_list[7]).text(),
-            eval(self.lineEdit_list[8]).text(),
-            eval(self.lineEdit_list[9]).text(),
-            eval(self.lineEdit_list[10]).text(),
-            eval(self.lineEdit_list[11]).text(),
-            eval(self.lineEdit_list[12]).text())
+        start_time = '{}-{}-{} {}:{}:{}'.format(eval(self.lineEdit_list[1]).text(), eval(self.lineEdit_list[2]).text(), eval(self.lineEdit_list[3]).text(),
+                                                eval(self.lineEdit_list[4]).text(), eval(self.lineEdit_list[5]).text(), eval(self.lineEdit_list[6]).text())
+        end_time = '{}-{}-{} {}:{}:{}'.format(eval(self.lineEdit_list[7]).text(), eval(self.lineEdit_list[8]).text(), eval(self.lineEdit_list[9]).text(),
+                                              eval(self.lineEdit_list[10]).text(), eval(self.lineEdit_list[11]).text(), eval(self.lineEdit_list[12]).text())
         test_result_list = self.get_test_result(work_pos_index, start_time, end_time)
         # self.len_flag[work_pos_index] += 1
         # self.row_list[work_pos_index].append('第{}行'.format(self.len_flag[work_pos_index]))
@@ -728,8 +753,7 @@ class MyWindow(QWidget, Ui_Form):
         text = self.input_num.lineEdit_input.text()
         if self.current_lineEdit == self.lineEdit_0:
             self.current_lineEdit.setText(text)
-        elif self.current_lineEdit == self.lineEdit_1 \
-                or self.current_lineEdit == self.lineEdit_7:
+        elif self.current_lineEdit == self.lineEdit_1 or self.current_lineEdit == self.lineEdit_7:
             if 2018 < eval(text) < 2990:
                 self.current_lineEdit.setText(text)
             else:
@@ -737,15 +761,11 @@ class MyWindow(QWidget, Ui_Form):
         else:
             text = text.lstrip('0')
             text = '0' if text == '' else text
-            if ((self.current_lineEdit in [self.lineEdit_2, self.lineEdit_8])
-                    and 0 < eval(text) < 13) \
-                or ((self.current_lineEdit in [self.lineEdit_3, self.lineEdit_9])
-                    and 0 < eval(text) < 32) \
-                or ((self.current_lineEdit in [self.lineEdit_4, self.lineEdit_10])
-                    and 0 <= eval(text) < 24) \
-                or ((self.current_lineEdit in [self.lineEdit_5, self.lineEdit_6,
-                                               self.lineEdit_11, self.lineEdit_12])
-                    and 0 <= eval(text) < 60):
+            if ((self.current_lineEdit == self.lineEdit_2 or self.current_lineEdit == self.lineEdit_8) and 0 < eval(text) < 13) \
+                    or ((self.current_lineEdit == self.lineEdit_3 or self.current_lineEdit == self.lineEdit_9) and 0 < eval(text) < 32) \
+                    or ((self.current_lineEdit == self.lineEdit_4 or self.current_lineEdit == self.lineEdit_10) and 0 <= eval(text) < 24) \
+                    or ((self.current_lineEdit == self.lineEdit_5 or self.current_lineEdit == self.lineEdit_6 or self.current_lineEdit == self.lineEdit_11
+                         or self.current_lineEdit == self.lineEdit_12) and 0 <= eval(text) < 60):
                 self.current_lineEdit.setText('{:0>2}'.format(text))
             else:
                 QMessageBox.warning(self, '非法输入！', '请输入有效的内容！')

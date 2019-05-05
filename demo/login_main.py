@@ -7,7 +7,6 @@ from login import Ui_Login
 from demo_main import MyWindow
 from edit_formula import EditFormula
 from input_name_main import InputName  # 导入名字键盘类
-import settings
 
 
 class Login(QWidget, Ui_Login):
@@ -17,8 +16,17 @@ class Login(QWidget, Ui_Login):
         super().__init__()
         self.setupUi(self)
         self.width_, self.height_ = 300, 120
-        settings.get_set(self)
+        self.setting()
         self.login_process()
+
+    def setting(self):
+        self.screen_rect = QApplication.desktop().screenGeometry()  # 获取显示器分辨率大小
+        self.screen_height = self.screen_rect.height()
+        self.screen_width = self.screen_rect.width()
+        self.setGeometry((self.screen_width - self.width_) // 2, (self.screen_height - self.height_) // 2 - 2 * self.height_ + 20, self.width_, self.height_)
+        self.setWindowModality(Qt.ApplicationModal)  # 应用程序模态，程序未完成当前对话框时，阻止和任何其他窗口进行交互
+        self.setWindowFlags(Qt.WindowCloseButtonHint)  # 只显示关闭按钮
+        self.setFixedSize(self.width(), self.height())  # 禁止拉伸窗口大小
 
     def login_process(self):
         self.user_admin = 0  # 判断是否是管理员登录

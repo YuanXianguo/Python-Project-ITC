@@ -3,7 +3,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QMouseEvent
 import sys
 from input_name import Ui_input_name
-import settings
 
 
 class InputName(QWidget, Ui_input_name):
@@ -14,8 +13,18 @@ class InputName(QWidget, Ui_input_name):
         self.setupUi(self)
         self.width_, self.height_ = 660, 300
         self.text = text
-        settings.get_set(self)
+        self.setting()
         self.input_name_process()
+
+    def setting(self):
+        self.screen_rect = QApplication.desktop().screenGeometry()  # 获取显示器分辨率大小
+        self.screen_height = self.screen_rect.height()
+        self.screen_width = self.screen_rect.width()
+        self.setGeometry((self.screen_width - self.width_) // 2,
+                         (self.screen_height - self.height_) // 2, self.width_, self.height_)
+        self.setWindowModality(Qt.ApplicationModal)  # 应用程序模态，程序未完成当前对话框时，阻止和任何其他窗口进行交互
+        self.setWindowFlags(Qt.CustomizeWindowHint)  # 隐藏标题
+        self.setFixedSize(self.width(), self.height())  # 禁止拉伸窗口大小
 
     def input_name_process(self):
         """处理函数"""

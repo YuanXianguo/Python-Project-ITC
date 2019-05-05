@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QListView
 from PyQt5.QtCore import Qt, QStringListModel
 
 from edit_formula import EditFormula
-import settings
 
 
 class FormulaList(QWidget):
@@ -13,9 +12,18 @@ class FormulaList(QWidget):
         super().__init__()
         self.setWindowTitle('配方列表')
         self.width_, self.height_ = 250, 600
-        # self.setting()
-        settings.get_set(self)
+        self.setting()
         self.formula_list_process()
+
+    def setting(self):
+        self.screen_rect = QApplication.desktop().screenGeometry()  # 获取显示器分辨率大小
+        self.screen_height = self.screen_rect.height()
+        self.screen_width = self.screen_rect.width()
+        self.setGeometry((self.screen_width - self.width_) // 2, (self.screen_height - self.height_) // 2, self.width_, self.height_)
+        self.setWindowModality(Qt.ApplicationModal)  # 应用程序模态，程序未完成当前对话框时，阻止和任何其他窗口进行交互
+        # self.setWindowFlags(Qt.CustomizeWindowHint)  # 隐藏标题
+        self.setWindowFlags(Qt.WindowCloseButtonHint)
+        self.setFixedSize(self.width(), self.height())  # 禁止拉伸窗口大小
 
     def formula_list_process(self):
 

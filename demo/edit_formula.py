@@ -1,14 +1,12 @@
 import sys
 import numpy as np
-from PyQt5.QtWidgets import QApplication, QWidget, QHeaderView, QMessageBox, \
-    QAbstractItemView
+from PyQt5.QtWidgets import QApplication, QWidget, QHeaderView, QMessageBox, QAbstractItemView
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 from formula import Ui_Form  # 导入界面类
 from input_numeric_type import InputNumericType  # 导入数值型键盘类
 from input_name_main import InputName  # 导入名字键盘类
-import settings
 
 
 class EditFormula(QWidget, Ui_Form):
@@ -19,22 +17,16 @@ class EditFormula(QWidget, Ui_Form):
         super().__init__()
         self.setupUi(self)
         self.width_, self.height_ = 1024, 768
-        # self.setting()
-        settings.get_set(self)
+        self.setting()
         self.formula_index = formula_index  # 获得配方索引
         self.edit_formula_process()  # 处理编辑配方的函数
 
     def setting(self):
-        # 获取显示器分辨率大小
-
-        self.screen_rect = QApplication.desktop().screenGeometry()
+        self.screen_rect = QApplication.desktop().screenGeometry()  # 获取显示器分辨率大小
         self.screen_height = self.screen_rect.height()
         self.screen_width = self.screen_rect.width()
-        self.setGeometry((self.screen_width - self.width_) // 2,
-                         (self.screen_height - self.height_) // 2,
-                         self.width_, self.height_)
-        # 应用程序模态，程序未完成当前对话框时，阻止和任何其他窗口进行交互
-        self.setWindowModality(Qt.ApplicationModal)
+        self.setGeometry((self.screen_width - self.width_) // 2, (self.screen_height - self.height_) // 2, self.width_, self.height_)
+        self.setWindowModality(Qt.ApplicationModal)  # 应用程序模态，程序未完成当前对话框时，阻止和任何其他窗口进行交互
         self.setWindowFlags(Qt.CustomizeWindowHint)  # 隐藏标题
         self.setFixedSize(self.width(), self.height())  # 禁止拉伸窗口大小
 

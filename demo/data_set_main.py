@@ -4,7 +4,6 @@ from PyQt5.QtCore import Qt
 
 from data_set import Ui_DataSet
 from input_numeric_type import InputNumericType  # 导入数值型键盘类
-import settings
 
 
 class DataSet(QWidget, Ui_DataSet):
@@ -15,8 +14,18 @@ class DataSet(QWidget, Ui_DataSet):
         self.setupUi(self)
         self.setWindowTitle('数据导出设定')
         self.width_, self.height_ = 800, 320
-        settings.get_set(self)
+        self.setting()
         self.data_set_process()
+
+    def setting(self):
+        self.screen_rect = QApplication.desktop().screenGeometry()  # 获取显示器分辨率大小
+        self.screen_height = self.screen_rect.height()
+        self.screen_width = self.screen_rect.width()
+        self.setGeometry((self.screen_width - self.width_) // 2, (self.screen_height - self.height_) // 2, self.width_, self.height_)
+        self.setWindowModality(Qt.ApplicationModal)  # 应用程序模态，程序未完成当前对话框时，阻止和任何其他窗口进行交互
+        self.setWindowFlags(Qt.WindowCloseButtonHint)
+        # self.setWindowFlags(Qt.CustomizeWindowHint)  # 隐藏标题
+        self.setFixedSize(self.width(), self.height())  # 禁止拉伸窗口大小
 
     def data_set_process(self):
         self.btn_data_process_cancel.clicked.connect(self.data_set_exit)
