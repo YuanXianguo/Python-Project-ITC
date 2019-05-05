@@ -5,6 +5,7 @@ from PyQt5.QtGui import QMouseEvent, QFont
 
 from press_set import Ui_PressSet
 from input_numeric_type import InputNumericType  # 导入数值型键盘类
+import settings
 
 
 class PressSet(QWidget, Ui_PressSet):
@@ -18,7 +19,7 @@ class PressSet(QWidget, Ui_PressSet):
         self.work_pos_index = work_pos_index
         self.language = language
         self.set_title()
-        self.setting()
+        settings.get_set(self)
         self.press_set_process()
 
     def set_title(self):
@@ -38,16 +39,6 @@ class PressSet(QWidget, Ui_PressSet):
             self.setWindowTitle(['密封压力设定', 'Seal Pressure Setting'.upper()][self.language])
         else:
             self.setWindowTitle(['夹具压力设定', 'Fixture Pressure Setting'.upper()][self.language])
-
-    def setting(self):
-        self.screen_rect = QApplication.desktop().screenGeometry()  # 获取显示器分辨率大小
-        self.screen_height = self.screen_rect.height()
-        self.screen_width = self.screen_rect.width()
-        self.setGeometry((self.screen_width - self.width_) // 2, (self.screen_height - self.height_) // 2, self.width_, self.height_)
-        self.setWindowModality(Qt.ApplicationModal)  # 应用程序模态，程序未完成当前对话框时，阻止和任何其他窗口进行交互
-        # self.setWindowFlags(Qt.CustomizeWindowHint)  # 隐藏标题
-        self.setWindowFlags(Qt.WindowCloseButtonHint)
-        self.setFixedSize(self.width(), self.height())  # 禁止拉伸窗口大小
 
     def press_set_process(self):
         self.lineEdit_list = []

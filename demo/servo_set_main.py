@@ -5,6 +5,7 @@ from PyQt5.QtGui import QMouseEvent, QFont
 
 from servo_set import Ui_ServoSet
 from input_numeric_type import InputNumericType  # 导入数值型键盘类
+import settings
 
 
 class ServoSet(QWidget, Ui_ServoSet):
@@ -14,21 +15,11 @@ class ServoSet(QWidget, Ui_ServoSet):
         super().__init__()
         self.setupUi(self)
         self.width_, self.height_ = 450, 350
-        self.setting()
+        settings.get_set(self)
         self.work_pos_index = work_pos_index
         self.language = language
         self.setWindowTitle('{}-{}'.format(['伺服设定', 'SERVO SETTING'][self.language], self.work_pos_index))
         self.servo_set_process()
-
-    def setting(self):
-        self.screen_rect = QApplication.desktop().screenGeometry()  # 获取显示器分辨率大小
-        self.screen_height = self.screen_rect.height()
-        self.screen_width = self.screen_rect.width()
-        self.setGeometry((self.screen_width - self.width_) // 2, (self.screen_height - self.height_) // 2, self.width_, self.height_)
-        self.setWindowModality(Qt.ApplicationModal)  # 应用程序模态，程序未完成当前对话框时，阻止和任何其他窗口进行交互
-        # self.setWindowFlags(Qt.CustomizeWindowHint)  # 隐藏标题
-        self.setWindowFlags(Qt.WindowCloseButtonHint)  # 标题只显示关闭按钮
-        self.setFixedSize(self.width(), self.height())  # 禁止拉伸窗口大小
 
     def servo_set_process(self):
         self.lab_list = []
