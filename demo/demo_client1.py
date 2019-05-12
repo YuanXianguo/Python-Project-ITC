@@ -1,6 +1,5 @@
 import time
 from PyQt5.QtCore import pyqtSignal, QThread
-import socket
 
 
 class StartTest(QThread):
@@ -27,31 +26,6 @@ class StartTest(QThread):
             time.sleep(0.005)
         else:
             self.start_signal.emit(-1, 2)  # self.running=0，表示切换到手动页面
-
-
-class ManualClient(QThread):
-    """手动测试通信"""
-    man_signal = pyqtSignal(str)
-
-    def __init__(self):
-        super().__init__()
-        self.stack = []
-        self.man_run_flag = False
-
-    def run(self):
-        manual_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        manual_socket.bind(("127.0.0.1", 1060))
-        while self.man_run_flag:
-            try:
-                self.send_msg = self.stack.pop()
-                manual_socket.sendto(self.send_msg.encode("utf-8"), ("127.0.0.1", 1080))
-                rec_msg = manual_socket.recvfrom(256)[0].decode("utf-8")
-                print(rec_msg)
-                self.man_signal.emit(rec_msg)
-            except:
-                pass
-            time.sleep(0.004)
-
 
 
 class AutoClient(QThread):

@@ -1,4 +1,6 @@
-import sys, xlwt, xlrd, xlutils.copy
+import sys
+import xlwt, xlrd, xlutils.copy
+import socket
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QHeaderView, QAbstractItemView
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QFont, QMouseEvent, QStandardItem
@@ -11,7 +13,8 @@ from press_set_main import PressSet  # 导入压力设定类
 from data_set_main import DataSet  # 导入数据设定类
 from input_numeric_type import InputNumericType  # 导入数值型键盘类
 from input_name_main import InputName  # 导入名字键盘类
-from demo_client import AutoClient, StartTest, SysTime  # 导入通信类
+from demo_client import AutoClient, ManualClient, StartTest, SysTime  # 导入通信类
+from settings import setting  # 导入设置
 
 
 class MyWindow(QWidget, Ui_Form):
@@ -21,7 +24,7 @@ class MyWindow(QWidget, Ui_Form):
         super().__init__()
         self.setupUi(self)
         self.width_, self.height_ = 1024, 768
-        self.setting()
+        setting(self)
         self.total_work_poses = total_work_poses
         self.chinese_english()
         self.main_process()
@@ -30,15 +33,6 @@ class MyWindow(QWidget, Ui_Form):
         self.auto_test_process()  # 处理自动测试的函数
         self.data_count_process()  # 处理计数统计的函数
         self.data_process()  # 处理数据处理的函数
-
-    def setting(self):
-        self.screen_rect = QApplication.desktop().screenGeometry()  # 获取显示器分辨率大小
-        self.screen_height = self.screen_rect.height()
-        self.screen_width = self.screen_rect.width()
-        self.setGeometry((self.screen_width - self.width_) // 2, (self.screen_height - self.height_) // 2, self.width_, self.height_)
-        self.setWindowModality(Qt.ApplicationModal)  # 应用程序模态，程序未完成当前对话框时，阻止和任何其他窗口进行交互
-        self.setWindowFlags(Qt.CustomizeWindowHint)  # 隐藏标题
-        self.setFixedSize(self.width(), self.height())  # 禁止拉伸窗口大小
 
     def get_sender_index(self, sender):
         """获得发送信号的工位索引"""
@@ -65,7 +59,12 @@ class MyWindow(QWidget, Ui_Form):
                     eval(i).running = 0
                 except:
                     pass
+            self.man_client = ManualClient()
+            self.man_client.man_signal.connect(self.man_pr)
+            self.man_client.man_run_flag = True
+            self.man_client.start()
         elif index == 2:
+            self.man_client.man_run_flag = False
             for i in self.start_test_list:
                 try:
                     eval(i).running = 1
@@ -101,18 +100,26 @@ class MyWindow(QWidget, Ui_Form):
                                             ['手动测试1-4', '手动测试5-8', '手动测试9-12', '手动测试13-16', '手动测试17-20'],
                                             ['自动测试1-4', '自动测试5-8', '自动测试9-12', '自动测试13-16', '自动测试17-20'],
                                             ['工位1-10', '工位11-20'], ['计数1-10', '计数11-20'], ['数据导出', '工位信息']]
-        self.tabWidget_english_text_list = [['Equipment\ninformation', 'manual\ntest', 'auto\ntest', 'parameter\nsetting', 'counting', 'data\nprocessing'],
-                                            ['manual\ntest 1-4', 'manual\ntest 5-8', 'manual\ntest 9-12', 'manual\ntest 13-16', 'manual\ntest 17-20'],
-                                            ['auto\ntest 1-4', 'auto\ntest 5-8', 'auto\ntest 9-12', 'auto\ntest 13-16', 'auto\ntest 17-20'],
-                                            ['work pos 1-10', 'work pos 11-20'], ['counting 1-10', 'counting 11-20'], ['Data export', 'work pos\ninformation']]
+        self.tabWidget_english_text_list = [['Equipment\ninformation', 'manual\ntest', 'auto\ntest',
+                                             'parameter\nsetting', 'counting', 'data\nprocessing'],
+                                            ['manual\ntest 1-4', 'manual\ntest 5-8', 'manual\ntest 9-12',
+                                             'manual\ntest 13-16', 'manual\ntest 17-20'],
+                                            ['auto\ntest 1-4', 'auto\ntest 5-8', 'auto\ntest 9-12',
+                                             'auto\ntest 13-16', 'auto\ntest 17-20'],
+                                            ['work pos 1-10', 'work pos 11-20'],
+                                            ['counting 1-10', 'counting 11-20'],
+                                            ['Data export', 'work pos\ninformation']]
         for i in self.tabWidget_english_text_list:
             self.get_upper(i)
         self.tabWidget_text_list = [self.tabWidget_chinese_text_list, self.tabWidget_english_text_list]
         self.equip_chinese_text_list = ['高精密气密性测试机', '宁波意德西专用设备科技有限公司', '气源压力', '测试高压', '测试低压', '密封压力', '夹具压力']
-        self.equip_english_text_list = ['High Precision Air-Tightness\nTesting Machine', 'Ningbo ITC specialized Equipment Technology Co., Ltd.',
-                                        'air supply\npressure', 'test high\npressure', 'test low\npressure', 'seal\npressure', 'fixture\npressure']
+        self.equip_english_text_list = ['High Precision Air-Tightness\nTesting Machine',
+                                        'Ningbo ITC specialized Equipment Technology Co., Ltd.',
+                                        'air supply\npressure', 'test high\npressure', 'test low\npressure',
+                                        'seal\npressure', 'fixture\npressure']
         self.get_upper(self.equip_english_text_list)
-        self.equip_control_name_list = ['self.lab_device', 'self.lab_company', 'self.lab_gas_press', 'self.lab_high_test', 'self.lab_low_test', 'self.lab_press_sealed', 'self.lab_press_fix']
+        self.equip_control_name_list = ['self.lab_device', 'self.lab_company', 'self.lab_gas_press', 'self.lab_high_test',
+                                        'self.lab_low_test', 'self.lab_press_sealed', 'self.lab_press_fix']
         self.equip_english_font_size = [36, 24, 22, 22, 22, 22, 22]
         self.equip_chinese_font_size = [72, 36, 28, 28, 28, 28, 28]
         self.chinese_english_list = [[self.equip_control_name_list, [self.equip_chinese_text_list, self.equip_english_text_list], [self.equip_chinese_font_size, self.equip_english_font_size]]]
@@ -128,7 +135,8 @@ class MyWindow(QWidget, Ui_Form):
         for i in range(6):
             for j in range(len(self.tabWidget_list)):
                 try:
-                    eval(self.tabWidget_list[j]).setTabText(i, self.tabWidget_text_list[self.language][j][i])
+                    eval(self.tabWidget_list[j]).setTabText(
+                        i, self.tabWidget_text_list[self.language][j][i])
                 except:
                     pass
         for tab_index in range(len(self.chinese_english_list)):
@@ -137,22 +145,31 @@ class MyWindow(QWidget, Ui_Form):
                     font_size = self.chinese_english_list[tab_index][2][self.language][i]
                 except:  # 设置默认字体大小
                     font_size = [14, 12][self.language]
-                eval(self.chinese_english_list[tab_index][0][i]).setText(self.chinese_english_list[tab_index][1][self.language][i])
-                eval(self.chinese_english_list[tab_index][0][i]).setFont(QFont('Arial', font_size, QFont.Bold))
+                eval(self.chinese_english_list[tab_index][0][i]).setText(
+                    self.chinese_english_list[tab_index][1][self.language][i])
+                eval(self.chinese_english_list[tab_index][0][i]).setFont(
+                    QFont('Arial', font_size, QFont.Bold))
 
 
     """手动测试配置函数"""
     def manual_test_process(self):
         """处理手动测试的函数"""
-        self.btn_servo_set_list = []
-        self.btn_press_set_list = []
-        self.btn_manual_test_list = []
-        btn_list1 = ['self.btn_out_leak_', 'self.btn_in_leak_', 'self.btn_high_press_', 'self.btn_low_press_', 'self.btn_seal_', 'self.btn_exhaust_']
+        self.btn_servo_set_list = []  # 伺服校准
+        self.btn_press_set_list = []  # 压力校准
+        self.btn_manual_test_list = []  # 手动测试按钮二维数组
+        self.lab_manual_test_list = []
+        # 第一排测试
+        btn_list1 = ['self.btn_out_leak_', 'self.btn_in_leak_', 'self.btn_high_press_',
+                     'self.btn_low_press_', 'self.btn_seal_', 'self.btn_exhaust_']
         btn_list2 = []
+        # 第二排测试：动作阀1-6
         for i in range(1, 7):
             btn_list2.append('self.btn_action{}_'.format(i))
+        # 第三排测试：腔体测试
         btn_list3 = ['self.btn_A_', 'self.btn_B_', 'self.btn_C_', 'self.btn_D_']
-        btn_list4 = ['self.btn_press_total', 'self.btn_press_high', 'self.btn_press_low', 'self.btn_press_sealed', 'self.btn_press_fix']
+        # 总压力测试
+        btn_list4 = ['self.btn_press_total', 'self.btn_press_high', 'self.btn_press_low',
+                     'self.btn_press_sealed', 'self.btn_press_fix']
         for i in range(self.total_work_poses):
             self.btn_manual_test_list.append([])
         for i in range(1, self.total_work_poses + 1):
@@ -161,6 +178,9 @@ class MyWindow(QWidget, Ui_Form):
             self.btn_press_set_list.append('self.btn_min_press_{}'.format(i))
             for j in range(len(btn_list1)):
                 self.btn_manual_test_list[i-1].append('{}{}'.format(btn_list1[j], i))
+                self.btn_manual_test_list[i-1].append('{}{}'.format(btn_list2[j], i))
+            for j in range(len(btn_list3)):
+                self.btn_manual_test_list[i-1].append('{}{}'.format(btn_list3[j], i))
 
         self.btn_press_set_list.extend(btn_list4)
 
@@ -169,11 +189,53 @@ class MyWindow(QWidget, Ui_Form):
         for i in self.btn_press_set_list:
             eval(i).clicked.connect(self.press_set)
 
+        for work_pos in self.btn_manual_test_list:
+            for i in work_pos:
+                eval(i).clicked.connect(self.manual_test)
+
+    def manual_test(self):
+        """手动测试某个工位有动作改变，该工位差压，表压，扭矩相应改变"""
+        # work_pos_index = self.get_sender_index(self.sender())
+        # 根据sender对相应地址set
+        # 该工位显示发生改变，所以要get并刷新显示
+        # print(work_pos_index)
+        # print(self.sender())
+        # print(1)
+
+        # udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        # # 绑定一个本地信息
+        # udp_socket.bind(("127.0.0.1", 1060))
+        for work_pos in self.btn_manual_test_list:
+            for i in work_pos:
+                eval(i).setEnabled(False)
+        send_msg = self.sender().objectName()
+        self.man_client.stack.append(send_msg)
+
+    def man_pr(self, msg):
+        print(msg)
+        eval(self.btn_press_set_list[2 * (eval(msg[-1])-1)]).setText(msg)
+        eval(self.btn_press_set_list[2 * (eval(msg[-1])-1) + 1]).setText(msg)
+
+        for work_pos in self.btn_manual_test_list:
+            for i in work_pos:
+                eval(i).setEnabled(True)
+
+        # udp_socket.sendto(send_msg.encode("utf-8"), ("127.0.0.1", 1080))
+        # rec_msg = udp_socket.recvfrom(256)[0].decode("utf-8")
+        # print(rec_msg)
+
+    def pr(self, msg):
+        print(msg)
+
     def servo_set(self):
         """伺服设定"""
         work_pos_index = self.get_sender_index(self.sender())
         self.servo_setting = ServoSet(work_pos_index, self.language)
         self.servo_setting.show()
+        # print(self.servo_setting.btn_list)
+        # for i in self.servo_setting.btn_list:
+        #     eval(i).clicked.connect(self.manual_test)
+
 
     def press_set(self):
         self.current_press_set = []
@@ -362,13 +424,13 @@ class MyWindow(QWidget, Ui_Form):
         if work_pos_index == -1:
             for i in self.auto_client_list:
                 try:
-                    eval(i).running = 0
+                    eval(i).run_flag = 0
                 except:
                     pass
         else:
             if state == 1:
-                eval(self.auto_client_list[work_pos_index]).running = 1
-                eval(self.auto_client_list[work_pos_index]).state = 1
+                eval(self.auto_client_list[work_pos_index]).run_flag = 1
+                eval(self.auto_client_list[work_pos_index]).state_flag = 1
                 eval(self.auto_client_list[work_pos_index]).start()
                 eval(self.lab_auto_state_list[work_pos_index]).setText('')
                 self.current_test[work_pos_index][1] = 100
@@ -379,7 +441,7 @@ class MyWindow(QWidget, Ui_Form):
                         else:
                             eval(self.lab_auto_abcd_list[work_pos_index][i][j+1]).setText('')
             else:
-                eval(self.auto_client_list[work_pos_index]).running = 0
+                eval(self.auto_client_list[work_pos_index]).run_flag = 0
 
 
     """自动测试配置函数"""
