@@ -1,6 +1,6 @@
 import time
-from PyQt5.QtCore import pyqtSignal, QThread
 import socket
+from PyQt5.QtCore import pyqtSignal, QThread, QTimer
 
 
 class StartTest(QThread):
@@ -24,13 +24,13 @@ class StartTest(QThread):
             elif self.start_signal_list[self.work_pos_index][1] == 1:
                 self.start_signal.emit(self.work_pos_index, 0)
                 self.start_signal_list[self.work_pos_index][1] = 0
-            time.sleep(0.005)
+            time.sleep(0.004)
         else:
             self.start_signal.emit(-1, 2)  # self.running=0，表示切换到手动页面
 
 
 class ManualClient(QThread):
-    """手动测试通信"""
+    """手动测试通信客户端"""
     man_signal = pyqtSignal(str)
 
     def __init__(self):
@@ -40,18 +40,36 @@ class ManualClient(QThread):
 
     def run(self):
         manual_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        manual_socket.bind(("127.0.0.1", 1060))
         while self.man_run_flag:
             try:
                 self.send_msg = self.stack.pop()
                 manual_socket.sendto(self.send_msg.encode("utf-8"), ("127.0.0.1", 1080))
+            except:
+                pass
+            time.sleep(0.004)
+        manual_socket.close()
+
+
+class ManualServer(QThread):
+    """手动测试通信服务器"""
+    man_signal = pyqtSignal(str)
+
+    def __init__(self):
+        super().__init__()
+        self.man_run_flag = False
+
+    def run(self):
+        manual_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        manual_socket.setblocking(False)
+        manual_socket.bind(("127.0.0.1", 1060))
+        while self.man_run_flag:
+            try:
                 rec_msg = manual_socket.recvfrom(256)[0].decode("utf-8")
-                print(rec_msg)
                 self.man_signal.emit(rec_msg)
             except:
                 pass
             time.sleep(0.004)
-
+        manual_socket.close()
 
 
 class AutoClient(QThread):
@@ -75,12 +93,8 @@ class AutoClient(QThread):
                           '测压ΔP1(pa)/时间(1S)', '稳压ΔP2(pa)/时间(1S)', '最低工作压力(mbar)', '大漏值(pa)']
         self.else_test = ['伺服', '伺服转矩(N·M)', '伺服速度(r/S)', '伺服打开角度(°)',
                           '测压ΔP1(pa)/时间(1S)', '稳压ΔP2(pa)/时间(1S)', '最低工作压力(mbar)', '大漏值(pa)']
-        self.codesys_work_pos_list = []
-        self.codesys_formula_address_list = []
-        for i in range(len(self.para_list)):
-            self.codesys_formula_address_list.append(0)
-        for i in range(20):
-            self.codesys_work_pos_list.append(self.codesys_formula_address_list)
+        self.codesys_work_pos_list = [[0] * len(self.para_list)] * 20
+        print(self.codesys_work_pos_list)
 
     def servo_set(self, i):
         for j in range(1, 4):

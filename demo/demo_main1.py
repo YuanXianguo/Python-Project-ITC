@@ -13,7 +13,6 @@ from data_set_main import DataSet  # 导入数据设定类
 from input_numeric_type import InputNumericType  # 导入数值型键盘类
 from input_name_main import InputName  # 导入名字键盘类
 from demo_client import AutoClient, ManualClient, ManualServer, StartTest, SysTime  # 导入通信类
-from sqlite_sqlalchemy import TestResults, AddAndGet  # 导入数据库类
 from settings import setting  # 导入设置
 
 
@@ -424,7 +423,7 @@ class MyWindow(QWidget, Ui_Form):
                 self.start_test_20 = StartTest(work_pos_index)
 
             eval(self.auto_client_list[work_pos_index]).data_list = self.edit_for.formula_data_array[formula_index][0:self.edit_for.formula_steps]
-            # print(eval(self.auto_client_list[work_pos_index]).data_list)
+            print(eval(self.auto_client_list[work_pos_index]).data_list)
             eval(self.auto_client_list[work_pos_index]).client_signal.connect(self.auto_test)
             eval(self.auto_client_list[work_pos_index]).pass_count_signal.connect(self.update_pos)
             eval(self.auto_client_list[work_pos_index]).error_signal.connect(self.error_show)
@@ -475,7 +474,6 @@ class MyWindow(QWidget, Ui_Form):
         self.lab_auto_torque_list = []
         self.get_auto_list()
         self.btn_not_pass_check.clicked.connect(self.not_pass_check)
-        self.add_and_get = AddAndGet()
 
     def not_pass_check(self):
         if self.btn_not_pass_check.isChecked():
@@ -555,27 +553,6 @@ class MyWindow(QWidget, Ui_Form):
                 current_list.append(str(self.data_count_data_list[work_pos_index+1][i]))
             self.save_test_result(work_pos_index, current_list)
 
-    def save_test_result(self, work_pos, cur_lst):
-        new_obj = TestResults(work_pos_id=work_pos, sys_time=cur_lst[0], order=cur_lst[1], formula=cur_lst[2],
-                              test_mode=cur_lst[3], test_time=cur_lst[4], test_result=cur_lst[5],
-                              a_p1=cur_lst[6], a_p2=cur_lst[7], a_open_torque=cur_lst[8],
-                              a_close_torque=cur_lst[9], a_test_result=cur_lst[10],
-                              b_p1=cur_lst[11], b_p2=cur_lst[12], b_open_torque=cur_lst[13],
-                              b_close_torque=cur_lst[14], b_test_result=cur_lst[15],
-                              c_p1=cur_lst[16], c_p2=cur_lst[17], c_open_torque=cur_lst[18],
-                              c_close_torque=cur_lst[19], c_test_result=cur_lst[20],
-                              d_p1=cur_lst[21], d_p2=cur_lst[22], d_open_torque=cur_lst[23],
-                              d_close_torque=cur_lst[24], d_test_result=cur_lst[25],
-                              pass_count=cur_lst[26], un_pass_count=cur_lst[27],
-                              total=cur_lst[28], pass_rate=cur_lst[29])
-        self.add_and_get.add_one(new_obj)
-
-    def get_test_result(self, work_pos, start_time, end_time):
-        res = self.add_and_get.get_more(work_pos, start_time, end_time)
-        res_lst = list(map(lambda r: r.str().split(","), res))
-        return res_lst
-
-
     def open_file(self):
         file = 'test_result.xls'
         try:  # 尝试打开文件，如果打开失败就新创建一个空excel
@@ -588,7 +565,7 @@ class MyWindow(QWidget, Ui_Form):
             book = xlrd.open_workbook(file)
         return book
 
-    def get_test_result1(self, work_pos_index, start_time, end_time):
+    def get_test_result(self, work_pos_index, start_time, end_time):
         """读取测试结果"""
         info_show_list = []
         book = self.open_file()
@@ -633,7 +610,7 @@ class MyWindow(QWidget, Ui_Form):
             info_show_list.append([])
         return info_show_list
 
-    def save_test_result1(self, work_pos_index, current_list):
+    def save_test_result(self, work_pos_index, current_list):
         """保存测试结果"""
         file = 'test_result.xls'
         rd_book = self.open_file()

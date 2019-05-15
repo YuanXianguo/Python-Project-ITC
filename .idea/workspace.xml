@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96f84792-6d7b-4cbe-9359-5778a154d9b8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/demo/demo_client1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/demo_main1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/sqlite_sqlalchemy.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/demo_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo_client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/demo_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/edit_formula.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/edit_formula.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/servo_set_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/servo_set_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/test_result.xls" beforeDir="false" afterPath="$PROJECT_DIR$/demo/test_result.xls" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,9 +16,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Python_Project_Development$ww.coverage" NAME="ww Coverage Results" MODIFIED="1557798029240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$opc_with_python.coverage" NAME="opc_with_python Coverage Results" MODIFIED="1557458612034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
-    <SUITE FILE_PATH="coverage/Python_Project_Development$demo_client.coverage" NAME="demo_client Coverage Results" MODIFIED="1557475263892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
-    <SUITE FILE_PATH="coverage/Python_Project_Development$demo_main.coverage" NAME="demo_main Coverage Results" MODIFIED="1557479894564" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
+    <SUITE FILE_PATH="coverage/Python_Project_Development$demo_client.coverage" NAME="demo_client Coverage Results" MODIFIED="1557798085990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
+    <SUITE FILE_PATH="coverage/Python_Project_Development$demo_main.coverage" NAME="demo_main Coverage Results" MODIFIED="1557910661292" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-1695904243">
@@ -29,33 +28,34 @@
           <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="10" />
+          <entry key="py" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="10" />
+          <entry key="Python" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="1" />
-          <entry key="py" value="1737" />
+          <entry key="py" value="4249" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="1737" />
+          <entry key="Python" value="4249" />
         </counts>
       </usages-collector>
     </session>
@@ -65,27 +65,52 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/demo_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="66" column="48" selection-start-line="66" selection-start-column="48" selection-end-line="66" selection-end-column="48" />
+            <state relative-caret-position="262">
+              <caret line="566" column="92" lean-forward="true" selection-start-line="566" selection-start-column="92" selection-end-line="566" selection-end-column="92" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <marker date="1557478770157" expanded="true" signature="10150:10455" ph="..." />
-                <marker date="1557478770157" expanded="true" signature="10634:10659" ph="..." />
+                <element signature="e#30637#31691#0" />
+                <marker date="1557910236330" expanded="true" signature="11204:11209" ph="..." />
+                <marker date="1557910236330" expanded="true" signature="11633:11686" ph="..." />
+                <marker date="1557910236330" expanded="true" signature="29701:29866" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/demo_main1.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/edit_formula.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="668">
+              <caret line="232" selection-start-line="232" selection-end-line="232" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/demo_client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="41" selection-start-line="41" selection-end-line="41" />
+            <state relative-caret-position="2448">
+              <caret line="70" column="23" selection-start-line="70" selection-start-column="23" selection-end-line="70" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/demo/sqlite_sqlalchemy.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="648">
+              <caret line="96" column="50" selection-start-line="96" selection-start-column="50" selection-end-line="96" selection-end-column="50" />
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#89#1033#0" />
-                <marker date="1557479894501" expanded="true" signature="1078:1792" ph="..." />
-                <marker date="1557479894501" expanded="true" signature="1153:1244" ph="..." />
+                <element signature="e#0#36#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -112,11 +137,13 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/demo/settings.py" />
-        <option value="$PROJECT_DIR$/demo/edit_formula.py" />
         <option value="$PROJECT_DIR$/demo/opc_with_python.py" />
         <option value="$PROJECT_DIR$/demo/servo_set_main.py" />
-        <option value="$PROJECT_DIR$/demo/demo_main.py" />
+        <option value="$PROJECT_DIR$/demo/ww.py" />
         <option value="$PROJECT_DIR$/demo/demo_client.py" />
+        <option value="$PROJECT_DIR$/demo/edit_formula.py" />
+        <option value="$PROJECT_DIR$/demo/sqlite_sqlalchemy.py" />
+        <option value="$PROJECT_DIR$/demo/demo_main.py" />
       </list>
     </option>
   </component>
@@ -126,16 +153,17 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="-4" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="49" />
     <option name="width" value="1917" />
-    <option name="height" value="1087" />
+    <option name="height" value="1055" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -152,12 +180,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Python-Network-Programming" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Python-Database-Programming" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -246,15 +273,39 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="ww" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Python-Project-Development" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/demo" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo/ww.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.demo_main" />
       <item itemvalue="Python.opc_with_python" />
       <item itemvalue="Python.demo_client" />
+      <item itemvalue="Python.ww" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.demo_main" />
         <item itemvalue="Python.demo_client" />
+        <item itemvalue="Python.ww" />
         <item itemvalue="Python.opc_with_python" />
       </list>
     </recent_temporary>
@@ -273,15 +324,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="0" width="1917" height="1087" extended-state="1" />
+    <frame x="11" y="42" width="1917" height="1055" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13413993" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13413993" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.24774323" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32902583" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3564767" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39960238" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -312,68 +364,77 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/opc_with_python.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/demo_client1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#89#1031#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/opc_with_python.py" />
     <entry file="file://$PROJECT_DIR$/demo/servo_set_main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="25" column="18" lean-forward="true" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/demo_client1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2592">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <marker date="1557465868540" expanded="true" signature="1206:1214" ph="..." />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/ww.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/demo_client.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/demo_client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2448">
+          <caret line="70" column="23" selection-start-line="70" selection-start-column="23" selection-end-line="70" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/edit_formula.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="781">
-          <caret line="178" column="22" lean-forward="true" selection-start-line="178" selection-start-column="22" selection-end-line="178" selection-end-column="22" />
+        <state relative-caret-position="668">
+          <caret line="232" selection-start-line="232" selection-end-line="232" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/demo_main1.py">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/demo_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="66" column="48" selection-start-line="66" selection-start-column="48" selection-end-line="66" selection-end-column="48" />
+        <state relative-caret-position="262">
+          <caret line="566" column="92" lean-forward="true" selection-start-line="566" selection-start-column="92" selection-end-line="566" selection-end-column="92" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <marker date="1557478770157" expanded="true" signature="10150:10455" ph="..." />
-            <marker date="1557478770157" expanded="true" signature="10634:10659" ph="..." />
+            <element signature="e#30637#31691#0" />
+            <marker date="1557910236330" expanded="true" signature="11204:11209" ph="..." />
+            <marker date="1557910236330" expanded="true" signature="11633:11686" ph="..." />
+            <marker date="1557910236330" expanded="true" signature="29701:29866" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/demo_client.py">
+    <entry file="file://$PROJECT_DIR$/demo/sqlite_sqlalchemy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        <state relative-caret-position="648">
+          <caret line="96" column="50" selection-start-line="96" selection-start-column="50" selection-end-line="96" selection-end-column="50" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#89#1033#0" />
-            <marker date="1557479894501" expanded="true" signature="1078:1792" ph="..." />
-            <marker date="1557479894501" expanded="true" signature="1153:1244" ph="..." />
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
