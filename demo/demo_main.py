@@ -1,5 +1,4 @@
 import sys
-import xlwt, xlrd, xlutils.copy
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QHeaderView, QAbstractItemView
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QFont, QMouseEvent, QStandardItem
@@ -14,6 +13,7 @@ from input_numeric_type import InputNumericType  # 导入数值型键盘类
 from input_name_main import InputName  # 导入名字键盘类
 from demo_client import AutoClient, ManualClient, ManualServer, StartTest, SysTime  # 导入通信类
 from sqlite_sqlalchemy import TestResults, AddAndGet  # 导入数据库类
+from sqlite_sqlalchemy_process import TestProcess, AddAndGetP  # 导入数据库类
 from settings import setting  # 导入设置
 
 
@@ -476,6 +476,7 @@ class MyWindow(QWidget, Ui_Form):
         self.get_auto_list()
         self.btn_not_pass_check.clicked.connect(self.not_pass_check)
         self.add_and_get = AddAndGet()
+        self.add_and_get_p = AddAndGetP()
 
     def not_pass_check(self):
         if self.btn_not_pass_check.isChecked():
@@ -527,6 +528,13 @@ class MyWindow(QWidget, Ui_Form):
         eval(self.lab_auto_leak_list[work_pos_index]).setText(slot_list[3])
         eval(self.lab_auto_torque_list[work_pos_index]).setText(slot_list[4])
         eval(self.lab_auto_time_list[work_pos_index]).setText(slot_list[5])
+        self.add_one(work_pos_index, slot_list)
+
+    def add_one(self, work_pos_index, slot_list):
+        new_obj = TestProcess(work_pos_id=work_pos_index, sys_time=self.lab_data_time.text(),
+                              a_p1=slot_list[0], press=slot_list[2],
+                              leak=slot_list[3], torque=slot_list[4])
+        self.add_and_get_p.add_one(new_obj)
 
     def error_show(self, work_pos_index, text):
         eval(self.lab_auto_state_list[work_pos_index]).setText(text)
@@ -540,13 +548,18 @@ class MyWindow(QWidget, Ui_Form):
             pass
 
         # 对照参数列表保存测试结果
-        # self.para_list = ['系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果',
-        #                   'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果', 'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果',
-        #                   'C-ΔP1', 'C-ΔP2', 'C-全开扭矩', 'C-全关扭矩', 'C-测试结果', 'D-ΔP1', 'D-ΔP2', 'D-全开扭矩', 'D-全关扭矩', 'D-测试结果',
-        #                   '合格数', '不合格数', '总数', '合格率']
+        # self.para_list = [
+        # '系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果',
+        # 'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果',
+        # 'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果',
+        # 'C-ΔP1', 'C-ΔP2', 'C-全开扭矩', 'C-全关扭矩', 'C-测试结果',
+        # 'D-ΔP1', 'D-ΔP2', 'D-全开扭矩', 'D-全关扭矩', 'D-测试结果',
+        # '合格数', '不合格数', '总数', '合格率']
+        self.add_and_get_p.commit()  # 提交事务
         if eval(self.lab_auto_state_list[work_pos_index]).text() != '已急停':
             text_list = eval(self.lab_auto_formula_list[work_pos_index]).text().split('，')
-            current_list = [self.lab_data_time.text(), self.lineEdit_0.text(), text_list[0], text_list[1], eval(self.lab_auto_time_list[work_pos_index]).text(),
+            current_list = [self.lab_data_time.text(), self.lineEdit_0.text(), text_list[0], text_list[1],
+                            eval(self.lab_auto_time_list[work_pos_index]).text(),
                             eval(self.lab_auto_state_list[work_pos_index]).text()]
             for i in range(4):
                 for j in range(5):
@@ -556,6 +569,7 @@ class MyWindow(QWidget, Ui_Form):
             self.save_test_result(work_pos_index, current_list)
 
     def save_test_result(self, work_pos, cur_lst):
+        """向数据库新增一条测试结果"""
         new_obj = TestResults(work_pos_id=work_pos, sys_time=cur_lst[0], order=cur_lst[1], formula=cur_lst[2],
                               test_mode=cur_lst[3], test_time=cur_lst[4], test_result=cur_lst[5],
                               a_p1=cur_lst[6], a_p2=cur_lst[7], a_open_torque=cur_lst[8],
@@ -570,95 +584,15 @@ class MyWindow(QWidget, Ui_Form):
                               total=cur_lst[28], pass_rate=cur_lst[29])
         self.add_and_get.add_one(new_obj)
 
-    def get_test_result(self, work_pos, start_time, end_time):
-        res = self.add_and_get.get_more(work_pos, start_time, end_time)
-        res_lst = list(map(lambda r: r.str().split(","), res))
-        return res_lst
+    def get_test_result(self, work_pos, start_time, end_time, order=""):
+        """根据工位，起始时间查询测试结果，返回一个二维列表"""
+        tmp = self.add_and_get_p.get_more(work_pos, start_time, end_time)
+        print(list(map(lambda r: r.str().split(","), tmp)))
+        # 返回的是满足条件的对象集合，对象的str()方法经过处理，返回的是包含各字段的字符串
+        res = self.add_and_get.get_more(work_pos, start_time, end_time, order)
+        if res:
+            return list(map(lambda r: r.str().split(","), res))
 
-
-    def open_file(self):
-        file = 'test_result.xls'
-        try:  # 尝试打开文件，如果打开失败就新创建一个空excel
-            book = xlrd.open_workbook(file)
-        except:
-            book = xlwt.Workbook(encoding='utf-8')  # 创建一个Workbook对象，这就相当于创建了一个Excel文件
-            for i in range(self.total_work_poses):
-                book.add_sheet(str(i))  # 创建一个sheet对象，一个sheet对象对应Excel文件中的一张表格
-            book.save(file)
-            book = xlrd.open_workbook(file)
-        return book
-
-    def get_test_result1(self, work_pos_index, start_time, end_time):
-        """读取测试结果"""
-        info_show_list = []
-        book = self.open_file()
-        try:
-            sheet = book.sheet_by_index(work_pos_index)  # 通过sheet索引获得sheet对象
-        except:
-            sheets = book.sheets()
-            sheet_count = len(sheets)
-            while sheet_count < self.total_work_poses:
-                book.add_sheet(str(sheet_count))
-                sheet_count += 1
-            sheet = book.sheet_by_index(work_pos_index)  # 通过sheet索引获得sheet对象
-        try:  # 获得已保存结果数量
-            count = eval(sheet.cell_value(0, 0))
-        except:
-            count = 0
-        time_column = sheet.col_values(0)
-        start_index, end_index = 1, 1+count
-        for time in range(start_index, end_index):
-            if time_column[time] >= start_time:
-                start_index = time
-                break
-        for time in range(start_index, end_index):
-            if time_column[time] == end_time:
-                end_index = time
-                break
-            elif time_column[time] > end_time:
-                end_index = time - 1
-                break
-        # 只显示最近的100条测试结果
-        # if end_index - start_index > self.show_len:
-        #     start_index = end_index - self.show_len
-        length = end_index - start_index
-        if length > self.len_flag[work_pos_index]:
-            self.len_flag[work_pos_index] = length
-        for i in range(start_index, end_index):
-            try:
-                info_show_list.append(sheet.row_values(i))
-            except:
-                info_show_list.append([])
-        while len(info_show_list) < self.show_len:
-            info_show_list.append([])
-        return info_show_list
-
-    def save_test_result1(self, work_pos_index, current_list):
-        """保存测试结果"""
-        file = 'test_result.xls'
-        rd_book = self.open_file()
-        rd_sheet = rd_book.sheet_by_index(work_pos_index)
-        wt_book = xlutils.copy.copy(rd_book)  # 利用xlutils.copy函数，将xlrd.Book转化为xlwt.Workbook，再用xlwt模块进行存储
-        try:
-            wt_sheet = wt_book.get_sheet(work_pos_index)  # 通过sheet索引获得sheet对象
-        except:
-            sheets = rd_book.sheets()
-            sheet_count = len(sheets)
-            while sheet_count < self.total_work_poses:
-                wt_book.add_sheet(str(sheet_count))
-                sheet_count += 1
-            wt_sheet = wt_book.get_sheet(work_pos_index)  # 通过sheet索引获得sheet对象
-        try:  # 获得已保存结果数量
-            count = eval(rd_sheet.cell_value(0, 0))
-        except:
-            count = 0
-        try:
-            for c in range(len(current_list)):
-                wt_sheet.write(count+1, c, current_list[c])
-            wt_sheet.write(0, 0, str(count+1))
-            wt_book.save(file)
-        except:
-            QMessageBox.warning(self, '保存失败！', '参数保存失败！', QMessageBox.Cancel)
 
     """计数统计配置函数"""
     def data_count_process(self):
@@ -813,18 +747,19 @@ class MyWindow(QWidget, Ui_Form):
                                                 eval(self.lineEdit_list[4]).text(), eval(self.lineEdit_list[5]).text(), eval(self.lineEdit_list[6]).text())
         end_time = '{}-{}-{} {}:{}:{}'.format(eval(self.lineEdit_list[7]).text(), eval(self.lineEdit_list[8]).text(), eval(self.lineEdit_list[9]).text(),
                                               eval(self.lineEdit_list[10]).text(), eval(self.lineEdit_list[11]).text(), eval(self.lineEdit_list[12]).text())
-        test_result_list = self.get_test_result(work_pos_index, start_time, end_time)
+        test_result_list = self.get_test_result(work_pos_index, start_time, end_time, self.lineEdit_0.text())
         # self.len_flag[work_pos_index] += 1
         # self.row_list[work_pos_index].append('第{}行'.format(self.len_flag[work_pos_index]))
         self.update_model(work_pos_index)
 
-        for row in range(len(test_result_list)):
-            for column in range(len(self.para_list)):
-                try:
-                    text = str(test_result_list[row][column])
-                    self.set_new_item(row, column, text)
-                except:
-                    self.set_new_item(row, column, '')
+        if test_result_list:
+            for row in range(len(test_result_list)):
+                for column in range(len(self.para_list)):
+                    try:
+                        text = str(test_result_list[row][column])
+                        self.set_new_item(row, column, text)
+                    except:
+                        self.set_new_item(row, column, '')
 
     def data_set_show(self):
         self.setting = DataSet()

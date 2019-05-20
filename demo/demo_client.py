@@ -94,7 +94,6 @@ class AutoClient(QThread):
         self.else_test = ['伺服', '伺服转矩(N·M)', '伺服速度(r/S)', '伺服打开角度(°)',
                           '测压ΔP1(pa)/时间(1S)', '稳压ΔP2(pa)/时间(1S)', '最低工作压力(mbar)', '大漏值(pa)']
         self.codesys_work_pos_list = [[0] * len(self.para_list)] * 20
-        print(self.codesys_work_pos_list)
 
     def servo_set(self, i):
         for j in range(1, 4):
@@ -132,9 +131,8 @@ class AutoClient(QThread):
                                     self.keep_time = self.data_list[self.current_step][i][1]
                                     # get相应参数当前值
                                     self.slot = '{},{},{:.2f},{:.2f},{:.2f},{:0>2.0f}'.format(
-                                        self.codesys_work_pos_list[self.work_pos_index][i],
-                                        self.count, time.perf_counter(), start,
-                                        self.keep_time, time.perf_counter() - start_time)
+                                        i, self.count, time.perf_counter(), start,
+                                        time.perf_counter() * i, time.perf_counter() - start_time)
                                     # 判断相应参数是否一致
                                     if self.codesys_work_pos_list[self.work_pos_index][i] == '得电':
                                         pass
@@ -148,9 +146,8 @@ class AutoClient(QThread):
                                     self.keep_time = self.data_list[self.current_step][i][1]
                                     # get相应参数当前值
                                     self.slot = '{},{},{:.2f},{:.2f},{:.2f}, {:0>2.0f}'.format(
-                                        self.codesys_work_pos_list[self.work_pos_index][i],
-                                        self.count, time.perf_counter(), start,
-                                        self.keep_time, time.perf_counter() - start_time)
+                                        i, self.count, time.perf_counter(), start,
+                                        time.perf_counter() * i, time.perf_counter() - start_time)
                                     # 判断相应参数是否一致
                                     if self.codesys_work_pos_list[self.work_pos_index][i] == '失电':
                                         pass
@@ -160,9 +157,8 @@ class AutoClient(QThread):
                                 if self.data_list[self.current_step][i][0] != 0:  # 开始检测
                                     self.keep_time = self.data_list[self.current_step][i][1]
                                     self.slot = '{},{},{:.2f},{:.2f},{:.2f}, {:0>2.0f}'.format(
-                                        self.codesys_work_pos_list[self.work_pos_index][i],
-                                        self.count, time.perf_counter(), start,
-                                        self.keep_time, time.perf_counter() - start_time)
+                                        i, self.count, time.perf_counter(), start,
+                                        time.perf_counter() * i, time.perf_counter() - start_time)
                                 if self.codesys_work_pos_list[self.work_pos_index][i] \
                                         < self.data_list[self.current_step][i][0]:
                                     if self.para_list[i] == '测压ΔP1(pa)/时间(1S)':
@@ -177,9 +173,8 @@ class AutoClient(QThread):
                                         < self.data_list[self.current_step][i][0]:
                                     self.keep_time = self.data_list[self.current_step][i][1]
                                     self.slot = '{},{},{:.2f},{:.2f},{:.2f}, {:0>2.0f}'.format(
-                                        self.codesys_work_pos_list[self.work_pos_index][i],
-                                        self.count, time.perf_counter(), start,
-                                        self.keep_time, time.perf_counter() - start_time)
+                                        i, self.count, time.perf_counter(), start,
+                                        time.perf_counter() * i, time.perf_counter() - start_time)
                                     if self.para_list[i] == '最低工作压力(mbar)':
                                         self.text = '工作压力过低'
                                     else:
@@ -190,9 +185,8 @@ class AutoClient(QThread):
                             else:
                                 self.keep_time = self.data_list[self.current_step][i][1]
                                 self.slot = '{},{},{:.2f},{:.2f},{:.2f}, {:0>2.0f}'.format(
-                                    self.codesys_work_pos_list[self.work_pos_index][i],
-                                    self.count, time.perf_counter(), start,
-                                    self.keep_time, time.perf_counter() - start_time)
+                                    i, self.count, time.perf_counter(), start,
+                                    time.perf_counter() * i, time.perf_counter() - start_time)
                     if which_test in [[2, 1, 1, 1], [1, 2, 1, 1], [1, 1, 2, 1], [1, 1, 1, 2]]:  # 判断测试哪一个腔体
                         self.slot += ',{}'.format(which_test.index(2))
                         self.which_test = chr(which_test.index(2) + 65)

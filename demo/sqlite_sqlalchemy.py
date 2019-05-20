@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine("sqlite:///E:/Sqlite/test.db?check_same_thread=False")
+engine = create_engine("sqlite:///test_result.db?check_same_thread=False")
 
 # 声明映像
 Base = declarative_base()
@@ -13,8 +13,10 @@ Session = sessionmaker(bind=engine)
 
 # self.para_list = [
 # '系统时间', '班次', '配方', '测试模式', '测试时间', '测试结果',
-# A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果', 'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果',
-# 'C-ΔP1', 'C-ΔP2', 'C-全开扭矩', 'C-全关扭矩', 'C-测试结果', 'D-ΔP1', 'D-ΔP2', 'D-全开扭矩', 'D-全关扭矩', 'D-测试结果',
+# 'A-ΔP1', 'A-ΔP2', 'A-全开扭矩', 'A-全关扭矩', 'A-测试结果',
+# 'B-ΔP1', 'B-ΔP2', 'B-全开扭矩', 'B-全关扭矩', 'B-测试结果',
+# 'C-ΔP1', 'C-ΔP2', 'C-全开扭矩', 'C-全关扭矩', 'C-测试结果',
+# 'D-ΔP1', 'D-ΔP2', 'D-全开扭矩', 'D-全关扭矩', 'D-测试结果',
 # '合格数', '不合格数', '总数', '合格率']
 
 
@@ -73,6 +75,10 @@ class TestResults(Base):
         )
 
 
+# 创建数据表
+TestResults.metadata.create_all(engine)
+
+
 class AddAndGet(object):
     """操作对象，增删改查"""
     def __init__(self):
@@ -88,17 +94,20 @@ class AddAndGet(object):
         """获取一条数据，参数为id"""
         return self.session.query(TestResults).get(1)
 
-    def get_more(self, work_pos, start_time, end_time):
+    def get_more(self, work_pos, start_time, end_time, order):
         """获取多条数据"""
-        return self.session.query(TestResults).filter(
-            TestResults.is_delete == 0,
-            TestResults.work_pos_id == work_pos,
-            TestResults.sys_time >= start_time,
-            TestResults.sys_time <= end_time).all()
+        try:
+            return self.session.query(TestResults).filter(
+                TestResults.is_delete == 0,
+                TestResults.work_pos_id == work_pos,
+                TestResults.order == order,
+                TestResults.sys_time >= start_time,
+                TestResults.sys_time <= end_time).all()
+        except:
+            pass
 
 
-# 创建数据表
-TestResults.metadata.create_all(engine)
+
 
 
 
