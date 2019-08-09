@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96f84792-6d7b-4cbe-9359-5778a154d9b8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/python-opcua/client-example.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python-opcua/client-minimal.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python-opcua/client-sub.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python-opcua/custom_nodes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python-opcua/server-example.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python-opcua/server-minimal.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python-opcua/server_sub.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/sqlite_sqlalchemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/sqlite_sqlalchemy.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,50 +19,61 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Python_Project_Development$server_example.coverage" NAME="server-example Coverage Results" MODIFIED="1563254783393" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
+    <SUITE FILE_PATH="coverage/Python_Project_Development$client_sub.coverage" NAME="client-sub Coverage Results" MODIFIED="1563262978470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
+    <SUITE FILE_PATH="coverage/Python_Project_Development$client_minimal.coverage" NAME="client-minimal Coverage Results" MODIFIED="1563254822297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$ww.coverage" NAME="ww Coverage Results" MODIFIED="1557798029240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$opc_with_python.coverage" NAME="opc_with_python Coverage Results" MODIFIED="1557458612034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$demo_client.coverage" NAME="demo_client Coverage Results" MODIFIED="1557798085990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
+    <SUITE FILE_PATH="coverage/Python_Project_Development$client_example.coverage" NAME="client-example Coverage Results" MODIFIED="1563245958686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
+    <SUITE FILE_PATH="coverage/Python_Project_Development$server_sub.coverage" NAME="server_sub Coverage Results" MODIFIED="1563262892419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$demo_main.coverage" NAME="demo_main Coverage Results" MODIFIED="1557996656222" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
+    <SUITE FILE_PATH="coverage/Python_Project_Development$server_minimal.coverage" NAME="server-minimal Coverage Results" MODIFIED="1563254819963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-1695904243">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.open.time.1" value="1" />
+          <entry key="project.closed" value="8" />
+          <entry key="project.open.time.0" value="3" />
+          <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.2" value="2" />
           <entry key="project.open.time.20" value="1" />
+          <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.23" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.4" value="1" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.open.time.3" value="2" />
+          <entry key="project.open.time.4" value="2" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="25" />
+          <entry key="py" value="37" />
+          <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="25" />
+          <entry key="Python" value="37" />
+          <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="9" />
-          <entry key="py" value="5003" />
+          <entry key="py" value="5865" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="9" />
-          <entry key="Python" value="5003" />
+          <entry key="Python" value="5865" />
         </counts>
       </usages-collector>
     </session>
@@ -62,34 +81,55 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/demo_main.py">
+        <entry file="file://$PROJECT_DIR$/python-opcua/server-minimal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18576">
-              <caret line="532" selection-start-line="532" selection-end-line="532" />
+            <state relative-caret-position="252">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/python-opcua/server_sub.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="13" selection-start-line="13" selection-end-line="13" />
               <folding>
-                <element signature="e#0#10#0" expanded="true" />
+                <element signature="e#0#28#0" expanded="true" />
+                <marker date="1563262892344" expanded="true" signature="73:633" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/edit_formula.py">
+        <entry file="file://$PROJECT_DIR$/python-opcua/client-sub.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8028">
-              <caret line="232" selection-start-line="232" selection-end-line="232" />
+            <state relative-caret-position="1476">
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
               <folding>
-                <element signature="e#0#10#0" expanded="true" />
+                <element signature="e#0#27#0" expanded="true" />
+                <marker date="1563263580286" expanded="true" signature="191:309" ph="..." />
+                <marker date="1563263580286" expanded="true" signature="332:457" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/demo_client.py">
+        <entry file="file://$PROJECT_DIR$/python-opcua/client-minimal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7524">
-              <caret line="211" column="33" selection-start-line="211" selection-start-column="33" selection-end-line="211" selection-end-column="33" />
+            <state relative-caret-position="360">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/python-opcua/client-example.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="416">
+              <caret line="90" column="12" selection-start-line="90" selection-start-column="12" selection-end-line="90" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -97,11 +137,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/sqlite_sqlalchemy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2124">
-              <caret line="62" column="50" selection-start-line="62" selection-start-column="50" selection-end-line="62" selection-end-column="50" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="416">
+              <caret line="68" selection-start-line="68" selection-end-line="68" />
             </state>
           </provider>
         </entry>
@@ -109,10 +146,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/demo/sqlite_sqlalchemy_process.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="843">
+            <state relative-caret-position="987">
               <caret line="78" column="33" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/python-opcua/server-example.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4032">
+              <caret line="118" selection-start-line="118" selection-end-line="118" />
               <folding>
-                <element signature="e#0#36#0" expanded="true" />
+                <element signature="e#0#28#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -143,11 +189,17 @@
         <option value="$PROJECT_DIR$/demo/servo_set_main.py" />
         <option value="$PROJECT_DIR$/demo/ww.py" />
         <option value="$PROJECT_DIR$/demo/edit_formula.py" />
-        <option value="$PROJECT_DIR$/demo/sqlite_sqlalchemy.py" />
         <option value="$PROJECT_DIR$/demo/sqlite_sqlalchemy2.py" />
         <option value="$PROJECT_DIR$/demo/sqlite_sqlalchemy_process.py" />
         <option value="$PROJECT_DIR$/demo/demo_client.py" />
         <option value="$PROJECT_DIR$/demo/demo_main.py" />
+        <option value="$PROJECT_DIR$/python-opcua/client-example.py" />
+        <option value="$PROJECT_DIR$/python-opcua/server-example.py" />
+        <option value="$PROJECT_DIR$/python-opcua/client-minimal.py" />
+        <option value="$PROJECT_DIR$/python-opcua/server-minimal.py" />
+        <option value="$PROJECT_DIR$/python-opcua/server_sub.py" />
+        <option value="$PROJECT_DIR$/python-opcua/client-sub.py" />
+        <option value="$PROJECT_DIR$/demo/sqlite_sqlalchemy.py" />
       </list>
     </option>
   </component>
@@ -158,10 +210,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="753" />
-    <option name="y" value="22" />
-    <option name="width" value="1421" />
-    <option name="height" value="1055" />
+    <option name="x" value="193" />
+    <option name="y" value="93" />
+    <option name="width" value="1562" />
+    <option name="height" value="851" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -180,6 +232,11 @@
               <item name="Python-Project-Development" type="462c0819:PsiDirectoryNode" />
               <item name="demo" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Python-Project-Development" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Python-Project-Development" type="462c0819:PsiDirectoryNode" />
+              <item name="python-opcua" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -189,13 +246,14 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Python-Database-Programming/python操作mysql" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Python-Database-Programming" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\GitHub\Python-Project-Development\python-opcua" />
       <recent name="E:\GitHub\Python-Project-Development\demo" />
     </key>
   </component>
@@ -211,8 +269,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.demo_main">
-    <configuration name="demo_client" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.client-sub">
+    <configuration name="client-minimal" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Python-Project-Development" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -220,12 +278,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/demo" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python-opcua" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo/demo_client.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python-opcua/client-minimal.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -234,7 +292,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="demo_main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="client-sub" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Python-Project-Development" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -242,12 +300,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/demo" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python-opcua" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo/demo_main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python-opcua/client-sub.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -256,7 +314,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="opc_with_python" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="server-example" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Python-Project-Development" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -264,12 +322,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/demo" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python-opcua" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo/opc_with_python.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python-opcua/server-example.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -278,7 +336,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ww" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="server-minimal" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Python-Project-Development" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -286,12 +344,34 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/demo" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python-opcua" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo/ww.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python-opcua/server-minimal.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="server_sub" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Python-Project-Development" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python-opcua" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python-opcua/server_sub.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -301,17 +381,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.demo_main" />
-      <item itemvalue="Python.opc_with_python" />
-      <item itemvalue="Python.demo_client" />
-      <item itemvalue="Python.ww" />
+      <item itemvalue="Python.server-example" />
+      <item itemvalue="Python.server-minimal" />
+      <item itemvalue="Python.client-minimal" />
+      <item itemvalue="Python.server_sub" />
+      <item itemvalue="Python.client-sub" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.demo_main" />
-        <item itemvalue="Python.demo_client" />
-        <item itemvalue="Python.ww" />
-        <item itemvalue="Python.opc_with_python" />
+        <item itemvalue="Python.client-sub" />
+        <item itemvalue="Python.server_sub" />
+        <item itemvalue="Python.client-minimal" />
+        <item itemvalue="Python.server-minimal" />
+        <item itemvalue="Python.server-example" />
       </list>
     </recent_temporary>
   </component>
@@ -329,14 +411,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="13" y="11" width="1917" height="1055" extended-state="0" />
+    <frame x="193" y="93" width="1562" height="851" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13413993" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11060802" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32902583" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.29326424" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.20576541" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39960238" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -415,9 +497,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18576">
           <caret line="532" selection-start-line="532" selection-end-line="532" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -425,9 +504,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8028">
           <caret line="232" selection-start-line="232" selection-end-line="232" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -438,23 +514,95 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/python-opcua/custom_nodes.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Roaming/Python/Python36/site-packages/opcua/server/server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="85" column="28" selection-start-line="85" selection-start-column="13" selection-end-line="85" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Roaming/Python/Python36/site-packages/opcua/client/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-538">
+          <caret line="492" column="38" selection-start-line="492" selection-start-column="38" selection-end-line="492" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Roaming/Python/Python36/site-packages/opcua/server/internal_subscription.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="194" selection-start-line="194" selection-end-line="194" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python-opcua/server-minimal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python-opcua/server_sub.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+            <marker date="1563262892344" expanded="true" signature="73:633" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python-opcua/client-sub.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1476">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+            <marker date="1563263580286" expanded="true" signature="191:309" ph="..." />
+            <marker date="1563263580286" expanded="true" signature="332:457" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python-opcua/client-minimal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python-opcua/server-example.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4032">
+          <caret line="118" selection-start-line="118" selection-end-line="118" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python-opcua/client-example.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="90" column="12" selection-start-line="90" selection-start-column="12" selection-end-line="90" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/demo/sqlite_sqlalchemy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2124">
-          <caret line="62" column="50" selection-start-line="62" selection-start-column="50" selection-end-line="62" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="416">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/sqlite_sqlalchemy_process.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="843">
+        <state relative-caret-position="987">
           <caret line="78" column="33" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

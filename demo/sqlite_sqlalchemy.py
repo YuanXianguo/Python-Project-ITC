@@ -64,6 +64,9 @@ class TestResults(Base):
 
     is_delete = Column(Boolean, default=0)
 
+    def __repr__(self):
+        pass
+
     def str(self):
         return "{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},".format(
             self.sys_time, self.order, self.formula, self.test_mode, self.test_time, self.test_result,
