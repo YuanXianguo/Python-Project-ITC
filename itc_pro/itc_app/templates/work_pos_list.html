@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+工位列表
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/work_pos_list.css' %}">
+    <script src="{% static 'js/echarts.min.js' %}"></script>
+{% endblock %}
+{% block main %}
+<div class="top_main">
+    <div class="top1">
+        <a class="left active">工位1</a>
+        <a class="left">工位2</a>
+        <a class="left">工位3</a>
+        <a class="left">工位4</a>
+        <a class="left">工位5</a>
+        <a class="left">工位6</a>
+        <a class="left">工位7</a>
+        <a class="left">工位8</a>
+        <a class="left">工位9</a>
+        <a class="left">工位10</a>
+    </div>
+    <div class="top2">
+        <a class="left">工位11</a>
+        <a class="left">工位12</a>
+        <a class="left">工位13</a>
+        <a class="left">工位14</a>
+        <a class="left">工位15</a>
+        <a class="left">工位16</a>
+        <a class="left">工位17</a>
+        <a class="left">工位18</a>
+        <a class="left">工位19</a>
+        <a class="left">工位20</a>
+    </div>
+
+</div>
+<div class="pos_content">
+    <div class="pos_main left">
+        <div class="pos">
+            <p class="pos1 left">工位一：</p>
+            <p class="pos2 left state">关机</p>
+        </div>
+        <div class="pos">
+            <p class="pos1 left">测试配方：</p>
+            <p class="pos2 left"></p>
+        </div>
+        <div class="pos">
+            <p class="pos1 left">测试模式：</p>
+            <p class="pos2 left"></p>
+        </div>
+        <div class="pos">
+            <p class="pos1 left">合格数：</p>
+            <p class="pos2 left">0</p>
+        </div>
+        <div class="pos">
+            <p class="pos1 left">不合格数：</p>
+            <p class="pos2 left">0</p>
+        </div>
+        <div class="pos">
+            <p class="pos1 left">总数：</p>
+            <p class="pos2 left">0</p>
+        </div>
+        <div class="pos">
+            <p class="pos1 left">合格率：</p>
+            <p class="pos2 left">0</p>
+        </div>
+    </div>
+    <div class="pos_pic left">
+        <div id="main" style="width: 600px;height:250px;"></div>
+        <div id="main2" style="width: 600px;height:250px;"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    //基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById("main"));
+    var myChart2 = echarts.init(document.getElementById("main2"));
+
+    // 指定图表的配置项和数据
+    var option = {
+        //标题
+        title:{
+            show:true,
+            text:"工作环境图",  //标题
+            // subtext:"欢迎学习echarts", //副标题
+            left:100, //数字就是像素值，也可以是center left right
+            // borderColor:"magenta", //标题边框颜色
+            // borderWidth:5, //标题边框宽度
+        },
+        //工具栏
+        toolbox:{
+            show:true,
+            feature:{
+                dataView:{
+                    show:true
+                }, //数据视图
+                dataZoom:{
+                    show:true
+                }, //数据区域缩放
+                restore:{
+                    show:true
+                }, //配置项还原
+                saveAsImage:{
+                    show:true
+                }, //保存为图片
+                magicType:{
+                    type:["line","bar"]
+                }, //动态类型切换
+            }
+        },
+        //弹窗
+        tooltip:{
+            trigger:"axis", //以x轴值为准
+        },
+        //图例
+        legend:{
+            data:["工作压力", "大漏值"],
+        },
+        //x轴
+        xAxis:{
+            name:"测试时间/0.05S",
+            data:["0","10","20","30","40","50","60","70","80","90","100"],
+            boundaryGap: false,
+            nameLocation:"middle",
+            nameGap:25
+        },
+        yAxis:[{
+            name:"工作压力/mbar",
+            min:0,
+            max:10000,
+        },{
+            name:"大漏值/Pa",
+            min:0,
+            max:100,
+        }
+        ],
+        series:[{
+            name:"工作压力",
+            type:"line",
+            // data:[5000,2000,4600,4000,2220,3320],
+            // yAxisIndex:'0',
+            itemStyle:{
+                normal:{
+                    lineStyle:{color:"#ba2121"}
+                }
+            },
+        },
+        {
+            name:"大漏值",
+            type:"line",
+            // data:[15,20,36,10,10,20],
+            yAxisIndex:'1',
+            itemStyle:{
+                normal:{
+                    lineStyle:{color:"#19865c"}
+                }
+            },
+        }]
+
+    };
+    var option2 = {
+        //标题
+        title:{
+            show:true,
+            text:"差压图",  //标题
+            // subtext:"欢迎学习echarts", //副标题
+            left:100, //数字就是像素值，也可以是center left right
+            // borderColor:"magenta", //标题边框颜色
+            // borderWidth:5, //标题边框宽度
+        },
+        //工具栏
+        toolbox:{
+            show:true,
+            feature:{
+                dataView:{
+                    show:true
+                }, //数据视图
+                dataZoom:{
+                    show:true
+                }, //数据区域缩放
+                restore:{
+                    show:true
+                }, //配置项还原
+                saveAsImage:{
+                    show:true
+                }, //保存为图片
+                magicType:{
+                    type:["line","bar"]
+                }, //动态类型切换
+            }
+        },
+        //弹窗
+        tooltip:{
+            trigger:"axis", //以x轴值为准
+        },
+        //图例
+        legend:{
+            data:["差压"],
+        },
+        //x轴
+        xAxis:{
+            name:"测试时间/0.05S",
+            data:["0","10","20","30","40","50","60","70","80","90","100"],
+            boundaryGap: false,
+            nameLocation:"middle",
+            nameGap:25
+        },
+        yAxis:{
+            name:"差压/Pa",
+            min:0,
+            max:50,},
+        series:[{
+            name:"差压",
+            type:"line",
+            // data:[5,20,36,10,10,20],
+        }]
+
+    };
+
+    //使用指定的配置项和数据显示图案
+    myChart.setOption(option);
+    myChart2.setOption(option2);
+
+</script>
+{% endblock %}

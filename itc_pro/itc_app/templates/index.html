@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+设备列表
+{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+{% block main %}
+<ul>
+    <li>
+        <div class="equ left">
+            <div class="equ_left left"><a href="#"><img src="{% static 'images/equ.png' %}" alt=""></a>
+            </div>
+            <div class="equ_right left">
+                <div><p class="equ1 left">设备一：</p><p class="equ2 left state">正常</p></div>
+                <div><p class="equ1 left">测试总数：</p><p class="equ2 left">1000</p></div>
+                <div><p class="equ1 left">合格：</p><p class="equ2 left">990</p></div>
+                <div><p class="equ1 left">不合格：</p><p class="equ2 left">10</p></div>
+                <div><p class="equ1 left">合格率：</p><p class="equ2 left">99%</p></div>
+            </div>
+        </div>
+        <div class="equ right">
+            <div class="equ_left left"><a href="#"><img src="{% static 'images/equ.png' %}" alt=""></a>
+            </div>
+            <div class="equ_right left">
+                <div><p class="equ1 left">设备二：</p><p class="equ2 left state">正常</p></div>
+                <div><p class="equ1 left">测试总数：</p><p class="equ2 left">1000</p></div>
+                <div><p class="equ1 left">合格：</p><p class="equ2 left">990</p></div>
+                <div><p class="equ1 left">不合格：</p><p class="equ2 left">10</p></div>
+                <div><p class="equ1 left">合格率：</p><p class="equ2 left">99%</p></div>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="equ left">
+            <div class="equ_left left"><a href="#"><img src="{% static 'images/equ.png' %}" alt=""></a>
+            </div>
+            <div class="equ_right left">
+                <div><p class="equ1 left">设备三：</p><p class="equ2 left state">正常</p></div>
+                <div><p class="equ1 left">测试总数：</p><p class="equ2 left">1000</p></div>
+                <div><p class="equ1 left">合格：</p><p class="equ2 left">990</p></div>
+                <div><p class="equ1 left">不合格：</p><p class="equ2 left">10</p></div>
+                <div><p class="equ1 left">合格率：</p><p class="equ2 left">99%</p></div>
+            </div>
+        </div>
+        <div class="equ right">
+            <div class="equ_left left"><a href="#"><img src="{% static 'images/equ.png' %}" alt=""></a>
+            </div>
+            <div class="equ_right left">
+                <div><p class="equ1 left">设备四：</p><p class="equ2 left state">正常</p></div>
+                <div><p class="equ1 left">测试总数：</p><p class="equ2 left">1000</p></div>
+                <div><p class="equ1 left">合格：</p><p class="equ2 left">990</p></div>
+                <div><p class="equ1 left">不合格：</p><p class="equ2 left">10</p></div>
+                <div><p class="equ1 left">合格率：</p><p class="equ2 left">99%</p></div>
+            </div>
+        </div>
+    </li>
+
+</ul>
+{% endblock %}

@@ -1,5 +1,6 @@
 import time
 import socket
+import random
 from PyQt5.QtCore import pyqtSignal, QThread, QTimer
 
 
@@ -71,6 +72,8 @@ class ManualServer(QThread):
             time.sleep(0.004)
         manual_socket.close()
 
+# para_list = ['系统时间', '班次', '配方', '测试模式', '工作压力', '大漏值', '扭矩', 'ΔP1', 'ΔP2', '报错信息', '测试结果']
+
 
 class AutoClient(QThread):
     """自动测试通讯"""
@@ -105,119 +108,137 @@ class AutoClient(QThread):
                     = self.data_list[self.current_step][i + j][0]
 
     def run(self):
-        try:  # 开始通信
-            self.timeout = 0  # 判断是否超时
-            self.text = ''
-            self.which_test = '未知'
-            self.current_step = 0  # 记录当前步数
-            start = time.perf_counter()  # 开始第一步计时
-            start_time = time.perf_counter()  # 记录开始时间
-            while self.current_step < self.formula_steps and self.run_flag:
-                if self.state_flag:
-                    which_test = [0, 0, 0, 0]  # 判断测试哪个腔体
-                    all_test = ['过渡阀A', '过渡阀B', '过渡阀C', '过渡阀D']
-                    self.slot = '{},{},{:.2f},{:.2f},{:.2f}, {:0>2.0f}'.format(0, 0, 0, 0, 0, 0)
-                    for i in range(len(self.para_list)):
-                        if self.run_flag:
-                            if self.para_list[i] not in self.else_test[1:]:
-                                # 配方信息等于1表示该属性得电
-                                if self.data_list[self.current_step][i][0] == 1:
-                                    if self.para_list[i] == self.else_test[0]:
-                                        self.servo_set(i)  # 伺服得电
-                                    # 根据过渡阀得电情况判断测试哪个阀
-                                    if self.para_list[i] in all_test:
-                                        which_test[all_test.index(self.para_list[i])] = 1
-                                    # 记录延迟时间
-                                    self.keep_time = self.data_list[self.current_step][i][1]
-                                    # get相应参数当前值
-                                    self.slot = '{},{},{:.2f},{:.2f},{:.2f},{:0>2.0f}'.format(
-                                        i, self.count, time.perf_counter(), start,
-                                        time.perf_counter() * i, time.perf_counter() - start_time)
-                                    # 判断相应参数是否一致
-                                    if self.codesys_work_pos_list[self.work_pos_index][i] == '得电':
-                                        pass
-                                    else:  # 将相应参数set
-                                        self.codesys_work_pos_list[self.work_pos_index][i] = '得电'
-                                elif self.data_list[self.current_step][i][0] == 2:  # 配方信息等于2表示该属性失电
-                                    if self.para_list[i] == self.else_test[0]:  # 伺服失电
-                                        self.servo_set(i)
-                                    if self.para_list[i] in all_test:
-                                        which_test[all_test.index(self.para_list[i])] = 2
-                                    self.keep_time = self.data_list[self.current_step][i][1]
-                                    # get相应参数当前值
-                                    self.slot = '{},{},{:.2f},{:.2f},{:.2f}, {:0>2.0f}'.format(
-                                        i, self.count, time.perf_counter(), start,
-                                        time.perf_counter() * i, time.perf_counter() - start_time)
-                                    # 判断相应参数是否一致
-                                    if self.codesys_work_pos_list[self.work_pos_index][i] == '失电':
-                                        pass
-                                    else:  # 将相应参数set
-                                        self.codesys_work_pos_list[self.work_pos_index][i] = '失电'
-                            elif self.para_list[i] in ['测压ΔP1(pa)/时间(1S)', '稳压ΔP2(pa)/时间(1S)']:
-                                if self.data_list[self.current_step][i][0] != 0:  # 开始检测
-                                    self.keep_time = self.data_list[self.current_step][i][1]
-                                    self.slot = '{},{},{:.2f},{:.2f},{:.2f}, {:0>2.0f}'.format(
-                                        i, self.count, time.perf_counter(), start,
-                                        time.perf_counter() * i, time.perf_counter() - start_time)
-                                if self.codesys_work_pos_list[self.work_pos_index][i] \
-                                        < self.data_list[self.current_step][i][0]:
-                                    if self.para_list[i] == '测压ΔP1(pa)/时间(1S)':
-                                        self.text = '保气ΔP1泄露'
-                                    else:
-                                        self.text = '保气ΔP2泄露'
-                                    self.reset(0)
-                                    self.state_flag = 0
-                                    break
-                            elif self.para_list[i] in ['最低工作压力(mbar)', '大漏值(pa)']:
-                                if self.codesys_work_pos_list[self.work_pos_index][i] \
-                                        < self.data_list[self.current_step][i][0]:
-                                    self.keep_time = self.data_list[self.current_step][i][1]
-                                    self.slot = '{},{},{:.2f},{:.2f},{:.2f}, {:0>2.0f}'.format(
-                                        i, self.count, time.perf_counter(), start,
-                                        time.perf_counter() * i, time.perf_counter() - start_time)
-                                    if self.para_list[i] == '最低工作压力(mbar)':
-                                        self.text = '工作压力过低'
-                                    else:
-                                        self.text = '差压过高'
-                                    self.reset(0)
-                                    self.state_flag = 0
-                                    break
-                            else:
+        self.timeout = 0  # 判断是否超时
+        self.text = ''
+        self.which_test = '未知'
+        self.current_step = 0  # 记录当前步数
+        start = time.perf_counter()  # 开始第一步计时
+        start_time = time.perf_counter()  # 记录开始时间
+
+        while self.current_step < self.formula_steps and self.run_flag:
+            if self.state_flag:
+                which_test = [0, 0, 0, 0]  # 判断测试哪个腔体
+                all_test = ['过渡阀A', '过渡阀B', '过渡阀C', '过渡阀D']
+                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(0, 0, 0, 0, 0)
+                for i in range(len(self.para_list)):
+                    if self.run_flag:
+                        if self.para_list[i] not in self.else_test[1:]:
+                            # 配方信息等于1表示该属性得电
+                            if self.data_list[self.current_step][i][0] == 1:
+                                if self.para_list[i] == self.else_test[0]:
+                                    self.servo_set(i)  # 伺服得电
+                                # 根据过渡阀得电情况判断测试哪个阀
+                                if self.para_list[i] in all_test:
+                                    which_test[all_test.index(self.para_list[i])] = 1
+                                # 记录延迟时间
                                 self.keep_time = self.data_list[self.current_step][i][1]
-                                self.slot = '{},{},{:.2f},{:.2f},{:.2f}, {:0>2.0f}'.format(
-                                    i, self.count, time.perf_counter(), start,
-                                    time.perf_counter() * i, time.perf_counter() - start_time)
-                    if which_test in [[2, 1, 1, 1], [1, 2, 1, 1], [1, 1, 2, 1], [1, 1, 1, 2]]:  # 判断测试哪一个腔体
-                        self.slot += ',{}'.format(which_test.index(2))
-                        self.which_test = chr(which_test.index(2) + 65)
-                    else:
-                        self.slot += ',{}'.format(-1)
-                    # 达到延迟时间，结束当前步循环
-                    if time.perf_counter() - start >= self.keep_time:
-                        self.current_step += 1
-                        start = time.perf_counter()  # 下一步重新计时
-                        if self.current_step == self.formula_steps:  # 当前工件测试完成
-                            self.count += 1  # 合格数加1
-                    self.client_signal.emit(self.work_pos_index, self.slot)
-                    if time.perf_counter() - start_time > 20:
-                        self.text = '测试超时'
-                        self.reset(0)
-                        self.state_flag = 0
-                    if not self.state_flag:
-                        if self.text in ['保气ΔP1泄露', '保气ΔP2泄露']:
-                            self.text = '{}腔{}'.format(self.which_test,
-                                                       self.text)
-                        self.pass_count_signal.emit(self.work_pos_index + 1, 1)
-                        self.error_signal.emit(self.work_pos_index, self.text)
-                time.sleep(0.005)
-            if not self.run_flag:  # 按下急停
-                self.text = '已急停'
-                self.reset(1)
-            else:
-                self.text = '合格'
-                self.pass_count_signal.emit(self.work_pos_index + 1, 0)
-        except:
-            self.text = '配方第{}步有误！'.format(self.current_step + 1)
+                                # get相应参数当前值
+                                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
+                                    random.uniform(50, 100), random.randint(5000, 7000),
+                                    0, 0, time.perf_counter() - start_time)
+                                # 判断相应参数是否一致
+                                if self.codesys_work_pos_list[self.work_pos_index][i] == '得电':
+                                    pass
+                                else:  # 将相应参数set
+                                    self.codesys_work_pos_list[self.work_pos_index][i] = '得电'
+                            elif self.data_list[self.current_step][i][0] == 2:  # 配方信息等于2表示该属性失电
+                                if self.para_list[i] == self.else_test[0]:  # 伺服失电
+                                    self.servo_set(i)
+                                if self.para_list[i] in all_test:
+                                    which_test[all_test.index(self.para_list[i])] = 2
+                                self.keep_time = self.data_list[self.current_step][i][1]
+                                # get相应参数当前值
+                                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
+                                    random.uniform(50, 100), random.randint(5000, 7000),
+                                    0, 0, time.perf_counter() - start_time)
+                                # 判断相应参数是否一致
+                                if self.codesys_work_pos_list[self.work_pos_index][i] == '失电':
+                                    pass
+                                else:  # 将相应参数set
+                                    self.codesys_work_pos_list[self.work_pos_index][i] = '失电'
+
+                        elif self.para_list[i] == '测压ΔP1(pa)/时间(1S)':
+                            if self.data_list[self.current_step][i][0] != 0:  # 开始检测
+                                self.keep_time = self.data_list[self.current_step][i][1]
+                                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
+                                    random.uniform(50, 100), random.randint(5000, 7000),
+                                    random.uniform(10, 50), 0, time.perf_counter() - start_time)
+                                slot = self.slot.split(",")
+                                if float(slot[2]) > int(self.data_list[self.current_step][i][0]):
+                                    self.text = '保气ΔP1泄露'
+                                    self.reset(0)
+                                    self.state_flag = 0
+                                break
+                        elif self.para_list[i] == '稳压ΔP2(pa)/时间(1S)':
+                            if self.data_list[self.current_step][i][0] != 0:  # 开始检测
+                                self.keep_time = self.data_list[self.current_step][i][1]
+                                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
+                                    random.uniform(50, 100), random.randint(5000, 7000),
+                                    0, random.uniform(10, 50), time.perf_counter() - start_time)
+                                slot = self.slot.split(",")
+                                if float(slot[3]) > int(self.data_list[self.current_step][i][0]):
+                                    self.text = '保气ΔP2泄露'
+                                    self.reset(0)
+                                    self.state_flag = 0
+                                break
+                        elif self.para_list[i] == '最低工作压力(mbar)':
+                            if self.data_list[self.current_step][i][1] == 1:
+                                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
+                                    random.uniform(50, 100), random.randint(5000, 7000),
+                                    0, 0, time.perf_counter() - start_time)
+                                slot = self.slot.split(",")
+                                if int(slot[1]) < int(self.data_list[self.current_step][i][0]):
+                                    self.text = '工作压力过低'
+                                    self.reset(0)
+                                    self.state_flag = 0
+                                break
+                        elif self.para_list[i] == '大漏值(pa)':
+                            if self.data_list[self.current_step][i][1] == 1:
+                                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
+                                    random.uniform(50, 100), random.randint(5000, 7000),
+                                    0, 0, time.perf_counter() - start_time)
+                                slot = self.slot.split(",")
+                                if float(slot[0]) > int(self.data_list[self.current_step][i][0]):
+                                    self.text = '差压过高'
+                                    self.reset(0)
+                                    self.state_flag = 0
+                                break
+                            break
+                        else:
+                            self.keep_time = self.data_list[self.current_step][i][1]
+                            self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
+                                random.uniform(50, 100), random.randint(5000, 7000),
+                                0, 0, time.perf_counter() - start_time)
+                print(self.slot)
+                if which_test in [[2, 1, 1, 1], [1, 2, 1, 1], [1, 1, 2, 1], [1, 1, 1, 2]]:  # 判断测试哪一个腔体
+                    self.slot += ',{}'.format(which_test.index(2))
+                    self.which_test = chr(which_test.index(2) + 65)
+                else:
+                    self.slot += ',{}'.format(-1)
+                # 达到延迟时间，结束当前步循环
+                if time.perf_counter() - start >= self.keep_time:
+                    self.current_step += 1
+                    start = time.perf_counter()  # 下一步重新计时
+                    if self.current_step == self.formula_steps:  # 当前工件测试完成
+                        self.count += 1  # 合格数加1
+                self.client_signal.emit(self.work_pos_index, self.slot)
+                if time.perf_counter() - start_time > 20:
+                    self.text = '测试超时'
+                    self.reset(0)
+                    self.state_flag = 0
+                if not self.state_flag:
+                    if self.text in ['保气ΔP1泄露', '保气ΔP2泄露']:
+                        self.text = '{}腔{}'.format(self.which_test, self.text)
+                    self.pass_count_signal.emit(self.work_pos_index + 1, 1)
+                    self.error_signal.emit(self.work_pos_index, self.text)
+            time.sleep(0.1)
+        if not self.run_flag:  # 按下急停
+            self.text = '已急停'
+            self.reset(1)
+        else:
+            self.text = '合格'
+            self.pass_count_signal.emit(self.work_pos_index + 1, 0)
+
         self.error_signal.emit(self.work_pos_index, self.text)
 
     def reset(self, num):

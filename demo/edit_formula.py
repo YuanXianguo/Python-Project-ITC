@@ -315,7 +315,7 @@ class EditFormula(QWidget, Ui_Form):
             self.column_list[1].append((i, 1))
         for i in range(3, 11):
             self.btn_input_list.append('self.input_num.btn_input_{}'.format(i))
-        if text != '-' and (index.row(), index.column()) != (0, 0) and (index.row(), index.column()) not in self.column_list[1][-2:] \
+        if text != '-' and (index.row(), index.column()) != (0, 0) \
                 and (index.row(), index.column()) not in self.column_list[1][self.para_list.index('伺服'):self.para_list.index('伺服') + 3]:
             self.input_num = InputNumericType(text)  # 实例化数值型键盘
             self.input_num.btn_input_11.setEnabled(False)  # 将负号设置为不可选

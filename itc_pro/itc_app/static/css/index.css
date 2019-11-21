@@ -1,0 +1,31 @@
+.main{
+    width: 1000px;
+}
+ul{
+    list-style: none;
+}
+img{
+    width: 140px;
+}
+.equ{
+    font-size: 15px;
+    font-weight: bold;
+    width: 400px;
+    height: 200px;
+    padding-top: 20px;
+}
+.equ_right{
+    margin-left: 10px;
+}
+.equ1{
+    width: 75px;
+    color: #888;
+    text-align: right;
+    margin-right: 10px;
+}
+.equ2{
+    color:#333;
+}
+.state{
+    color: green;
+}

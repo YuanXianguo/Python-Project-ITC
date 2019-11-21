@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}-高精密气密性测试</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" >
+    {% block head %}{% endblock %}
+</head>
+<body>
+<div class="nav">
+    <p class="p1 left">远程监控系统</p>
+    <p class="p2 left">宁波意德西专用设备有限公司</p>
+    <p class="p3 left">欢迎，大国 <a href="#">退出</a></p>
+</div>
+<div class="main">
+    {% block main %}{% endblock %}
+</div>
+</body>
+</html>

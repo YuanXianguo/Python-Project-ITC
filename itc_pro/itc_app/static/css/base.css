@@ -1,0 +1,47 @@
+body{
+    background: #f3f3f3;
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+.nav{
+    margin: 10px auto;
+    width: 80%;
+    height: 80px;
+    line-height: 80px;
+    border-bottom: 2px solid #999;
+}
+.nav .p1{
+    font-size: 50px;
+    color: #447e9b;
+    margin-left: 20px;
+}
+.nav .p2{
+    font-size: 30px;
+    margin-left: 80px;
+    overflow: hidden;
+    color: #666;
+}
+.nav .p3{
+    font-size: 20px;
+    color: #666;
+    margin-left: 60px;
+}
+.nav .p3 a{
+    margin-left: 20px;
+}
+
+.main{
+    background: #fff;
+    margin: 50px auto;
+    width: 730px;
+    overflow: hidden;
+    padding: 10px 0;
+}
+
+.page-title{
+    text-align: center;
+}
