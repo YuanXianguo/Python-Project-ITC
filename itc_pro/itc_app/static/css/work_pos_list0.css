@@ -27,12 +27,9 @@ img{
     width: 9%;
     background-color: #f3f3f3;
 }
-.state a{
-    color: green;
-}
-.state2 a{
-    color:red;
-}
+/*.top .active{*/
+    /*background-color: #ba2121;*/
+/*}*/
 .pos_main{
     font-size: 15px;
     font-weight: bold;
@@ -54,7 +51,7 @@ img{
 .pos2{
     color:#333;
 }
-.pos .state{
-    color: green;
+.state{
+    color: grey;
 }
 

@@ -12,7 +12,7 @@ Base = declarative_base()
 # 创建会话
 Session = sessionmaker(bind=engine)
 
-# para_list = ['系统时间', '班次', '配方', '测试模式',  '大漏值', '工作压力','扭矩', 'ΔP1', 'ΔP2', '报错信息', '测试结果']
+# para_list = ['id', '系统时间', '班次', '配方', '测试模式',  '大漏值', '工作压力','扭矩', 'ΔP1', 'ΔP2', '报错信息', '测试结果']
 
 
 class TestResults(Base):
@@ -21,6 +21,7 @@ class TestResults(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     work_pos_id = Column(Integer, nullable=False)
     sys_time = Column(String(20), nullable=False)
+    workpiece_id = Column(String(20), nullable=False)
     formula = Column(String(20), nullable=False)
     test_mode = Column(String(20), nullable=False)
     big_leak = Column(String(20), default="")
@@ -37,10 +38,10 @@ class TestResults(Base):
         pass
 
     def str(self):
-        return "{},{},{},{},{},{},{},{},{},{},{}".format(
-            self.sys_time, self.formula, self.test_mode, self.big_leak,
-            self.work_press, self.torque, self.cur_test, self.cur_p1,
-            self.cur_p2, self.error_msg, self.is_pass)
+        return "{},{},{},{},{},{},{},{},{},{},{},{}".format(
+            self.sys_time, self.workpiece_id, self.formula, self.test_mode,
+            self.big_leak, self.work_press, self.torque, self.cur_test,
+            self.cur_p1, self.cur_p2, self.error_msg, self.is_pass)
 
 
 # 创建数据表

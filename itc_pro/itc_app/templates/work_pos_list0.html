@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}
-监测页面
+监控页面
 {% endblock %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/work_pos_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/work_pos_list0.css' %}">
     <script src="{% static 'js/echarts.min.js' %}"></script>
 {% endblock %}
 {% block main %}
 <div class="top_main">
     <div class="top1">
-        <div class="state"><a class="left">工位1</a></div>
-        <div class="state"><a class="left">工位2</a></div>
-        <div class="state"><a class="left">工位3</a></div>
-        <div class="state2"><a class="left">工位4</a></div>
+        <a class="left active">工位1</a>
+        <a class="left">工位2</a>
+        <a class="left">工位3</a>
+        <a class="left">工位4</a>
         <a class="left">工位5</a>
         <a class="left">工位6</a>
         <a class="left">工位7</a>
@@ -39,19 +39,19 @@
     <div class="pos_main left">
         <div class="pos">
             <p class="pos1 left">工位一：</p>
-            <p class="pos2 left state">正常</p>
+            <p class="pos2 left state">停止</p>
         </div>
         <div class="pos">
             <p class="pos1 left">测试配方：</p>
-            <p class="pos2 left">A1</p>
+            <p class="pos2 left"></p>
         </div>
         <div class="pos">
             <p class="pos1 left">测试模式：</p>
-            <p class="pos2 left">测A腔</p>
+            <p class="pos2 left"></p>
         </div>
         <div class="pos">
             <p class="pos1 left">合格数：</p>
-            <p class="pos2 left">8</p>
+            <p class="pos2 left">0</p>
         </div>
         <div class="pos">
             <p class="pos1 left">不合格数：</p>
@@ -59,11 +59,11 @@
         </div>
         <div class="pos">
             <p class="pos1 left">总数：</p>
-            <p class="pos2 left">8</p>
+            <p class="pos2 left">0</p>
         </div>
         <div class="pos">
             <p class="pos1 left">合格率：</p>
-            <p class="pos2 left">100%</p>
+            <p class="pos2 left">0</p>
         </div>
     </div>
     <div class="pos_pic left">
@@ -119,7 +119,7 @@
         //x轴
         xAxis:{
             name:"测试时间/S",
-            data:['16:29:55','16:29:56','16:29:56','16:29:57','16:29:57','16:29:58','16:29:58','16:29:59','16:29:59','16:30:00'],
+            data:['20:01:25','20:01:26','20:01:26','20:01:27','20:01:27','20:01:28','20:01:28','20:01:29','20:01:29', '20:01:30'],
             boundaryGap: false,
             nameLocation:"middle",
             nameGap:25
@@ -137,8 +137,8 @@
         series:[{
             name:"工作压力",
             type:"line",
-            data:[6736,5507,6258,5348,5777,6666,5112,6782,5410,5595],
-            yAxisIndex:'0',
+            // data:[5000,2000,4600,4000,2220,3320],
+            // yAxisIndex:'0',
             itemStyle:{
                 normal:{
                     lineStyle:{color:"#ba2121"}
@@ -148,7 +148,7 @@
         {
             name:"大漏值",
             type:"line",
-            data:[82.94,85.52,72.25,75.06,63.67,87.01,51.55,50.09,56.01,69.43],
+            // data:[15,20,36,10,10,20],
             yAxisIndex:'1',
             itemStyle:{
                 normal:{
@@ -200,7 +200,7 @@
         //x轴
         xAxis:{
             name:"测试时间/S",
-            data:['16:29:55','16:29:56','16:29:56','16:29:57','16:29:57','16:29:58','16:29:58','16:29:59','16:29:59','16:30:00'],
+            data:['20:01:25','20:01:26','20:01:26','20:01:27','20:01:27','20:01:28','20:01:28','20:01:29','20:01:29', '20:01:30'],
             boundaryGap: false,
             nameLocation:"middle",
             nameGap:25
@@ -212,7 +212,7 @@
         series:[{
             name:"差压",
             type:"line",
-            data:[37.87,22.16,14.67,19.08,40.33,20.24,12.33,41.0,18.72,14.5],
+            // data:[5,20,36,10,10,20],
         }]
 
     };

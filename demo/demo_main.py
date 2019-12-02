@@ -474,9 +474,11 @@ class MyWindow(QWidget, Ui_Form):
         self.lab_auto_leak_list = []
         self.lab_auto_torque_list = []
         self.get_auto_list()
-        self.btn_not_pass_check.clicked.connect(self.not_pass_check)
+        # self.btn_not_pass_check.clicked.connect(self.not_pass_check)
         self.add_and_get = AddAndGet()
         # self.add_and_get_p = AddAndGetP()
+        from redis import StrictRedis
+        self.sr = StrictRedis(host='127.0.0.1', port='6379', password="2017916yuan", db=1)
 
     def not_pass_check(self):
         if self.btn_not_pass_check.isChecked():
@@ -511,40 +513,50 @@ class MyWindow(QWidget, Ui_Form):
             self.current_test[work_pos_index][1] = which_test
             if self.current_test[work_pos_index][0] in [0, 1, 2, 3] and self.current_test[work_pos_index][0] != self.current_test[work_pos_index][1]:
                 eval(self.lab_auto_abcd_list[work_pos_index][self.current_test[work_pos_index][0]][5]).setText('合格')
-            for i in range(4):
-                if i == which_test:
-                    for j in range(6):
-                        eval(self.lab_auto_abcd_list[work_pos_index][i][j]).setStyleSheet('color: rgb(255, 0, 0);\n''background-color: rgb(0, 0, 0);')
-                else:
-                    for j in range(6):
-                        eval(self.lab_auto_abcd_list[work_pos_index][i][j]).setStyleSheet('color: rgb(0, 0, 0);\n''background-color: rgb(220, 220, 220);')
+            # for i in range(4):
+            #     if i == which_test:
+            #         for j in range(6):
+            #             eval(self.lab_auto_abcd_list[work_pos_index][i][j]).setStyleSheet('color: rgb(255, 0, 0);\n''background-color: rgb(0, 0, 0);')
+            #     else:
+            #         for j in range(6):
+            #             eval(self.lab_auto_abcd_list[work_pos_index][i][j]).setStyleSheet('color: rgb(0, 0, 0);\n''background-color: rgb(220, 220, 220);')
         try:
             for i in range(4):
                 if i == self.current_test[work_pos_index][1]:
-                    if slot_list[2] != "0.00":
-                        eval(self.lab_auto_abcd_list[work_pos_index][i][1]).setText(slot_list[2])
                     if slot_list[3] != "0.00":
-                        eval(self.lab_auto_abcd_list[work_pos_index][i][2]).setText(slot_list[3])
-                    # eval(self.lab_auto_abcd_list[work_pos_index][i][3]).setText(slot_list[1])
+                        eval(self.lab_auto_abcd_list[work_pos_index][i][1]).setText(slot_list[3])
+                    if slot_list[4] != "0.00":
+                        eval(self.lab_auto_abcd_list[work_pos_index][i][2]).setText(slot_list[4])
+                    # eval(self.lab_auto_abcd_list[work_pos_index][i][3]).setText(slot_list[2])
                     # eval(self.lab_auto_abcd_list[work_pos_index][i][4]).setText(self.data_count_data_list[work_pos_index+1][3])
         except:
             pass
         eval(self.lab_auto_min_press_list[work_pos_index]).setText(slot_list[0])
         eval(self.lab_auto_leak_list[work_pos_index]).setText(slot_list[1])
-        # eval(self.lab_auto_torque_list[work_pos_index]).setText(slot_list[2])
-        eval(self.lab_auto_time_list[work_pos_index]).setText(slot_list[4])
+        eval(self.lab_auto_torque_list[work_pos_index]).setText(slot_list[2])
+        eval(self.lab_auto_time_list[work_pos_index]).setText(slot_list[5])
         # self.add_one(work_pos_index, slot_list)
         # para_list = ['系统时间', '班次', '配方', '测试模式', '大漏值', '工作压力', '当前测试',  'ΔP1', 'ΔP2', '报错信息', '测试结果']
         text_list = eval(self.lab_auto_formula_list[work_pos_index]).text().split('，')
+        self.workpiece_id = self.sr.get(str(work_pos_index))
+        if not self.workpiece_id:
+            tmp = ""
+            for i in self.lab_data_time.text():
+                if i.isdigit():
+                    tmp += i
+            self.workpiece_id = tmp
+            self.sr.set(str(work_pos_index), self.workpiece_id)
         new_obj = TestResults(work_pos_id=work_pos_index,
                               sys_time = self.lab_data_time.text(),
+                              workpiece_id=self.workpiece_id,
                               formula = text_list[0],
                               test_mode =text_list[1],
                               big_leak=slot_list[0],
                               work_press =slot_list[1],
+                              torque=slot_list[2],
                               cur_test = self.which_test,
-                              cur_p1 = slot_list[2],
-                              cur_p2=slot_list[3])
+                              cur_p1 = slot_list[3],
+                              cur_p2=slot_list[4])
 
         self.add_and_get.add_one(new_obj)
 
@@ -567,12 +579,14 @@ class MyWindow(QWidget, Ui_Form):
                 is_pass = 0
             new_obj = TestResults(work_pos_id=work_pos_index,
                                   sys_time=self.lab_data_time.text(),
+                                  workpiece_id=self.workpiece_id,
                                   formula=text_list[0],
                                   test_mode=text_list[1],
                                   error_msg=eval(self.lab_auto_state_list[work_pos_index]).text(),
                                   is_pass =is_pass)
 
             self.add_and_get.add_one(new_obj)
+            self.sr.delete(work_pos_index)
             # self.add_and_get.commit()
 
     def get_test_result(self, work_pos, start_time, end_time):
@@ -682,8 +696,8 @@ class MyWindow(QWidget, Ui_Form):
         self.show_len = 20
 
         """创建QTableView表格，并添加自定义模型"""
-        self.para_list = ['系统时间', '配方', '测试模式',  '大漏值', '工作压力', '扭矩', '当前测试',
-                          'ΔP1', 'ΔP2', '报错信息', '测试结果']
+        self.para_list = ['系统时间', '工件ID', '配方', '测试模式',  '大漏值', '工作压力', '扭矩',
+                          '当前测试', 'ΔP1', 'ΔP2', '报错信息', '测试结果']
 
         for i in range(len(self.para_list)):  # 用中文空白字符填充使结果对齐，并根据内容自动调整行宽
             self.para_list[i] = '{0:{1:}^8}'.format(self.para_list[i], chr(12288))

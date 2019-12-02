@@ -2,37 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96f84792-6d7b-4cbe-9359-5778a154d9b8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/demo/mysql_sqlalchemy.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/static/css/base.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/static/css/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/static/css/work_pos_list.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/static/js/echarts.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/templates/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/templates/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/templates/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_pro/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_pro/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_pro/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/itc_pro/wsgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itc_pro/manage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/技术要求/新建文件夹/mysql_sqlalchemy.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/demo/data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/templates/base0.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/itc_pro/itc_app/templates/index0.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/demo.ui" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo.ui" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/demo_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo_client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/demo_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/edit_formula.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/edit_formula.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo/formula.dat" beforeDir="false" afterPath="$PROJECT_DIR$/demo/formula.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/sqlite_sqlalchemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/python-opcua/sqlite/sqlite_sqlalchemy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/sqlite_sqlalchemy_process.py" beforeDir="false" afterPath="$PROJECT_DIR$/python-opcua/sqlite/sqlite_sqlalchemy_process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/test_process.db" beforeDir="false" afterPath="$PROJECT_DIR$/python-opcua/sqlite/test_process.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/test_result.db" beforeDir="false" afterPath="$PROJECT_DIR$/python-opcua/sqlite/test_result.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/mysql_sqlalchemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/mysql_sqlalchemy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itc_pro/itc_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/itc_pro/itc_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itc_pro/itc_app/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/itc_pro/itc_app/static/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itc_pro/itc_app/static/css/work_pos_list.css" beforeDir="false" afterPath="$PROJECT_DIR$/itc_pro/itc_app/static/css/work_pos_list.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itc_pro/itc_app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/itc_pro/itc_app/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itc_pro/itc_app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/itc_pro/itc_app/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itc_pro/itc_app/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/itc_pro/itc_app/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itc_pro/itc_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/itc_pro/itc_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/itc_pro/itc_pro/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/itc_pro/itc_pro/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,27 +32,31 @@
     <SUITE FILE_PATH="coverage/Python_Project_Development$server_example.coverage" NAME="server-example Coverage Results" MODIFIED="1563254783393" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$client_sub.coverage" NAME="client-sub Coverage Results" MODIFIED="1563262978470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$login_main.coverage" NAME="login_main Coverage Results" MODIFIED="1574063507005" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
-    <SUITE FILE_PATH="coverage/Python_Project_Development$client_minimal.coverage" NAME="client-minimal Coverage Results" MODIFIED="1563254822297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$ww.coverage" NAME="ww Coverage Results" MODIFIED="1557798029240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
+    <SUITE FILE_PATH="coverage/Python_Project_Development$data.coverage" NAME="data Coverage Results" MODIFIED="1574497795236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$opc_with_python.coverage" NAME="opc_with_python Coverage Results" MODIFIED="1557458612034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$demo_client.coverage" NAME="demo_client Coverage Results" MODIFIED="1557798085990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$client_example.coverage" NAME="client-example Coverage Results" MODIFIED="1563245958686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$server_sub.coverage" NAME="server_sub Coverage Results" MODIFIED="1563262892419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
-    <SUITE FILE_PATH="coverage/Python_Project_Development$demo_main.coverage" NAME="demo_main Coverage Results" MODIFIED="1574062979926" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
+    <SUITE FILE_PATH="coverage/Python_Project_Development$mysql_sqlalchemy.coverage" NAME="mysql_sqlalchemy Coverage Results" MODIFIED="1574386299021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
+    <SUITE FILE_PATH="coverage/Python_Project_Development$demo_main.coverage" NAME="demo_main Coverage Results" MODIFIED="1574512055766" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$server_minimal.coverage" NAME="server-minimal Coverage Results" MODIFIED="1563254819963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
+    <SUITE FILE_PATH="coverage/Python_Project_Development$client_minimal.coverage" NAME="client-minimal Coverage Results" MODIFIED="1563254822297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-opcua" />
     <SUITE FILE_PATH="coverage/Python_Project_Development$views.coverage" NAME="views Coverage Results" MODIFIED="1573719512093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/itc_pro/itc_app" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-1695904243">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="12" />
+          <entry key="project.closed" value="14" />
           <entry key="project.open.time.0" value="6" />
           <entry key="project.open.time.1" value="3" />
+          <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.11" value="1" />
-          <entry key="project.open.time.12" value="1" />
-          <entry key="project.open.time.15" value="1" />
-          <entry key="project.open.time.16" value="1" />
+          <entry key="project.open.time.12" value="2" />
+          <entry key="project.open.time.13" value="1" />
+          <entry key="project.open.time.15" value="2" />
+          <entry key="project.open.time.16" value="2" />
           <entry key="project.open.time.2" value="2" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.22" value="1" />
@@ -74,44 +66,46 @@
           <entry key="project.open.time.5" value="3" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="29" />
+          <entry key="project.opened" value="34" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="9" />
-          <entry key="html" value="10" />
+          <entry key="css" value="19" />
+          <entry key="html" value="25" />
           <entry key="jpg" value="1" />
           <entry key="js" value="2" />
           <entry key="png" value="6" />
-          <entry key="py" value="101" />
+          <entry key="py" value="121" />
+          <entry key="txt" value="6" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="9" />
-          <entry key="HTML" value="10" />
+          <entry key="CSS" value="19" />
+          <entry key="HTML" value="25" />
           <entry key="Image" value="7" />
           <entry key="JavaScript" value="2" />
-          <entry key="Python" value="101" />
+          <entry key="PLAIN_TEXT" value="6" />
+          <entry key="Python" value="121" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="689" />
+          <entry key="css" value="799" />
           <entry key="dummy" value="15" />
-          <entry key="html" value="1568" />
-          <entry key="py" value="7623" />
+          <entry key="html" value="1757" />
+          <entry key="py" value="8524" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="689" />
-          <entry key="HTML" value="1568" />
+          <entry key="CSS" value="799" />
+          <entry key="HTML" value="1757" />
           <entry key="PLAIN_TEXT" value="15" />
-          <entry key="Python" value="7623" />
+          <entry key="Python" value="8524" />
         </counts>
       </usages-collector>
     </session>
@@ -119,28 +113,67 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/itc_pro/itc_pro/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="720">
+              <caret line="22" column="32" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+              <folding>
+                <element signature="e#631#663#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/demo.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/demo_main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="823">
+              <caret line="598" column="63" selection-start-line="596" selection-start-column="8" selection-end-line="598" selection-end-column="63" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/demo/mysql_sqlalchemy.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="39" column="12" lean-forward="true" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/css/work_pos_list.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1044">
+              <caret line="29" selection-start-line="29" selection-end-line="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/css/base.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1368">
-              <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="6" column="53" selection-start-line="6" selection-start-column="53" selection-end-line="6" selection-end-column="53" />
+            <state relative-caret-position="180">
+              <caret line="5" column="53" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -155,59 +188,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/index.html">
+        <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
-              <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+            <state>
+              <caret column="17" selection-start-column="17" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/css/index.css">
+        <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/base0.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/demo/demo_client.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="193" column="32" selection-start-line="193" selection-start-column="32" selection-end-line="193" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/css/work_pos_list.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="792">
-              <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/demo/mysql_sqlalchemy.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1404">
-              <caret line="59" selection-start-line="59" selection-end-line="59" />
+            <state relative-caret-position="648">
+              <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -219,8 +212,8 @@
       <list>
         <option value="HTML File" />
         <option value="CSS File" />
-        <option value="Python Script" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -264,29 +257,34 @@
         <option value="$PROJECT_DIR$/itc_pro/itc_pro/__init__.py" />
         <option value="$PROJECT_DIR$/itc_env/Lib/site-packages/django/db/backends/mysql/base.py" />
         <option value="$PROJECT_DIR$/itc_env/Lib/site-packages/django/db/backends/mysql/operations.py" />
-        <option value="$PROJECT_DIR$/demo/mysql_sqlalchemy.py" />
         <option value="$PROJECT_DIR$/demo/edit_formula.py" />
-        <option value="$PROJECT_DIR$/demo/demo_client.py" />
-        <option value="$PROJECT_DIR$/demo/demo_main.py" />
         <option value="$PROJECT_DIR$/itc_pro/models.py" />
-        <option value="$PROJECT_DIR$/itc_pro/itc_app/models.py" />
         <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/css/register.css" />
         <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/register.html" />
         <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/css/login.css" />
         <option value="$PROJECT_DIR$/itc_pro/itc_pro/settings.py" />
         <option value="$PROJECT_DIR$/itc_pro/itc_app/static/css/equipment.css" />
         <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/equipment.html" />
-        <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/base.html" />
-        <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/login.html" />
         <option value="$PROJECT_DIR$/itc_pro/itc_app/static/css/login.css" />
-        <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/index.html" />
-        <option value="$PROJECT_DIR$/itc_pro/itc_app/views.py" />
-        <option value="$PROJECT_DIR$/itc_pro/itc_pro/urls.py" />
         <option value="$PROJECT_DIR$/itc_pro/itc_app/static/js/echarts_1.js" />
-        <option value="$PROJECT_DIR$/itc_pro/itc_app/static/css/index.css" />
         <option value="$PROJECT_DIR$/itc_pro/itc_app/static/css/base.css" />
-        <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list.html" />
+        <option value="$PROJECT_DIR$/itc_pro/itc_app/models.py" />
+        <option value="$PROJECT_DIR$/itc_pro/itc_app/static/css/index.css" />
         <option value="$PROJECT_DIR$/itc_pro/itc_app/static/css/work_pos_list.css" />
+        <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list1.html" />
+        <option value="$PROJECT_DIR$/demo/data.py" />
+        <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list0.html" />
+        <option value="$PROJECT_DIR$/demo/demo_client.py" />
+        <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/index.html" />
+        <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list.html" />
+        <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/base.html" />
+        <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/base0.html" />
+        <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/index0.html" />
+        <option value="$PROJECT_DIR$/itc_pro/itc_app/views.py" />
+        <option value="$PROJECT_DIR$/itc_pro/itc_app/templates/login.html" />
+        <option value="$PROJECT_DIR$/itc_pro/itc_pro/urls.py" />
+        <option value="$PROJECT_DIR$/demo/demo_main.py" />
+        <option value="$PROJECT_DIR$/demo/mysql_sqlalchemy.py" />
       </list>
     </option>
   </component>
@@ -297,16 +295,17 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="262" />
-    <option name="y" value="154" />
-    <option name="width" value="1562" />
-    <option name="height" value="790" />
+    <option name="x" value="415" />
+    <option name="y" value="12" />
+    <option name="width" value="1508" />
+    <option name="height" value="1100" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -350,14 +349,6 @@
               <item name="Python-Project-Development" type="462c0819:PsiDirectoryNode" />
               <item name="itc_pro" type="462c0819:PsiDirectoryNode" />
               <item name="itc_app" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Python-Project-Development" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Python-Project-Development" type="462c0819:PsiDirectoryNode" />
-              <item name="itc_pro" type="462c0819:PsiDirectoryNode" />
-              <item name="itc_app" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -366,22 +357,10 @@
               <item name="itc_pro" type="462c0819:PsiDirectoryNode" />
               <item name="itc_pro" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Python-Project-Development" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Python-Project-Development" type="462c0819:PsiDirectoryNode" />
-              <item name="技术要求" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Python-Project-Development" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Python-Project-Development" type="462c0819:PsiDirectoryNode" />
-              <item name="技术要求" type="462c0819:PsiDirectoryNode" />
-              <item name="技术要求新" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -391,13 +370,13 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\GitHub\Python-Project-Development\itc_pro\itc_app\static\js" />
-      <recent name="E:\GitHub\Python-Project-Development\itc_pro\itc_app\static\css" />
       <recent name="E:\GitHub\Python-Project-Development\itc_pro\itc_app\templates" />
+      <recent name="E:\GitHub\Python-Project-Development\itc_pro\itc_app\static\css" />
+      <recent name="E:\GitHub\Python-Project-Development\itc_pro\itc_app\static\js" />
       <recent name="E:\GitHub\Python-Project-Development\技术要求\新建文件夹" />
       <recent name="E:\GitHub\Python-Project-Development\python-opcua\sqlite" />
     </key>
@@ -418,8 +397,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.login_main">
-    <configuration name="client-sub" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.demo_main">
+    <configuration name="data" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Python-Project-Development" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -427,12 +406,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python-opcua" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/demo" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python-opcua/client-sub.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo/data.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -485,7 +464,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="server_sub" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="mysql_sqlalchemy" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Python-Project-Development" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -493,12 +472,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python-opcua" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/demo" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python-opcua/server_sub.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo/mysql_sqlalchemy.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -530,19 +509,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.server_sub" />
-      <item itemvalue="Python.client-sub" />
       <item itemvalue="Python.demo_main" />
       <item itemvalue="Python.views" />
       <item itemvalue="Python.login_main" />
+      <item itemvalue="Python.mysql_sqlalchemy" />
+      <item itemvalue="Python.data" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.login_main" />
         <item itemvalue="Python.demo_main" />
+        <item itemvalue="Python.data" />
+        <item itemvalue="Python.mysql_sqlalchemy" />
+        <item itemvalue="Python.login_main" />
         <item itemvalue="Python.views" />
-        <item itemvalue="Python.client-sub" />
-        <item itemvalue="Python.server_sub" />
       </list>
     </recent_temporary>
   </component>
@@ -560,15 +539,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="262" y="154" width="1562" height="790" extended-state="0" />
-    <editor active="true" />
+    <frame x="415" y="12" width="1508" height="1100" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14424321" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11595174" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3285151" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.16031538" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32761088" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.16699801" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39960238" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -593,63 +571,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/demo/input_name.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/input_name_main.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/login.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/python-opcua/client-minimal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/data_set.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/sqlite_sqlalchemy_process.py" />
-    <entry file="file://$PROJECT_DIR$/python-opcua/sqlite/sqlite_sqlalchemy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-324" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/demo_client1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1044">
-          <caret line="29" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/python-opcua/sqlite/sqlite_sqlalchemy_process.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1296" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/demo_main1.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/itc_env/Lib/site-packages/django/db/backends/mysql/operations.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="144" column="8" lean-forward="true" selection-start-line="144" selection-start-column="10" selection-end-line="145" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/itc_env/Lib/site-packages/django/db/backends/mysql/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="36" lean-forward="true" selection-start-line="34" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/技术要求/技术要求新/3自动测试1.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/技术要求/技术要求新/10细节12.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -691,13 +612,6 @@
     <entry file="file://$PROJECT_DIR$/技术要求/新建文件夹/mysql_sqlalchemy.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/demo_main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="590">
-          <caret line="549" selection-start-line="549" selection-end-line="549" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/formula_list.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
@@ -725,13 +639,6 @@
     <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/admin.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/css/register.css" />
     <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/register.html" />
     <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/css/equipment.css" />
@@ -750,54 +657,11 @@
     <entry file="file://$PROJECT_DIR$/技术要求/技术要求新/7计数统计.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/itc_pro/itc_pro/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
-          <folding>
-            <element signature="e#631#663#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <marker date="1574301546495" expanded="true" signature="365:452" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/js/echarts_1.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/js/echarts_1.js" />
     <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/js/echarts.min.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/demo_client.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="193" column="32" selection-start-line="193" selection-start-column="32" selection-end-line="193" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/itc_pro/models.py" />
     <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/css/base.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1368">
@@ -805,10 +669,128 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/login.html">
+    <entry file="file://$PROJECT_DIR$/demo/t.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="6" column="53" selection-start-line="6" selection-start-column="53" selection-end-line="6" selection-end-column="53" />
+        <state>
+          <caret selection-end-column="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/data3.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="57" lean-forward="true" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/data1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="59" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/data2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="39" lean-forward="true" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/css/work_pos_list1.css" />
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list1.html" />
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="21" column="45" lean-forward="true" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list0.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="6" column="62" selection-start-line="6" selection-start-column="62" selection-end-line="6" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/css/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1332">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/demo_client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6552">
+          <caret line="185" column="44" selection-start-line="185" selection-start-column="44" selection-end-line="185" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/login0.html" />
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="936">
+          <caret line="26" column="79" selection-start-line="26" selection-start-column="79" selection-end-line="26" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/index0.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1080">
+          <caret line="30" column="72" selection-start-line="30" selection-start-column="72" selection-end-line="30" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_pro/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="22" column="32" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+          <folding>
+            <element signature="e#631#663#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/demo.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/css/work_pos_list.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1044">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="5" column="53" selection-start-line="5" selection-start-column="53" selection-end-line="5" selection-end-column="53" />
         </state>
       </provider>
     </entry>
@@ -819,35 +801,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/css/index.css">
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+        <state>
+          <caret column="17" selection-start-column="17" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/work_pos_list.html">
+    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/templates/base0.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="10" column="20" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="648">
+          <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/itc_pro/itc_app/static/css/work_pos_list.css">
+    <entry file="file://$PROJECT_DIR$/demo/demo_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="22" column="9" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        <state relative-caret-position="823">
+          <caret line="598" column="63" selection-start-line="596" selection-start-column="8" selection-end-line="598" selection-end-column="63" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/mysql_sqlalchemy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1404">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
+        <state relative-caret-position="204">
+          <caret line="39" column="12" lean-forward="true" selection-start-line="39" selection-start-column="12" selection-end-line="39" selection-end-column="12" />
         </state>
       </provider>
     </entry>

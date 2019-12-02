@@ -15,10 +15,10 @@ class User(models.Model):
     class Meta:
         db_table = 'user'
 
-
 class TestResults(models.Model):
     work_pos_id = models.IntegerField()
     sys_time = models.CharField(max_length=20)
+    workpiece_id = models.CharField(max_length=20)
     formula = models.CharField(max_length=20)
     test_mode = models.CharField(max_length=20)
     big_leak = models.CharField(max_length=20, blank=True, null=True)

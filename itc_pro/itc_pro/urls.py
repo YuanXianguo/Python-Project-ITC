@@ -20,6 +20,8 @@ from itc_app import views
 urlpatterns = [
     path("login/", views.login),
     path("index/", views.index),
-    path("work_pos_list/1", views.work_pos_list),
+    path("index0/", views.index0),
+    path("work_pos/1", views.work_pos_list),
+    path("work_pos/0", views.work_pos_list0),
     path('admin/', admin.site.urls),
 ]

@@ -114,12 +114,12 @@ class AutoClient(QThread):
         self.current_step = 0  # 记录当前步数
         start = time.perf_counter()  # 开始第一步计时
         start_time = time.perf_counter()  # 记录开始时间
-
+        template = "{:.2f},{},{:.2f},{:.2f},{:.2f},{:0>2.0f}"
         while self.current_step < self.formula_steps and self.run_flag:
             if self.state_flag:
                 which_test = [0, 0, 0, 0]  # 判断测试哪个腔体
                 all_test = ['过渡阀A', '过渡阀B', '过渡阀C', '过渡阀D']
-                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(0, 0, 0, 0, 0)
+                self.slot = template.format(0, 0, 0, 0, 0, 0)
                 for i in range(len(self.para_list)):
                     if self.run_flag:
                         if self.para_list[i] not in self.else_test[1:]:
@@ -133,8 +133,8 @@ class AutoClient(QThread):
                                 # 记录延迟时间
                                 self.keep_time = self.data_list[self.current_step][i][1]
                                 # get相应参数当前值
-                                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
-                                    random.uniform(50, 100), random.randint(5000, 7000),
+                                self.slot = template.format(
+                                    random.uniform(50, 100), random.randint(5000, 7000), random.uniform(0.1, 3.5),
                                     0, 0, time.perf_counter() - start_time)
                                 # 判断相应参数是否一致
                                 if self.codesys_work_pos_list[self.work_pos_index][i] == '得电':
@@ -148,8 +148,8 @@ class AutoClient(QThread):
                                     which_test[all_test.index(self.para_list[i])] = 2
                                 self.keep_time = self.data_list[self.current_step][i][1]
                                 # get相应参数当前值
-                                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
-                                    random.uniform(50, 100), random.randint(5000, 7000),
+                                self.slot = template.format(
+                                    random.uniform(50, 100), random.randint(5000, 7000), random.uniform(0.1, 3.5),
                                     0, 0, time.perf_counter() - start_time)
                                 # 判断相应参数是否一致
                                 if self.codesys_work_pos_list[self.work_pos_index][i] == '失电':
@@ -160,11 +160,11 @@ class AutoClient(QThread):
                         elif self.para_list[i] == '测压ΔP1(pa)/时间(1S)':
                             if self.data_list[self.current_step][i][0] != 0:  # 开始检测
                                 self.keep_time = self.data_list[self.current_step][i][1]
-                                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
-                                    random.uniform(50, 100), random.randint(5000, 7000),
+                                self.slot = template.format(
+                                    random.uniform(50, 100), random.randint(5000, 7000), random.uniform(0.1, 3.5),
                                     random.uniform(10, 50), 0, time.perf_counter() - start_time)
                                 slot = self.slot.split(",")
-                                if float(slot[2]) > int(self.data_list[self.current_step][i][0]):
+                                if float(slot[3]) > int(self.data_list[self.current_step][i][0]):
                                     self.text = '保气ΔP1泄露'
                                     self.reset(0)
                                     self.state_flag = 0
@@ -172,33 +172,33 @@ class AutoClient(QThread):
                         elif self.para_list[i] == '稳压ΔP2(pa)/时间(1S)':
                             if self.data_list[self.current_step][i][0] != 0:  # 开始检测
                                 self.keep_time = self.data_list[self.current_step][i][1]
-                                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
-                                    random.uniform(50, 100), random.randint(5000, 7000),
+                                self.slot = template.format(
+                                    random.uniform(50, 100), random.randint(5000, 7000), random.uniform(0.1, 3.5),
                                     0, random.uniform(10, 50), time.perf_counter() - start_time)
                                 slot = self.slot.split(",")
-                                if float(slot[3]) > int(self.data_list[self.current_step][i][0]):
+                                if float(slot[4]) > int(self.data_list[self.current_step][i][0]):
                                     self.text = '保气ΔP2泄露'
                                     self.reset(0)
                                     self.state_flag = 0
                                 break
                         elif self.para_list[i] == '最低工作压力(mbar)':
-                            if self.data_list[self.current_step][i][1] == 1:
-                                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
-                                    random.uniform(50, 100), random.randint(5000, 7000),
+                            if self.data_list[self.current_step][i][0] == 1:
+                                self.slot = template.format(
+                                    random.uniform(50, 100), random.randint(5000, 7000), random.uniform(0.1, 3.5),
                                     0, 0, time.perf_counter() - start_time)
                                 slot = self.slot.split(",")
-                                if int(slot[1]) < int(self.data_list[self.current_step][i][0]):
+                                if int(slot[1]) < int(self.data_list[self.current_step][i][1]):
                                     self.text = '工作压力过低'
                                     self.reset(0)
                                     self.state_flag = 0
                                 break
                         elif self.para_list[i] == '大漏值(pa)':
-                            if self.data_list[self.current_step][i][1] == 1:
-                                self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
-                                    random.uniform(50, 100), random.randint(5000, 7000),
+                            if self.data_list[self.current_step][i][0] == 1:
+                                self.slot = template.format(
+                                    random.uniform(50, 100), random.randint(5000, 7000), random.uniform(0.1, 3.5),
                                     0, 0, time.perf_counter() - start_time)
                                 slot = self.slot.split(",")
-                                if float(slot[0]) > int(self.data_list[self.current_step][i][0]):
+                                if float(slot[0]) > int(self.data_list[self.current_step][i][1]):
                                     self.text = '差压过高'
                                     self.reset(0)
                                     self.state_flag = 0
@@ -206,8 +206,8 @@ class AutoClient(QThread):
                             break
                         else:
                             self.keep_time = self.data_list[self.current_step][i][1]
-                            self.slot = '{:.2f},{},{:.2f},{:.2f},{:0>2.0f}'.format(
-                                random.uniform(50, 100), random.randint(5000, 7000),
+                            self.slot = template.format(
+                                random.uniform(50, 100), random.randint(5000, 7000), random.uniform(0.1, 3.5),
                                 0, 0, time.perf_counter() - start_time)
                 print(self.slot)
                 if which_test in [[2, 1, 1, 1], [1, 2, 1, 1], [1, 1, 2, 1], [1, 1, 1, 2]]:  # 判断测试哪一个腔体
@@ -222,7 +222,7 @@ class AutoClient(QThread):
                     if self.current_step == self.formula_steps:  # 当前工件测试完成
                         self.count += 1  # 合格数加1
                 self.client_signal.emit(self.work_pos_index, self.slot)
-                if time.perf_counter() - start_time > 20:
+                if time.perf_counter() - start_time > 100:
                     self.text = '测试超时'
                     self.reset(0)
                     self.state_flag = 0
@@ -231,7 +231,7 @@ class AutoClient(QThread):
                         self.text = '{}腔{}'.format(self.which_test, self.text)
                     self.pass_count_signal.emit(self.work_pos_index + 1, 1)
                     self.error_signal.emit(self.work_pos_index, self.text)
-            time.sleep(0.1)
+            time.sleep(0.5)
         if not self.run_flag:  # 按下急停
             self.text = '已急停'
             self.reset(1)
