@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="pic">
+    <file>pangdi.jpg</file>
+  </qresource>
+</RCC>

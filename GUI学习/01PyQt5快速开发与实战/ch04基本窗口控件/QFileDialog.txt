@@ -1,0 +1,5 @@
+QFileDialog是用于打开和保存文件的标准对话框；
+QFileDialog在打开时使用了文件过滤器，用于显示指定扩展名的文件；
+也可以设置使用QFileDialog打开文件时的起使目录和指定扩展名的文件；
+QFileDialog类中的常用方法如表：
+
